@@ -1,28 +1,17 @@
 <script setup>
 import { ref } from 'vue'
-import {
-  Dialog,
-  DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  TransitionChild,
-  TransitionRoot,
-} from '@headlessui/vue'
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   Bars3Icon,
-  BellIcon,
   CalendarIcon,
   ChartPieIcon,
-  Cog6ToothIcon,
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+import { usePage } from "@inertiajs/vue3";
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -37,12 +26,9 @@ const teams = [
   { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
   { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
-const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
 const sidebarOpen = ref ( false )
+const user = usePage().props.auth.user.data;
 </script>
 <template>
   <div>
@@ -102,7 +88,7 @@ const sidebarOpen = ref ( false )
               </TransitionChild>
 
               <!-- Sidebar component, swap this element with another sidebar if you like -->
-              <div class="relative flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 pb-4 ring-1 ring-white/10">
+              <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 pb-2 ring-1 ring-white/10">
                 <div class="flex h-16 shrink-0 items-center">
                   <img
                       class="h-8 w-auto"
@@ -160,18 +146,6 @@ const sidebarOpen = ref ( false )
                         </li>
                       </ul>
                     </li>
-                    <li class="mt-auto">
-                      <a
-                          href="#"
-                          class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-primary-100 hover:bg-primary-950/25 hover:text-white"
-                      >
-                        <Cog6ToothIcon
-                            class="size-6 shrink-0 text-primary-100 group-hover:text-white"
-                            aria-hidden="true"
-                        />
-                        Settings
-                      </a>
-                    </li>
                   </ul>
                 </nav>
               </div>
@@ -183,8 +157,7 @@ const sidebarOpen = ref ( false )
 
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-      <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div class="relative flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 pb-4 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-white/10">
+      <div class="relative flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-white/10">
         <div class="flex h-16 shrink-0 items-center">
           <img
               class="h-8 w-auto"
@@ -220,17 +193,40 @@ const sidebarOpen = ref ( false )
                 </li>
               </ul>
             </li>
-
-            <li class="mt-auto">
+            <li>
+              <div class="text-xs/6 font-semibold text-primary-100">Your teams</div>
+              <ul
+                  role="list"
+                  class="-mx-2 mt-2 space-y-1"
+              >
+                <li
+                    v-for="team in teams"
+                    :key="team.name"
+                >
+                  <a
+                      :href="team.href"
+                      :class="[team.current ? 'bg-primary-950/25 text-white' : 'text-primary-100 hover:bg-primary-950/25 hover:text-white', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold']"
+                  >
+                    <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-primary-500/50 bg-primary-700 text-[0.625rem] font-medium text-white">{{
+                        team.initial
+                                                                                                                                                                                 }}</span>
+                    <span class="truncate">{{ team.name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="-mx-6 mt-auto">
               <a
                   href="#"
-                  class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-primary-100 hover:bg-primary-950/25 hover:text-white"
+                  class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-white hover:bg-primary-950/25"
               >
-                <Cog6ToothIcon
-                    class="size-6 shrink-0 text-primary-100 group-hover:text-white"
-                    aria-hidden="true"
+                <img
+                    class="size-8 rounded-full bg-primary-800 outline -outline-offset-1 outline-white/10"
+                    :src="user.attributes.avatar_url"
+                    alt=""
                 />
-                Settings
+                <span class="sr-only">Your profile</span>
+                <span aria-hidden="true">{{  user.attributes.full_name }}</span>
               </a>
             </li>
           </ul>
@@ -238,117 +234,33 @@ const sidebarOpen = ref ( false )
       </div>
     </div>
 
-    <div class="lg:pl-72">
-      <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-white/10 bg-darker-900 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
-        <button
-            type="button"
-            class="-m-2.5 p-2.5 text-darker-400 hover:text-white lg:hidden"
-            @click="sidebarOpen = true"
-        >
-          <span class="sr-only">Open sidebar</span>
-          <Bars3Icon
-              class="size-6"
-              aria-hidden="true"
-          />
-        </button>
-
-        <!-- Separator -->
-        <div
-            class="h-6 w-px bg-white/10 lg:hidden"
+    <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-primary-800 px-4 py-4 shadow-xs after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10 sm:px-6 lg:hidden">
+      <button
+          type="button"
+          class="-m-2.5 p-2.5 text-primary-200 hover:text-white lg:hidden"
+          @click="sidebarOpen = true"
+      >
+        <span class="sr-only">Open sidebar</span>
+        <Bars3Icon
+            class="size-6"
             aria-hidden="true"
-        ></div>
-
-        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-          <form
-              class="grid flex-1 grid-cols-1"
-              action="#"
-              method="GET"
-          >
-            <input
-                name="search"
-                aria-label="Search"
-                class="col-start-1 row-start-1 block size-full bg-darker-900 pl-8 text-base text-white outline-hidden placeholder:text-darker-500 sm:text-sm/6"
-                placeholder="Search"
-            />
-            <MagnifyingGlassIcon
-                class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-darker-400"
-                aria-hidden="true"
-            />
-          </form>
-          <div class="flex items-center gap-x-4 lg:gap-x-6">
-            <button
-                type="button"
-                class="-m-2.5 p-2.5 text-darker-400 hover:text-white"
-            >
-              <span class="sr-only">View notifications</span>
-              <BellIcon
-                  class="size-6"
-                  aria-hidden="true"
-              />
-            </button>
-
-            <!-- Separator -->
-            <div
-                class="hidden lg:block lg:h-6 lg:w-px lg:bg-darker-100/10"
-                aria-hidden="true"
-            ></div>
-
-            <!-- Profile dropdown -->
-            <Menu
-                as="div"
-                class="relative"
-            >
-              <MenuButton class="relative flex items-center">
-                <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">Open user menu</span>
-                <img
-                    class="size-8 rounded-full bg-darker-800 outline -outline-offset-1 outline-white/10"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                />
-                <span class="hidden lg:flex lg:items-center">
-                  <span
-                      class="ml-4 text-sm/6 font-semibold text-white"
-                      aria-hidden="true"
-                  >Tom Cook</span>
-                  <ChevronDownIcon
-                      class="ml-2 size-5 text-darker-500"
-                      aria-hidden="true"
-                  />
-                </span>
-              </MenuButton>
-              <transition
-                  enter-active-class="transition ease-out duration-100"
-                  enter-from-class="transform opacity-0 scale-95"
-                  enter-to-class="transform scale-100"
-                  leave-active-class="transition ease-in duration-75"
-                  leave-from-class="transform scale-100"
-                  leave-to-class="transform opacity-0 scale-95"
-              >
-                <MenuItems class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-darker-800 py-2 outline -outline-offset-1 outline-white/10">
-                  <MenuItem
-                      v-for="item in userNavigation"
-                      :key="item.name"
-                      v-slot="{ active }"
-                  >
-                    <a
-                        :href="item.href"
-                        :class="[active ? 'bg-white/5 outline-hidden' : '', 'block px-3 py-1 text-sm/6 text-white']"
-                    >{{ item.name }}</a>
-                  </MenuItem>
-                </MenuItems>
-              </transition>
-            </Menu>
-          </div>
-        </div>
-      </div>
-
-      <main class="py-10">
-        <div class="px-4 sm:px-6 lg:px-8">
-          <!-- Your content -->
-        </div>
-      </main>
+        />
+      </button>
+      <div class="flex-1 text-sm/6 font-semibold text-white">Dashboard</div>
+      <a href="#">
+        <span class="sr-only">Your profile</span>
+        <img
+            class="size-8 rounded-full bg-primary-800 outline -outline-offset-1 outline-white/10"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+        />
+      </a>
     </div>
+
+    <main class="py-10 lg:pl-72">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <slot />
+      </div>
+    </main>
   </div>
 </template>
-

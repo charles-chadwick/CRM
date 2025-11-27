@@ -4,7 +4,7 @@ import AuthenticatedLayout from "./AuthenticatedLayout.vue";
 </script>
 
 <template>
-<AuthenticatedLayout></AuthenticatedLayout>
+<AuthenticatedLayout>asdasda</AuthenticatedLayout>
 </template>
 
 <style scoped>
