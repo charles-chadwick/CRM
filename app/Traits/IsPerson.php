@@ -36,13 +36,13 @@ trait IsPerson
             ->singleFile();
     }
 
-    public function avatar(): Attribute
+    public function avatarUrl(): Attribute
     {
         // check to make sure it exists, default if it doesn't
         if (! file_exists($this->getFirstMediaPath('avatars'))) {
             $image = null;
         } else {
-            $image = url(str($this->getFirstMediaUrl('avatars'))->replace('localhost', 'localhost:8080'));
+            $image = url(str($this->getFirstMediaUrl('avatars')));
         }
 
         return Attribute::make(

@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
         // collect params we want on every page
         $params = collect([
             'auth'   => [
-                'user' => new UserResource(auth()->user()),
+                'user' => $request->user() ? UserResource::make($request->user()) : null
             ],
             'flash'  => [
                 'message' => fn() => $request->session()
@@ -59,17 +59,17 @@ class HandleInertiaRequests extends Middleware
         ]);
 
         // now do some conditionals
-        if ($request->routeIs('patients.*')) {
-            $params->put('attributes', [
-                'patient'     => [
-                    'statuses' => PatientStatus::cases(),
-                    'genders'  => Gender::cases()
-                ],
-                'appointment' => [
-                    'statuses' => AppointmentStatus::cases(),
-                ]
-            ]);
-        }
+ //       if ($request->routeIs('patients.*')) {
+//            $params->put('attributes', [
+//                'patient'     => [
+//                    'statuses' => PatientStatus::cases(),
+//                    'genders'  => Gender::cases()
+//                ],
+//                'appointment' => [
+//                    'statuses' => AppointmentStatus::cases(),
+//                ]
+//            ]);
+  //      }
 
         return $params->toArray();
 
