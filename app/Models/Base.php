@@ -1,6 +1,7 @@
 <?php
 
 /** @noinspection PhpUnused */
+
 /** @noinspection LaravelEloquentGuardedAttributeAssignmentInspection */
 
 namespace App\Models;
@@ -17,7 +18,12 @@ class Base extends Model implements HasMedia
 {
     use InteractsWithMedia, SoftDeletes;
 
-    public function getFillable(): array
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
+    public function getFillable() : array
     {
         return array_merge(parent::getFillable(), [
             'created_by_id',
@@ -29,7 +35,7 @@ class Base extends Model implements HasMedia
         ]);
     }
 
-    public function deleteWithUser(): bool
+    public function deleteWithUser() : bool
     {
         return $this->update([
             'deleted_at' => now(),
@@ -37,17 +43,17 @@ class Base extends Model implements HasMedia
         ]);
     }
 
-    public function created_by(): BelongsTo
+    public function created_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function updated_by(): BelongsTo
+    public function updated_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by_id');
     }
 
-    public function deleted_by(): BelongsTo
+    public function deleted_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
     }
@@ -55,7 +61,7 @@ class Base extends Model implements HasMedia
     /**
      * Configure the activity log options for the model.
      */
-    public function getActivitylogOptions(): LogOptions
+    public function getActivitylogOptions() : LogOptions
     {
         return LogOptions::defaults()
             ->logAll()

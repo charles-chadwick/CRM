@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        return CompanyResource::collection(Company::all());
+        $companies = Company::with('created_by')->paginate();
+        return Inertia::render('Companies/Index', [
+            'companies' => CompanyResource::collection($companies)
+        ]);
     }
 
     public function store(CompanyRequest $request)

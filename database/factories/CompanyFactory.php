@@ -14,7 +14,7 @@ class CompanyFactory extends Factory
     {
         return [
             'type'          => $this->faker->word(),
-            'name'          => $this->faker->name(),
+            'name'          => $this->faker->company(),
             'notes'         => $this->faker->word(),
             'created_by_id' => $this->faker->randomNumber(),
             'created_at'    => Carbon::now(),
