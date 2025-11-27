@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedReference -->
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
@@ -34,8 +35,9 @@ const show_flash_message = ref ( false );
 const flash_message = ref ( '' );
 const flash_type = ref ( '' );
 
+const page = usePage ();
+
 onMounted ( () => {
-  const page = usePage ();
   if ( page.props.flash.message ) {
     show_flash_message.value = true;
     flash_message.value = page.props.flash.message;
@@ -102,12 +104,10 @@ onMounted ( () => {
 
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 pb-2 ring-1 ring-white/10">
-                <div class="flex h-16 shrink-0 items-center">
-                  <img
-                      class="h-8 w-auto"
-                      src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=white"
-                      alt="Your Company"
-                  />
+                <div class="flex h-16 shrink-0 justify-center items-center">
+                  <h1 class="font-bold text-primary-300 text-2xl text-center truncate">
+                    {{ page.props.header }}
+                  </h1>
                 </div>
                 <nav class="flex flex-1 flex-col">
                   <ul
@@ -171,12 +171,10 @@ onMounted ( () => {
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       <div class="relative flex grow flex-col gap-y-5 overflow-y-auto bg-primary-800 px-6 after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:w-px after:bg-white/10">
-        <div class="flex h-16 shrink-0 items-center">
-          <img
-              class="h-8 w-auto"
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=white"
-              alt="Your Company"
-          />
+        <div class="flex h-16 shrink-0 justify-center items-center">
+          <h1 class="font-bold text-primary-300 text-2xl text-center truncate">
+            {{ page.props.header }}
+          </h1>
         </div>
         <nav class="flex flex-1 flex-col">
           <ul
@@ -239,7 +237,7 @@ onMounted ( () => {
                     alt=""
                 />
                 <span class="sr-only">Your profile</span>
-                <span aria-hidden="true">{{  user.attributes.full_name }}</span>
+                <span aria-hidden="true">{{ user.attributes.full_name }}</span>
               </a>
             </li>
           </ul>
@@ -266,7 +264,7 @@ onMounted ( () => {
         <span class="sr-only">Your profile</span>
         <img
             class="size-8 rounded-full bg-primary-800 outline -outline-offset-1 outline-white/10"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            :src="user.attributes.avatar_url"
             alt=""
         />
       </a>
