@@ -11,7 +11,10 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::with('created_by')->paginate();
+        $companies = Company::with(
+            ['created_by', 'customers', 'customers.created_by', 'customers.updated_by', 'customers.deleted_by']
+        )
+            ->paginate();
         return Inertia::render('Companies/Index', [
             'companies' => CompanyResource::collection($companies)
         ]);

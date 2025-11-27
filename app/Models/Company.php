@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Base
 {
@@ -13,4 +14,8 @@ class Company extends Base
         'name',
         'notes'
     ];
+
+    public function customers() : HasMany {
+        return $this->hasMany(Customer::class);
+    }
 }

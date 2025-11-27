@@ -50,6 +50,19 @@ body {
     @apply text-darker-800;
 }
 
+.table-header td {
+    @apply font-bold px-4 py-2;
+}
+
+.table-row {
+    @apply border-y border-darker-200 odd:bg-darker-100;
+}
+
+.table-row td {
+    @apply px-4 py-2;
+}
+
+
 .link {
     @apply text-accent-600 hover:underline;
 }

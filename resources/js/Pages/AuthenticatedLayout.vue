@@ -16,8 +16,8 @@ import { usePage } from "@inertiajs/vue3";
 import Message from 'primevue/message';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Companies', href: '#', icon: BookOpenIcon, current: false },
+  { name: 'Dashboard', href: route ( 'dashboard' ), icon: HomeIcon, current: true },
+  { name: 'Companies', href: route ( 'companies.index' ), icon: BookOpenIcon, current: false },
   { name: 'Customers', href: '#', icon: FolderIcon, current: false },
   { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
   { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
@@ -246,8 +246,6 @@ onMounted ( () => {
     </div>
 
     <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-primary-800 px-4 py-4 shadow-xs after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10 sm:px-6 lg:hidden">
-
-
       <button
           type="button"
           class="-m-2.5 p-2.5 text-primary-200 hover:text-white lg:hidden"
@@ -270,14 +268,19 @@ onMounted ( () => {
       </a>
     </div>
 
-    <main class="py-10 lg:pl-72">
+    <main class="py-4 lg:pl-72">
+
       <Message
           v-if="show_flash_message"
           :severity="flash_type"
           :life="3000"
       >{{ flash_message }}
       </Message>
+
       <div class="px-4 sm:px-6 lg:px-8">
+        <h1 class="font-bold text-2xl text-darker-800">
+          <slot name="header" />
+        </h1>
         <slot />
       </div>
     </main>
