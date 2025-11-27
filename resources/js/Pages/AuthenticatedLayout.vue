@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   Bars3Icon,
@@ -8,15 +8,16 @@ import {
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
+  BookOpenIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import { usePage } from "@inertiajs/vue3";
+import Message from 'primevue/message';
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
+  { name: 'Companies', href: '#', icon: BookOpenIcon, current: false },
+  { name: 'Customers', href: '#', icon: FolderIcon, current: false },
   { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
   { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
   { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
@@ -28,7 +29,19 @@ const teams = [
 ]
 
 const sidebarOpen = ref ( false )
-const user = usePage().props.auth.user.data;
+const user = usePage ().props.auth.user.data;
+const show_flash_message = ref ( false );
+const flash_message = ref ( '' );
+const flash_type = ref ( '' );
+
+onMounted ( () => {
+  const page = usePage ();
+  if ( page.props.flash.message ) {
+    show_flash_message.value = true;
+    flash_message.value = page.props.flash.message;
+    flash_type.value = page.props.flash.type;
+  }
+} );
 </script>
 <template>
   <div>
@@ -235,6 +248,8 @@ const user = usePage().props.auth.user.data;
     </div>
 
     <div class="sticky top-0 z-40 flex items-center gap-x-6 bg-primary-800 px-4 py-4 shadow-xs after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10 sm:px-6 lg:hidden">
+
+
       <button
           type="button"
           class="-m-2.5 p-2.5 text-primary-200 hover:text-white lg:hidden"
@@ -258,6 +273,12 @@ const user = usePage().props.auth.user.data;
     </div>
 
     <main class="py-10 lg:pl-72">
+      <Message
+          v-if="show_flash_message"
+          :severity="flash_type"
+          :life="3000"
+      >{{ flash_message }}
+      </Message>
       <div class="px-4 sm:px-6 lg:px-8">
         <slot />
       </div>
