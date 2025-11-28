@@ -92,6 +92,8 @@ class UserTableSeeder extends Seeder
                     'updated_at'    => $created_at,
                 ]);
 
+            $staff_user->assignRole($role);
+
             $this->addMedia($staff_user, $character['image']);
             echo '.';
         });

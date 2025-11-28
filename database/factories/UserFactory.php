@@ -30,17 +30,17 @@ class UserFactory extends Factory
             'prefix' => fake()->randomElement([
                 '',
                 'Mr.',
-                'Mrs.',
-                'Dr.',
-                'Prof.',
+                'Mrs.'
+
             ]),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'suffix' => fake()->randomElement([
-                'PhD',
-                'DDS',
-                'MD',
-                '',
+                'Jr',
+                'Sr',
+                'II',
+                'III',
+                ''
             ]),
             'email' => fake()
                 ->unique()

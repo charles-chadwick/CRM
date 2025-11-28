@@ -1,3 +1,5 @@
+// noinspection JSIgnoredPromiseFromCall
+
 import './bootstrap.js';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
@@ -6,6 +8,7 @@ import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
 import { Tooltip } from "primevue";
 import { ZiggyVue } from 'ziggy-js';
+
 const MyPreset = definePreset(Aura, {
     semantic: {
         primary: {
