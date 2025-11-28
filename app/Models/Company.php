@@ -15,6 +15,11 @@ class Company extends Base
         'notes'
     ];
 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->with[] = 'created_by';
+    }
+
     public function customers() : HasMany {
         return $this->hasMany(Customer::class);
     }

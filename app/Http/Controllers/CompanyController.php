@@ -6,15 +6,15 @@ use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Inertia\Inertia;
+use function dd;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::with(
-            ['created_by', 'customers', 'customers.created_by', 'customers.updated_by', 'customers.deleted_by']
-        )
+        $companies = Company::with(['customers'])
             ->paginate();
+
         return Inertia::render('Companies/Index', [
             'companies' => CompanyResource::collection($companies)
         ]);

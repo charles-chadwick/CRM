@@ -16,6 +16,7 @@ const companies = props.companies.data;
       <tr class="table-header">
         <td>Type</td>
         <td>Name</td>
+        <td>Customers</td>
         <td>Created</td>
       </tr>
       </thead>
@@ -27,6 +28,7 @@ const companies = props.companies.data;
       >
         <td>{{ company.attributes.type }}</td>
         <td>{{ company.attributes.name }}</td>
+        <td>{{ company.relationships.customers.length }}</td>
         <td>{{ company.relationships.created_by.attributes.full_name }}</td>
 
       </tr>

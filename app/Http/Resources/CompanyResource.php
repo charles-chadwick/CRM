@@ -28,6 +28,7 @@ class CompanyResource extends JsonResource
                 'deleted_at' => $this->deleted_at?->format('m/d/Y h:i A'),
             ],
             'relationships' => [
+                'customers'  => CustomerResource::collection($this->whenLoaded('customers')),
                 'created_by' => new UserResource($this->whenLoaded('created_by')),
                 'updated_by' => new UserResource($this->whenLoaded('updated_by')),
                 'deleted_by' => new UserResource($this->whenLoaded('deleted_by')),

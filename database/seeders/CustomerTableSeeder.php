@@ -4,20 +4,22 @@
 
 namespace Database\Seeders;
 
+
 use App\Enums\UserRole;
+
+// use App\Models\Patient;
+use App\Models\Company;
+use App\Models\Customer;
 use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\Facades\CauserResolver;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
-use function fake;
-
-class UserTableSeeder extends Seeder
+class CustomerTableSeeder extends Seeder
 {
     /**
      * Populates the `patients` table with data fetched from the Rick and Morty API.
@@ -32,23 +34,6 @@ class UserTableSeeder extends Seeder
      */
     public function run() : void
     {
-        DB::table('media')
-            ->truncate();
-
-        DB::table('users')
-            ->truncate();
-
-        $admin_user = User::factory()
-            ->create([
-                'role'       => UserRole::SuperAdmin,
-                'first_name' => 'Doofus',
-                'last_name'  => 'Rick',
-                'email'      => 'doofus.rick@example.com',
-                'created_at' => '2020-01-01 00:00:00',
-            ]);
-
-        $this->addMedia($admin_user, 'https://rickandmortyapi.com/api/character/avatar/103.jpeg');
-
         // get the characters from the API
         $characters = $this->getCharacters();
 
@@ -56,28 +41,27 @@ class UserTableSeeder extends Seeder
         $users = $characters->slice(0, 25);
         $patients = $characters->slice(25, 100);
 
-        echo "\nAdding Users\n";
+        echo "\nAdding Customers\n";
 
         // create the users
-        $users->each(function ($character, $index) use ($admin_user) {
+        $users->each(function ($character, $index) {
+
+            $admin_user = User::where('role', '!=', UserRole::SuperAdmin)
+                ->inRandomOrder()
+                ->first();
 
             // generate the user and set the causer resolver
             CauserResolver::setCauser($admin_user);
-            $created_at = fake()->dateTimeBetween($admin_user->created_at, '-1 year');
+            $created_at = fake()->dateTimeBetween($admin_user->created_at, '-1 month');
 
             $name_parts = collect(explode(' ', $character['name']));
             $first_name = str($name_parts->shift())->title();
             $last_name = str($name_parts->pop())->title();
 
-            $role = match (true) {
-                $index <= 3  => UserRole::Admin,
-                $index <= 7  => UserRole::Manager,
-                default      => UserRole::SalesRep,
-            };
-
-            $staff_user = User::factory()
+            $staff_user = Customer::factory()
                 ->create([
-                    'role'          => $role,
+                    'company_id'    => Company::inRandomOrder()->first()->id,
+                    'title'         => fake()->title(),
                     'first_name'    => $first_name,
                     'last_name'     => $last_name,
                     'email'         => str($first_name.'.'.$last_name.rand(100, 999).'@example.com')

@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Customer extends Model
+class Customer extends Base
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, HasUserRelations;
 
     protected $fillable = [
         'company_id',
@@ -21,11 +20,14 @@ class Customer extends Model
         'email',
         'email_verified_at',
         'password',
-        'remember_token',
-        'created_by_id',
-        'updated_by_id',
-        'deleted_by_id',
+        'remember_token'
     ];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->loadRelations();
+
+    }
 
     public function company() : BelongsTo
     {
