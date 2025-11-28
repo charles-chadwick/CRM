@@ -20,9 +20,24 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return Inertia::render('Companies/Form',
+            [
+                'company' => new CompanyResource(new Company()),
+                'action'  => 'create'
+            ]
+        );
+    }
+
     public function store(CompanyRequest $request)
     {
-        return new CompanyResource(Company::create($request->validated()));
+        Company::create($request->validated());
+
+        return redirect()
+            ->route('companies.index')
+            ->with('message', 'Company created successfully')
+            ->with('type', 'success');
     }
 
     public function show(Company $company)
