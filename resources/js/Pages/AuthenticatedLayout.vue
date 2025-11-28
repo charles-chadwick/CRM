@@ -4,9 +4,6 @@ import { ref, onMounted } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   Bars3Icon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   BookOpenIcon,
@@ -19,14 +16,14 @@ const navigation = [
   { name: 'Dashboard', href: route ( 'dashboard' ), icon: HomeIcon, current: true },
   { name: 'Companies', href: route ( 'companies.index' ), icon: BookOpenIcon, current: false },
   { name: 'Customers', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+  // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ]
 const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
+  // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+  // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 
 const sidebarOpen = ref ( false )
@@ -138,7 +135,6 @@ onMounted ( () => {
                       </ul>
                     </li>
                     <li>
-                      <div class="text-xs/6 font-semibold text-primary-100">Your teams</div>
                       <ul
                           role="list"
                           class="-mx-2 mt-2 space-y-1"
@@ -205,7 +201,6 @@ onMounted ( () => {
               </ul>
             </li>
             <li>
-              <div class="text-xs/6 font-semibold text-primary-100">Your teams</div>
               <ul
                   role="list"
                   class="-mx-2 mt-2 space-y-1"
