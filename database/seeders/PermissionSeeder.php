@@ -34,12 +34,17 @@ class PermissionSeeder extends Seeder
             'view permissions',
             'assign permissions',
 
-            // Generic permissions
-            'view dashboard',
-            'view reports',
-            'export data',
-            'import data',
-            'manage settings',
+            // company management
+            'view companies',
+            'create companies',
+            'edit companies',
+            'delete companies',
+
+            // customer management
+            'view customers',
+            'create customers',
+            'edit customers',
+            'delete customers',
         ];
 
         foreach ($permissions as $permission) {
@@ -47,33 +52,34 @@ class PermissionSeeder extends Seeder
         }
 
         // Create roles and assign permissions
-        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'web']);
-        $superAdmin->givePermissionTo(Permission::all());
-
         $admin = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'web']);
-        $admin->givePermissionTo([
-            'view users',
-            'create users',
-            'edit users',
-            'view dashboard',
-            'view reports',
-            'export data',
-            'import data',
-        ]);
+        $admin->givePermissionTo(Permission::all());
 
         $manager = Role::firstOrCreate(['name' => 'Manager', 'guard_name' => 'web']);
         $manager->givePermissionTo([
-            'view users',
-            'edit users',
-            'view dashboard',
-            'view reports',
-            'export data',
+            // company management
+            'view companies',
+            'create companies',
+            'edit companies',
+            'delete companies',
+
+            // customer management
+            'view customers',
+            'create customers',
+            'edit customers',
+            'delete customers',
         ]);
 
         $salesRep = Role::firstOrCreate(['name' => 'Sales Rep', 'guard_name' => 'web']);
         $salesRep->givePermissionTo([
-            'view users',
-            'view dashboard',
+            // company management
+            'view companies',
+
+            // customer management
+            'view customers',
+            'create customers',
+            'edit customers',
+            'delete customers',
         ]);
     }
 }
