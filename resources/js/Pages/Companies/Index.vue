@@ -4,17 +4,11 @@ import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { usePage } from '@inertiajs/vue3';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { computed } from 'vue';
 
 const props = defineProps ( { companies: Array | Object } )
 const companies = props.companies.data;
 const permissions = usePage ().props.auth.permissions;
 
-const menuItems = computed ( () => [
-  { label: 'Manage Customers', href: '#', permission: null },
-  { label: 'Edit', href: '#', permission: 'edit_companies' },
-  { label: 'Delete', href: '#', permission: 'delete_companies' }
-].filter ( item => ! item.permission || permissions.includes ( item.permission ) ) );
 </script>
 
 <template>
@@ -59,16 +53,25 @@ const menuItems = computed ( () => [
             <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-darker-300 ring-opacity-5 focus:outline-none">
               <div class="py-1">
                 <MenuItem
-                    v-for="item in menuItems"
-                    :key="item.label"
                     v-slot="{ active }"
+                    v-if="permissions.includes('view customers')"
                 >
                   <a
-
-                      :href="item.href"
+                      :href="route('customers.index', company.id)"
                       :class="[active ? 'bg-darker-100' : '', 'block px-4 py-2 text-sm text-darker-700']"
                   >
-                    {{ item.label }}
+                    Manage Customers
+                  </a>
+                </MenuItem>
+                <MenuItem
+                    v-slot="{ active }"
+                    v-if="permissions.includes('edit companies')"
+                >
+                  <a
+                      :href="route('companies.edit', company.id)"
+                      :class="[active ? 'bg-darker-100' : '', 'block px-4 py-2 text-sm text-darker-700']"
+                  >
+                    Edit Company
                   </a>
                 </MenuItem>
               </div>

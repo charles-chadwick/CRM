@@ -39,7 +39,7 @@ class CustomerResource extends JsonResource
                 'company'    => new CompanyResource($this->whenLoaded('company')),
             ],
             'links'         => [
-                'self' => '',
+                'self' => route('customers.profile', $this->id),
             ]
         ];
     }

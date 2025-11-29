@@ -2,37 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\CompanyRequest;
+use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CustomerResource;
+use App\Models\Company;
 use App\Models\Customer;
+use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Company $company)
     {
-        return CustomerResource::collection(Customer::all());
+        $customers = Customer::where('company_id', $company->id)
+            ->paginate();
+
+        dd($customers);
+
+        return Inertia::render('Customers/Index', [
+            'company' => $company,
+            'customers' => CustomerResource::collection($customers)
+        ]);
     }
 
-    public function store(CustomerRequest $request)
+    public function create()
     {
-        return new CustomerResource(Customer::create($request->validated()));
+        return Inertia::render('Customers/Form',
+            [
+                'customer' => new CustomerResource(new Customer()),
+                'action'  => 'create'
+            ]
+        );
     }
 
-    public function show(Customer $customer)
+    public function store(CompanyRequest $request)
     {
-        return new CustomerResource($customer);
+        Company::create($request->validated());
+
+        return redirect()
+            ->route('companies.index')
+            ->with('message', 'Company created successfully')
+            ->with('type', 'success');
     }
 
-    public function update(CustomerRequest $request, Customer $customer)
+    public function profile(Company $company)
     {
-        $customer->update($request->validated());
-
-        return new CustomerResource($customer);
+        return new CompanyResource($company);
     }
 
-    public function destroy(Customer $customer)
+    public function update(CompanyRequest $request, Company $company)
     {
-        $customer->delete();
+        $company->update($request->validated());
+
+        return new CompanyResource($company);
+    }
+
+    public function destroy(Company $company)
+    {
+        $company->delete();
 
         return response()->json();
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -34,6 +35,13 @@ Route::middleware('auth')
 
 
         Route::resource('companies', CompanyController::class);
+
+        Route::prefix('customers')->group(function () {
+           Route::get('/{company}', [CustomerController::class, 'index'])->name('customers.index');
+           Route::get('/{company}/profile', [CustomerController::class, 'profile'])->name('customers.profile');
+        });
+
+
     });
 
 

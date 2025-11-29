@@ -40,14 +40,14 @@ class UserTableSeeder extends Seeder
 
         $admin_user = User::factory()
             ->create([
-                'role'       => UserRole::SuperAdmin,
+                'role'       => UserRole::Admin,
                 'first_name' => 'Doofus',
                 'last_name'  => 'Rick',
                 'email'      => 'doofus.rick@example.com',
                 'created_at' => '2020-01-01 00:00:00',
             ]);
 
-        $admin_user->assignRole('Super Admin');
+        $admin_user->assignRole('Admin');
 
         $this->addMedia($admin_user, 'https://rickandmortyapi.com/api/character/avatar/103.jpeg');
 
@@ -56,7 +56,7 @@ class UserTableSeeder extends Seeder
 
         // split into two arrays
         $users = $characters->slice(0, 25);
-        $patients = $characters->slice(25, 100);
+        $characters->slice(25, 100);
 
         echo "\nAdding Users\n";
 
@@ -80,7 +80,6 @@ class UserTableSeeder extends Seeder
             $roleName = match ($role) {
                 UserRole::Admin => 'Admin',
                 UserRole::Manager => 'Manager',
-                UserRole::SalesRep => 'Sales Rep',
                 default => 'Sales Rep',
             };
 
