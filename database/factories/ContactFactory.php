@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ContactType;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -15,9 +16,9 @@ class ContactFactory extends Factory
     {
         return [
 
-            'type'        => $this->faker->word(),
+            'type'        => $this->faker->randomElement(ContactType::cases()),
             'phone'       => $this->faker->phoneNumber(),
-            'fax'         => $this->faker->word(),
+            'fax'         => $this->faker->phoneNumber(),
             'email'       => $this->faker->unique()
                 ->safeEmail(),
             'address_1'   => $this->faker->address(),
