@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Contact
+class Contact extends Base
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'on',
@@ -24,4 +24,11 @@ class Contact
         'country',
         'notes',
     ];
+
+    public function contactable() : MorphTo
+    {
+        return $this->morphTo('contactable', 'on', 'on_id');
+    }
+
+
 }

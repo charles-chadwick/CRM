@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -13,9 +14,7 @@ class ContactFactory extends Factory
     public function definition() : array
     {
         return [
-            'on'          => $this->faker->word(),
-            
-            'on_id'       => $this->faker->randomNumber(),
+
             'type'        => $this->faker->word(),
             'phone'       => $this->faker->phoneNumber(),
             'fax'         => $this->faker->word(),
@@ -30,6 +29,7 @@ class ContactFactory extends Factory
             'notes'       => $this->faker->word(),
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now(),
+            'created_by_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

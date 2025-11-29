@@ -6,6 +6,8 @@ use App\Traits\HasUserRelations;
 use App\Traits\IsPerson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Customer extends Base
 {
@@ -25,15 +27,11 @@ class Customer extends Base
         'remember_token'
     ];
 
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         parent::__construct($attributes);
         $this->loadRelations();
 
-    }
-
-    public function company() : BelongsTo
-    {
-        return $this->belongsTo(Company::class);
     }
 
     protected function casts() : array
@@ -41,5 +39,15 @@ class Customer extends Base
         return [
             'email_verified_at' => 'timestamp',
         ];
+    }
+
+    public function contacts() : MorphMany
+    {
+        return $this->morphMany(Contact::class, 'contactable', 'on', 'on_id');
+    }
+
+    public function company() : BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }
