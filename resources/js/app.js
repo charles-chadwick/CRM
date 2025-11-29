@@ -3,7 +3,6 @@
 import './bootstrap.js';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import { permissionDirective, roleDirective } from './directives/permission'
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
@@ -84,8 +83,6 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .directive('tooltip', Tooltip)
             .use(plugin)
-                    .directive('can', permissionDirective)
-                    .directive('role', roleDirective)
             .use(ZiggyVue)
             .use(PrimeVue, {
                 theme: {

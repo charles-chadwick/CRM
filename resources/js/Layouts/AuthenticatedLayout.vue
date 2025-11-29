@@ -9,16 +9,13 @@ import {
   BookOpenIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { usePage, useForm, router } from "@inertiajs/vue3";
+import { usePage, router } from "@inertiajs/vue3";
 import Message from 'primevue/message';
 
 const navigation = [
   { name: 'Dashboard', href: route ( 'dashboard' ), icon: HomeIcon, current: true },
   { name: 'Companies', href: route ( 'companies.index' ), icon: BookOpenIcon, current: false },
   { name: 'Customers', href: '#', icon: FolderIcon, current: false },
-  // { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  // { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-  // { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ]
 const teams = [
   // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
@@ -32,12 +29,11 @@ const logout = () => {
 
 const sidebarOpen = ref ( false )
 const user = usePage ().props.auth.user.data;
-console.log(usePage ().props);
+const page = usePage ();
+
 const show_flash_message = ref ( false );
 const flash_message = ref ( '' );
 const flash_type = ref ( '' );
-
-const page = usePage ();
 
 onMounted ( () => {
   if ( page.props.flash.message ) {

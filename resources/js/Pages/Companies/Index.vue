@@ -1,9 +1,12 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
-import AuthenticatedLayout from "../AuthenticatedLayout.vue";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
+import { provide } from 'vue';
+import { usePermissions } from "../../directives/permission.js";
 
 const props = defineProps ( { companies: Array | Object } )
 const companies = props.companies.data;
+provide ( 'can', usePermissions().can );
 </script>
 
 <template>
@@ -34,7 +37,10 @@ const companies = props.companies.data;
         <td>{{ company.relationships.created_by.attributes.full_name }}</td>
         <td>{{ company.attributes.created_at }}</td>
         <td>
-          <a href="#">Edit</a>
+          <a
+              v-if="can('companies.edit')"
+              href="#"
+          >Edit</a>
         </td>
       </tr>
       </tbody>

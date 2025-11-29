@@ -2,7 +2,7 @@
 import { useForm } from '@inertiajs/vue3'
 import { Message } from 'primevue';
 import Editor from 'primevue/editor';
-import AuthenticatedLayout from "../AuthenticatedLayout.vue";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 
 
 const props = defineProps ( { company: Object, action: String } )
