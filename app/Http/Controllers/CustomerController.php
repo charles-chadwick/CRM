@@ -16,8 +16,6 @@ class CustomerController extends Controller
         $customers = Customer::where('company_id', $company->id)
             ->paginate();
 
-        dd($customers);
-
         return Inertia::render('Customers/Index', [
             'company' => $company,
             'customers' => CustomerResource::collection($customers)

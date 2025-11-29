@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Traits\HasUserRelations;
+use App\Traits\IsPerson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Base
 {
     use HasFactory, HasUserRelations;
+    use IsPerson;
 
     protected $fillable = [
         'company_id',

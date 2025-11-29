@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head } from '@inertiajs/vue3'
   import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
@@ -26,7 +27,7 @@ const company = props.company.data;
           <td>{{ customer.attributes.email }}</td>
           <td>{{ customer.attributes.phone }}</td>
           <td>{{ customer.relationships.created_by.attributes.full_name }}</td>
-          <td>{{ customers.attributes.created_at }}</td>
+          <td>{{ customer.attributes.created_at }}</td>
         </tr>
       </tbody>
     </table>

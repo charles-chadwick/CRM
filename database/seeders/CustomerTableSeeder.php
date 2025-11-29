@@ -38,13 +38,12 @@ class CustomerTableSeeder extends Seeder
         $characters = $this->getCharacters();
 
         // split into two arrays
-        $users = $characters->slice(0, 25);
-        $patients = $characters->slice(25, 100);
+        $users = $characters->slice(0, 100);
 
         echo "\nAdding Customers\n";
 
         // create the users
-        $users->each(function ($character, $index) {
+        $users->each(function ($character) {
 
             $admin_user = User::where('role', '!=', UserRole::SuperAdmin)
                 ->inRandomOrder()
@@ -61,6 +60,20 @@ class CustomerTableSeeder extends Seeder
             $staff_user = Customer::factory()
                 ->create([
                     'company_id'    => Company::inRandomOrder()->first()->id,
+                    'prefix' => fake()->randomElement([
+                        '',
+                        'Mr.',
+                        'Mrs.',
+                        'Ms.'
+
+                    ]),
+                    'suffix' => fake()->randomElement([
+                        'Jr',
+                        'Sr',
+                        'II',
+                        'III',
+                        ''
+                    ]),
                     'title'         => fake()->title(),
                     'first_name'    => $first_name,
                     'last_name'     => $last_name,

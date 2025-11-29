@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUndefinedFieldInspection */
 
 namespace App\Http\Resources;
 
@@ -26,6 +27,7 @@ class CustomerResource extends JsonResource
                 'prefix'     => $this->prefix,
                 'first_name' => $this->first_name,
                 'last_name'  => $this->last_name,
+                'full_name'  => $this->full_name,
                 'suffix'     => $this->suffix,
                 'email'      => $this->email,
                 'created_at' => $this->created_at?->format('m/d/Y h:i A'),
