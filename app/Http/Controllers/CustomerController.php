@@ -17,7 +17,7 @@ class CustomerController extends Controller
             ->paginate();
 
         return Inertia::render('Customers/Index', [
-            'company' => $company,
+            'company' => new CompanyResource($company),
             'customers' => CustomerResource::collection($customers)
         ]);
     }

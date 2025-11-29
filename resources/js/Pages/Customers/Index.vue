@@ -10,7 +10,12 @@ const company = props.company.data;
 
 <template>
   <AuthenticatedLayout>
-    <Head title="Index" />
+    <template #header>
+      Customers
+    </template>
+    <div class="text-center text-2xl font-bold mb-4">
+      {{ company.attributes.name }}
+    </div>
     <table class="w-full table-auto text-sm">
       <thead>
       <tr class="table-header">

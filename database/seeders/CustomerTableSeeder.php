@@ -34,6 +34,8 @@ class CustomerTableSeeder extends Seeder
      */
     public function run() : void
     {
+        Customer::truncate();
+
         // get the characters from the API
         $characters = $this->getCharacters();
 
