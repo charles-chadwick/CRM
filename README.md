@@ -30,7 +30,13 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 ## Laravel Sponsors
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Spatie Permissions Integration
 
+This application uses [Spatie Laravel Permission](https://spatie.be/docs/laravel-permission) for role and permission management.
+
+## Laravel Usage
+
+### Protecting Routes with Middleware
 ### Premium Partners
 
 - **[Vehikl](https://vehikl.com)**

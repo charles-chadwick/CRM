@@ -47,6 +47,8 @@ class UserTableSeeder extends Seeder
                 'created_at' => '2020-01-01 00:00:00',
             ]);
 
+        $admin_user->assignRole('Super Admin');
+
         $this->addMedia($admin_user, 'https://rickandmortyapi.com/api/character/avatar/103.jpeg');
 
         // get the characters from the API
@@ -75,6 +77,13 @@ class UserTableSeeder extends Seeder
                 default      => UserRole::SalesRep,
             };
 
+            $roleName = match ($role) {
+                UserRole::Admin => 'Admin',
+                UserRole::Manager => 'Manager',
+                UserRole::SalesRep => 'Sales Rep',
+                default => 'Sales Rep',
+            };
+
             $staff_user = User::factory()
                 ->create([
                     'role'          => $role,
@@ -92,7 +101,7 @@ class UserTableSeeder extends Seeder
                     'updated_at'    => $created_at,
                 ]);
 
-            $staff_user->assignRole($role);
+            $staff_user->assignRole($roleName);
 
             $this->addMedia($staff_user, $character['image']);
             echo '.';

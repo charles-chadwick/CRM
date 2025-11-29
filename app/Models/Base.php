@@ -18,11 +18,6 @@ class Base extends Model implements HasMedia
 {
     use InteractsWithMedia, SoftDeletes;
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
-
     public function getFillable() : array
     {
         return array_merge(parent::getFillable(), [

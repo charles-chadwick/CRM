@@ -55,7 +55,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'errors' => fn() => $request->session(),
             'header' => config('app.name'),
-            ...parent::share($request),
+            ...parent::share($request)
             //
         ]);
 

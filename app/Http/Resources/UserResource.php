@@ -35,6 +35,8 @@ class UserResource extends JsonResource
                 'avatar_url' => $this?->avatar_url,
                 'full_name'  => $this->full_name,
                 'initials'   => $this->initials,
+                'roles'      => $this->whenLoaded('roles', fn() => $this->roles->pluck('name')),
+                'permissions' => $this->whenLoaded('permissions', fn() => $this->getAllPermissions()->pluck('name')),
             ],
             'relationships' => [
                 'created_by' => new UserResource($this->whenLoaded('created_by')),

@@ -28,6 +28,7 @@ const teams = [
 
 const sidebarOpen = ref ( false )
 const user = usePage ().props.auth.user.data;
+console.log(usePage ().props);
 const show_flash_message = ref ( false );
 const flash_message = ref ( '' );
 const flash_type = ref ( '' );

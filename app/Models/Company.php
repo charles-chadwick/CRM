@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Base
 {
-    use HasFactory;
+    use HasFactory, HasUserRelations;
 
     protected $fillable = [
         'type',
@@ -17,7 +18,7 @@ class Company extends Base
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
-        $this->with[] = 'created_by';
+        $this->loadRelations();
     }
 
     public function customers() : HasMany {
