@@ -9,7 +9,7 @@ import {
   BookOpenIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { usePage } from "@inertiajs/vue3";
+import { usePage, useForm, router } from "@inertiajs/vue3";
 import Message from 'primevue/message';
 
 const navigation = [
@@ -25,6 +25,10 @@ const teams = [
   // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
   // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
+
+const logout = () => {
+  router.post(route('logout'))
+}
 
 const sidebarOpen = ref ( false )
 const user = usePage ().props.auth.user.data;
@@ -234,6 +238,7 @@ onMounted ( () => {
                 />
                 <span class="sr-only">Your profile</span>
                 <span aria-hidden="true">{{ user.attributes.full_name }}</span>
+                <button @click="logout">Logout</button>
               </a>
             </li>
           </ul>
