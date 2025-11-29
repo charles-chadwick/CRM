@@ -8,6 +8,7 @@ import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
 import { Tooltip } from "primevue";
 import { ZiggyVue } from 'ziggy-js';
+import permissionDirective from './directives/permission.js';
 
 const MyPreset = definePreset(Aura, {
     semantic: {
@@ -82,6 +83,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .directive('tooltip', Tooltip)
+            .directive('can', permissionDirective)
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {

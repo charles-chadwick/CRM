@@ -42,10 +42,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request) : array
     {
+        $user = $request->user();
+
         // collect params we want on every page
         $params = collect([
             'auth'   => [
-                'user' => $request->user() ? UserResource::make($request->user()) : null
+                'user' => $user ? UserResource::make($user->load('roles', 'permissions')) : null,
+                'permissions' => $user ? $user->getAllPermissions()->pluck('name') : []
             ],
             'flash'  => [
                 'message' => fn() => $request->session()
@@ -58,19 +61,6 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request)
             //
         ]);
-
-        // now do some conditionals
- //       if ($request->routeIs('patients.*')) {
-//            $params->put('attributes', [
-//                'patient'     => [
-//                    'statuses' => PatientStatus::cases(),
-//                    'genders'  => Gender::cases()
-//                ],
-//                'appointment' => [
-//                    'statuses' => AppointmentStatus::cases(),
-//                ]
-//            ]);
-  //      }
 
         return $params->toArray();
 
