@@ -59,7 +59,11 @@ const confirmDelete = ( customerId ) => {
           v-for="customer in customers"
           :key="customer.id"
       >
-        <td>{{ customer.attributes.full_name }}</td>
+        <td>
+          <a :href="route('customers.profile', customer.attributes.id)">
+          {{ customer.attributes.full_name }}
+          </a>
+        </td>
         <td>{{ customer.attributes.email }}</td>
         <td>{{ customer.relationships.contact.attributes.phone }}</td>
         <td>{{ customer.relationships.created_by.attributes.full_name }}</td>

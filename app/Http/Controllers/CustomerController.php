@@ -47,7 +47,7 @@ class CustomerController extends Controller
     public function profile(Customer $customer)
     {
         $customer->load('contact');
-        return Inertia::render('Customers/Form',
+        return Inertia::render('Customers/Details',
             [
                 'customer' => new CustomerResource($customer),
                 'action'   => 'show'

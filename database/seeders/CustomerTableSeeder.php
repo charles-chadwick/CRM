@@ -7,8 +7,7 @@ namespace Database\Seeders;
 
 use App\Enums\UserRole;
 
-// use App\Models\Patient;
-use App\Models\Customer;
+use App\Models\Company;
 use App\Models\Customer;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -56,40 +55,53 @@ class CustomerTableSeeder extends Seeder
             $created_at = fake()->dateTimeBetween($admin_user->created_at, '-1 month');
 
             $name_parts = collect(explode(' ', $character['name']));
-            $first_name = str($name_parts->shift())->title();
-            $last_name = str($name_parts->pop())->title();
+            $first_name = str($name_parts->shift())
+                ->title()
+                ->trim();
+            $last_name = str($name_parts->pop())
+                ->title()
+                ->trim();
+            if ($first_name == '' || $last_name == '') {
+                return;
+            }
 
-            $staff_user = Customer::factory()
-                ->create([
-                    'company_id'    => Customer::inRandomOrder()->first()->id,
-                    'prefix' => fake()->randomElement([
-                        '',
-                        'Mr.',
-                        'Mrs.',
-                        'Ms.'
+            $staff_user = Customer::factory()->create([
+                'company_id'    => Company::inRandomOrder()
+                    ->first()->id,
+                'prefix'        => fake()->randomElement([
+                    '',
+                    'Mr.',
+                    'Mrs.',
+                    'Ms.'
 
+                ]),
+                'suffix'        => fake()->randomElement([
+                    'Jr',
+                    'Sr',
+                    'II',
+                    'III',
+                    ''
+                ]),
+                'title'         => fake()->randomElement([
+                    'President',
+                    'CEO',
+                    'Purchaser',
+                    'Support Rep'
+                ]),
+                'first_name'    => $first_name,
+                'last_name'     => $last_name,
+                'email'         => str($first_name.'.'.$last_name.rand(100, 999).'@example.com')
+                    ->lower()
+                    ->remove([
+                        ' ',
+                        '\'',
                     ]),
-                    'suffix' => fake()->randomElement([
-                        'Jr',
-                        'Sr',
-                        'II',
-                        'III',
-                        ''
-                    ]),
-                    'title'         => fake()->title(),
-                    'first_name'    => $first_name,
-                    'last_name'     => $last_name,
-                    'email'         => str($first_name.'.'.$last_name.rand(100, 999).'@example.com')
-                        ->lower()
-                        ->remove([
-                            ' ',
-                            '\'',
-                        ]),
-                    'created_by_id' => $admin_user,
-                    'updated_by_id' => $admin_user,
-                    'created_at'    => $created_at,
-                    'updated_at'    => $created_at,
-                ]);
+                'created_by_id' => $admin_user,
+                'updated_by_id' => $admin_user,
+                'created_at'    => $created_at,
+                'updated_at'    => $created_at,
+            ]);
+
 
             $this->addMedia($staff_user, $character['image']);
             echo '.';

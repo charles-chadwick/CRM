@@ -3,14 +3,14 @@
 namespace Database\Factories;
 
 use App\Enums\CompanyType;
-use App\Models\Customer;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class CompanyFactory extends Factory
 {
-    protected $model = Customer::class;
+    protected $model = Company::class;
 
     public function definition() : array
     {

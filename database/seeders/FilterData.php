@@ -42,7 +42,8 @@ class FilterData
         'damn',
         'bitch',
         'butt',
-        'genital'
+        'genital',
+        'sperm'
     ];
     private Collection $data;
 
