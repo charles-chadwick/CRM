@@ -21,10 +21,9 @@ class ContactFactory extends Factory
             'fax'         => $this->faker->phoneNumber(),
             'email'       => $this->faker->unique()
                 ->safeEmail(),
-            'address_1'   => $this->faker->address(),
-            'address_2'   => $this->faker->address(),
+            'address_1'   => $this->faker->streetAddress(),
             'city'        => $this->faker->city(),
-            'state'       => $this->faker->word(),
+            'state'       => $this->faker->randomElement(['OR', 'WA', 'CT', 'TX', 'FL', 'MA']),
             'postal_code' => $this->faker->postcode(),
             'country'     => $this->faker->country(),
             'notes'       => $this->faker->word(),

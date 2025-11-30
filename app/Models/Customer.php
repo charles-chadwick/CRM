@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Customer extends Base
 {
@@ -27,9 +28,9 @@ class Customer extends Base
         'remember_token'
     ];
 
-    public function __construct(array $attributes = [])
+    public function __construct()
     {
-        parent::__construct($attributes);
+        parent::__construct();
         $this->loadRelations();
 
     }
@@ -41,13 +42,13 @@ class Customer extends Base
         ];
     }
 
-    public function contacts() : MorphMany
+    public function contact() : MorphOne
     {
-        return $this->morphMany(Contact::class, 'contactable', 'on', 'on_id');
+        return $this->morphOne(Contact::class, 'contactable', 'on', 'on_id');
     }
 
     public function company() : BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Customer::class);
     }
 }

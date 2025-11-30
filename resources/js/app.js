@@ -5,12 +5,13 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
-import {definePreset} from "@primeuix/themes";
+import { definePreset } from "@primeuix/themes";
 import { Tooltip } from "primevue";
 import { ZiggyVue } from 'ziggy-js';
 import permissionDirective from './directives/permission.js';
+import ConfirmationService from 'primevue/confirmationservice';
 
-const MyPreset = definePreset(Aura, {
+const MyPreset = definePreset ( Aura, {
     semantic: {
         primary: {
             50: '{purple.50}',
@@ -73,20 +74,21 @@ const MyPreset = definePreset(Aura, {
             }
         }
     }
-});
+} );
 
-createInertiaApp({
+createInertiaApp ( {
     resolve: name => {
-        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-        return pages[`./Pages/${name}.vue`]
+        const pages = import.meta.glob ( './Pages/**/*.vue', { eager: true } )
+        return pages[ `./Pages/${ name }.vue` ]
     },
-    setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .directive('tooltip', Tooltip)
-            .directive('can', permissionDirective)
-            .use(plugin)
-            .use(ZiggyVue)
-            .use(PrimeVue, {
+    setup ( { el, App, props, plugin } ) {
+        createApp ( { render: () => h ( App, props ) } )
+            .directive ( 'tooltip', Tooltip )
+            .directive ( 'can', permissionDirective )
+            .use ( ConfirmationService )
+            .use ( plugin )
+            .use ( ZiggyVue )
+            .use ( PrimeVue, {
                 theme: {
                     preset: MyPreset,
                     options: {
@@ -95,7 +97,7 @@ createInertiaApp({
                         cssLayer: false
                     }
                 }
-            })
-            .mount(el)
+            } )
+            .mount ( el )
     },
-})
+} )

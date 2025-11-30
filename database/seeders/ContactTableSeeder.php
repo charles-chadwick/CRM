@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Company;
+use App\Models\Customer;
 use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
@@ -15,11 +15,11 @@ class ContactTableSeeder extends Seeder
     public function run() : void
     {
         Contact::truncate();
-        foreach (Company::all() as $company) {
+        foreach (Customer::all() as $company) {
 
             Contact::factory()
                 ->count(rand(1, 5))
-                ->create(['on_id' => $company->id, 'on' => Company::class]);
+                ->create(['on_id' => $company->id, 'on' => Customer::class]);
 
         }
 

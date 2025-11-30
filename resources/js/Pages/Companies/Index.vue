@@ -3,7 +3,7 @@
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import { usePage } from '@inertiajs/vue3';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
-import { ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { EllipsisVerticalIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps ( { companies: Array | Object } )
 const companies = props.companies.data;
@@ -19,6 +19,7 @@ const permissions = usePage ().props.auth.permissions;
     <table class="w-full table-auto text-sm">
       <thead>
       <tr class="table-header">
+        <td>ID</td>
         <td>Type</td>
         <td>Name</td>
         <td>Customers</td>
@@ -33,6 +34,7 @@ const permissions = usePage ().props.auth.permissions;
           v-for="company in companies"
           :key="company.id"
       >
+        <td>{{ company.attributes.id }}</td>
         <td>{{ company.attributes.type }}</td>
         <td>{{ company.attributes.name }}</td>
         <td>{{ company.relationships.customers.length }}</td>
@@ -44,9 +46,8 @@ const permissions = usePage ().props.auth.permissions;
               class="relative inline-block text-left"
           >
             <MenuButton class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-darker-700 bg-white border border-darker-300 rounded-md hover:bg-darker-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-              Actions
-              <ChevronDownIcon
-                  class="-mr-1 ml-2 h-5 w-5"
+              <EllipsisVerticalIcon
+                  class="h-5 w-5"
                   aria-hidden="true"
               />
             </MenuButton>

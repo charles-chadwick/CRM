@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use App\Models\Customer;
 use Inertia\Inertia;
 use function dd;
 
@@ -24,7 +25,7 @@ class CompanyController extends Controller
     {
         return Inertia::render('Companies/Form',
             [
-                'company' => new CompanyResource(new Company()),
+                'company' => new CompanyResource(new Customer()),
                 'action'  => 'create'
             ]
         );
@@ -32,7 +33,7 @@ class CompanyController extends Controller
 
     public function store(CompanyRequest $request)
     {
-        Company::create($request->validated());
+        Customer::create($request->validated());
 
         return redirect()
             ->route('companies.index')
@@ -40,19 +41,19 @@ class CompanyController extends Controller
             ->with('type', 'success');
     }
 
-    public function show(Company $company)
+    public function show(Customer $company)
     {
         return new CompanyResource($company);
     }
 
-    public function update(CompanyRequest $request, Company $company)
+    public function update(CompanyRequest $request, Customer $company)
     {
         $company->update($request->validated());
 
         return new CompanyResource($company);
     }
 
-    public function destroy(Company $company)
+    public function destroy(Customer $company)
     {
         $company->delete();
 

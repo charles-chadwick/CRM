@@ -38,7 +38,8 @@ class CustomerResource extends JsonResource
                 'created_by' => new UserResource($this->whenLoaded('created_by')),
                 'updated_by' => new UserResource($this->whenLoaded('updated_by')),
                 'deleted_by' => new UserResource($this->whenLoaded('deleted_by')),
-                'company'    => new CompanyResource($this->whenLoaded('company')),
+                'company'    => new Customer($this->whenLoaded('company')),
+                'contact'    => new ContactResource($this->whenLoaded('contact')),
             ],
             'links'         => [
                 'self' => route('customers.profile', $this->id),

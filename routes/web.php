@@ -39,6 +39,7 @@ Route::middleware('auth')
         Route::prefix('customers')->group(function () {
            Route::get('/{company}', [CustomerController::class, 'index'])->name('customers.index');
            Route::get('/{company}/profile', [CustomerController::class, 'profile'])->name('customers.profile');
+           Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
         });
 
 

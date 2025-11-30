@@ -8,7 +8,7 @@ namespace Database\Seeders;
 use App\Enums\UserRole;
 
 // use App\Models\Patient;
-use App\Models\Company;
+use App\Models\Customer;
 use App\Models\Customer;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -61,7 +61,7 @@ class CustomerTableSeeder extends Seeder
 
             $staff_user = Customer::factory()
                 ->create([
-                    'company_id'    => Company::inRandomOrder()->first()->id,
+                    'company_id'    => Customer::inRandomOrder()->first()->id,
                     'prefix' => fake()->randomElement([
                         '',
                         'Mr.',

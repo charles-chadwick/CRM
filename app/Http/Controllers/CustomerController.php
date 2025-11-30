@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CustomerResource;
 use App\Models\Company;
@@ -13,11 +13,12 @@ class CustomerController extends Controller
 {
     public function index(Company $company)
     {
-        $customers = Customer::where('company_id', $company->id)
+        $customers = Customer::with('contact')
+            ->where('company_id', $company->id)
             ->paginate();
 
         return Inertia::render('Customers/Index', [
-            'company' => new CompanyResource($company),
+            'company'   => new CompanyResource($company),
             'customers' => CustomerResource::collection($customers)
         ]);
     }
@@ -27,37 +28,41 @@ class CustomerController extends Controller
         return Inertia::render('Customers/Form',
             [
                 'customer' => new CustomerResource(new Customer()),
-                'action'  => 'create'
+                'action'   => 'create'
             ]
         );
     }
 
-    public function store(CompanyRequest $request)
+    public function store(CustomerRequest $request)
     {
-        Company::create($request->validated());
+        Customer::create($request->validated());
 
         return redirect()
-            ->route('companies.index')
+            ->route('customers.index')
             ->with('message', 'Company created successfully')
             ->with('type', 'success');
     }
 
-    public function profile(Company $company)
+    public function profile(Customer $customer)
     {
-        return new CompanyResource($company);
+        return new CustomerResource($customer);
     }
 
-    public function update(CompanyRequest $request, Company $company)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        $company->update($request->validated());
+        $customer->update($request->validated());
 
-        return new CompanyResource($company);
+        return new CustomerResource($customer);
     }
 
-    public function destroy(Company $company)
+    public function destroy(Customer $customer)
     {
-        $company->delete();
+        $company_id = $customer->company_id;
+        $customer->delete();
 
-        return response()->json();
+        return redirect()
+            ->route('customers.index', $company_id)
+            ->with('message', 'Company deleted successfully')
+            ->with('type', 'success');
     }
 }
