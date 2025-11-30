@@ -4,7 +4,9 @@ import AuthenticatedLayout from "../Layouts/AuthenticatedLayout.vue";
 </script>
 
 <template>
-<AuthenticatedLayout></AuthenticatedLayout>
+<AuthenticatedLayout>
+  Dashboard
+</AuthenticatedLayout>
 </template>
 
 <style scoped>
