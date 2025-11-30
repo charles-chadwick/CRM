@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
     {
         $user = $request->user();
 
+
         // collect params we want on every page
         $params = collect([
             'auth'   => [
@@ -51,9 +52,9 @@ class HandleInertiaRequests extends Middleware
                 'permissions' => $user ? $user->getAllPermissions()->pluck('name') : []
             ],
             'flash'  => [
-                'message' => fn() => $request->session()
+                'message' =>  $request->session()
                     ->get('message'),
-                'type'    => fn() => $request->session()
+                'type'  => $request->session()
                     ->get('type'),
             ],
             'errors' => fn() => $request->session(),

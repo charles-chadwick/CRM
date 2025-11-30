@@ -35,10 +35,10 @@ const show_flash_message = ref ( false );
 const flash_message = ref ( '' );
 const flash_type = ref ( '' );
 
-console.log ( page.props.flash );
 
 onMounted ( () => {
-  if ( page.props.flash.message ) {
+console.log(page.props);
+  if ( page.props.flash.message !== null) {
     show_flash_message.value = true;
     flash_message.value = page.props.flash.message;
     flash_type.value = page.props.flash.type;

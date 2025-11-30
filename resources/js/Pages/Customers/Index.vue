@@ -19,7 +19,11 @@ const confirmDelete = ( customerId ) => {
     header: 'Delete Confirmation',
     icon: 'pi pi-exclamation-triangle',
     accept: () => {
-      router.delete ( route ( 'customers.destroy', customerId ) )
+      router.delete ( route ( 'customers.destroy', customerId ), {
+        onSuccess: () => {
+          router.visit ( route ( 'customers.index', company.id ) )
+        }
+      } )
     }
   } );
 };
@@ -46,8 +50,12 @@ const confirmDelete = ( customerId ) => {
       </tr>
       </thead>
       <tbody>
+      <tr v-if="customers.length === 0">
+        <td colspan="6" class="text-center">No Customers Found.</td>
+      </tr>
       <tr
           class="table-row"
+          v-else
           v-for="customer in customers"
           :key="customer.id"
       >

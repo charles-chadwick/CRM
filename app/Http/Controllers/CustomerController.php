@@ -17,6 +17,7 @@ class CustomerController extends Controller
             ->where('company_id', $company->id)
             ->paginate();
 
+
         return Inertia::render('Customers/Index', [
             'company'   => new CompanyResource($company),
             'customers' => CustomerResource::collection($customers)
@@ -39,7 +40,7 @@ class CustomerController extends Controller
 
         return redirect()
             ->route('customers.index')
-            ->with('message', 'Company created successfully')
+            ->with('message', 'Customer created successfully')
             ->with('type', 'success');
     }
 
@@ -57,7 +58,6 @@ class CustomerController extends Controller
     public function update(CustomerRequest $request, Customer $customer)
     {
         $customer->update($request->validated());
-
         return new CustomerResource($customer);
     }
 
@@ -68,7 +68,7 @@ class CustomerController extends Controller
 
         return redirect()
             ->route('customers.index', $company_id)
-            ->with('message', 'Company deleted successfully')
+            ->with('message', 'Customer deleted successfully')
             ->with('type', 'success');
     }
 }
