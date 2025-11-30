@@ -1,6 +1,7 @@
 // noinspection JSIgnoredPromiseFromCall
 
 import './bootstrap.js';
+import 'primeicons/primeicons.css';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
