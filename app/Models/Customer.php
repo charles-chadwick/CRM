@@ -26,12 +26,11 @@ class Customer extends Base
         'remember_token'
     ];
 
-    public function __construct()
-    {
-        parent::__construct();
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $this->loadRelations();
-
     }
+
 
     protected function casts() : array
     {

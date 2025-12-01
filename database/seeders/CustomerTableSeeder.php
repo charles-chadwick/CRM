@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
 use Spatie\Activitylog\Facades\CauserResolver;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
+use const PHP_EOL;
 
 class CustomerTableSeeder extends Seeder
 {
