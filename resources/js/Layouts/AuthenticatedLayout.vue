@@ -37,7 +37,7 @@ const flash_type = ref ( '' );
 
 
 onMounted ( () => {
-console.log(page.props);
+
   if ( page.props.flash.message !== null) {
     show_flash_message.value = true;
     flash_message.value = page.props.flash.message;

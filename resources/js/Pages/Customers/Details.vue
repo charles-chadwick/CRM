@@ -2,9 +2,11 @@
 <script setup>
 
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
+import ContactsList from "../Contacts/Partials/List.vue";
 
-const props = defineProps ( { customer: Object } )
+const props = defineProps ( { customer: Object|Array } )
 const customer = props.customer.data;
+
 </script>
 
 <template>
@@ -22,6 +24,7 @@ const customer = props.customer.data;
       </div>
     </div>
 
+  <ContactsList :contacts="customer.relationships.contacts" />
   </AuthenticatedLayout>
 </template>
 

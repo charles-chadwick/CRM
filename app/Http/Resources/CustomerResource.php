@@ -3,6 +3,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Company;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -40,8 +41,8 @@ class CustomerResource extends JsonResource
                 'created_by' => new UserResource($this->whenLoaded('created_by')),
                 'updated_by' => new UserResource($this->whenLoaded('updated_by')),
                 'deleted_by' => new UserResource($this->whenLoaded('deleted_by')),
-                'company'    => new Customer($this->whenLoaded('company')),
-                'contact'    => new ContactResource($this->whenLoaded('contact')),
+                'company'    => new CompanyResource($this->whenLoaded('company')),
+                'contacts'   => ContactResource::collection($this->whenLoaded('contact')),
             ],
             'links'         => [
                 'self' => route('customers.profile', $this->id),

@@ -6,7 +6,7 @@ use App\Traits\HasUserRelations;
 use App\Traits\IsPerson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Customer extends Base
 {
@@ -39,9 +39,9 @@ class Customer extends Base
         ];
     }
 
-    public function contact() : MorphOne
+    public function contacts() : MorphMany
     {
-        return $this->morphOne(Contact::class, 'contactable', 'on', 'on_id');
+        return $this->morphMany(Contact::class, 'contactable', 'on', 'on_id');
     }
 
     public function company() : BelongsTo
