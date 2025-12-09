@@ -6,72 +6,99 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from 'ziggy-js';
 import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
+import Tooltip from 'primevue/tooltip';
 import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
+import { definePreset } from "@primevue/themes";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
+const MyPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            50: '{teal.50}',
+            100: '{teal.100}',
+            200: '{teal.200}',
+            300: '{teal.300}',
+            400: '{teal.400}',
+            500: '{teal.500}',
+            600: '{teal.600}',
+            700: '{teal.700}',
+            800: '{teal.800}',
+            900: '{teal.900}',
+            950: '{teal.950}'
+        },
+        secondary: {
+            50: '{orange.50}',
+            100: '{orange.100}',
+            200: '{orange.200}',
+            300: '{orange.300}',
+            400: '{orange.400}',
+            500: '{orange.500}',
+            600: '{orange.600}',
+            700: '{orange.700}',
+            800: '{orange.800}',
+            900: '{orange.900}',
+            950: '{orange.950}'
+        },
+        colorScheme: {
+            light: {
+                surface: {
+                    0: '#ffffff',
+                    50: '{stone.50}',
+                    100: '{stone.100}',
+                    200: '{stone.200}',
+                    300: '{stone.300}',
+                    400: '{stone.400}',
+                    500: '{stone.500}',
+                    600: '{stone.600}',
+                    700: '{stone.700}',
+                    800: '{stone.800}',
+                    900: '{stone.900}',
+                    950: '{stone.950}'
+                }
+            },
+            dark: {
+                surface: {
+                    0: '#ffffff',
+                    50: '{stone.50}',
+                    100: '{stone.100}',
+                    200: '{stone.200}',
+                    300: '{stone.300}',
+                    400: '{stone.400}',
+                    500: '{stone.500}',
+                    600: '{stone.600}',
+                    700: '{stone.700}',
+                    800: '{stone.800}',
+                    900: '{stone.900}',
+                    950: '{stone.950}'
+                }
+            }
+        }
+    }
+});
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) });
+        
+        app.directive('tooltip', Tooltip);
+        
+        return app
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {
                 theme: {
-                    preset: Aura,
+                    preset: MyPreset,
                     options: {
+                        prefix: 'p',
                         darkModeSelector: false,
-                        cssLayer: false,
-                    },
-                    semantic: {
-                        colorScheme: {
-                            light: {
-                                primary: {
-                                    50: '#f0fdfa',
-                                    100: '#ccfbf1',
-                                    200: '#99f6e4',
-                                    300: '#5eead4',
-                                    400: '#2dd4bf',
-                                    500: '#14b8a6',
-                                    600: '#0d9488',
-                                    700: '#0f766e',
-                                    800: '#115e59',
-                                    900: '#134e4a',
-                                    950: '#042f2e',
-                                },
-                                accent: {
-                                    50: '#fff7ed',
-                                    100: '#ffedd5',
-                                    200: '#fed7aa',
-                                    300: '#fdba74',
-                                    400: '#fb923c',
-                                    500: '#f97316',
-                                    600: '#ea580c',
-                                    700: '#c2410c',
-                                    800: '#9a3412',
-                                    900: '#7c2d12',
-                                    950: '#431407',
-                                },
-                                gray: {
-                                    50: '#fafaf9',
-                                    100: '#f5f5f4',
-                                    200: '#e7e5e4',
-                                    300: '#d6d3d1',
-                                    400: '#a8a29e',
-                                    500: '#78716c',
-                                    600: '#57534e',
-                                    700: '#44403c',
-                                    800: '#292524',
-                                    900: '#1c1917',
-                                    950: '#0c0a09',
-                                },
-                            },
-                        },
-                    },
-                },
+                        cssLayer: false
+                    }
+                }
             })
+            .use(ConfirmationService)
             .mount(el);
     },
     progress: {

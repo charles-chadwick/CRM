@@ -162,7 +162,7 @@ const cancel = () => {
               :label="isEdit ? 'Update User' : 'Create User'"
               :loading="form.processing"
               icon="pi pi-check"
-              severity="success"
+              severity="primary"
             />
             <Button 
               type="button"
