@@ -27,3 +27,15 @@ Users will have three roles:
 Companies will have many Customers. Both Comapnies and Customers can have many Contacts, which are polymorphic. 
 
 Discussions are polymorphic and can be between users, or users and customers.
+
+## Validation Rules
+
+**All validation rules MUST be placed in associated Form Request classes.** Never validate directly in controllers or models.
+
+- Create Form Request classes in `app/Http/Requests/` directory
+- Name them following Laravel conventions (e.g., `StoreUserRequest`, `UpdateUserRequest`)
+- Use separate request classes for `store()` and `update()` methods when validation differs
+- Controllers should type-hint the Form Request class instead of `Illuminate\Http\Request`
+- Example: `public function store(StoreUserRequest $request)` instead of `public function store(Request $request)`
+
+This keeps validation logic organized, reusable, and follows Laravel best practices.
