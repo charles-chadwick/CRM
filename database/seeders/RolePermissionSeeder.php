@@ -43,8 +43,8 @@ class RolePermissionSeeder extends Seeder
             'manage discussions',
         ]);
 
-        $salesRep = Role::create(['name' => UserRole::SalesRep->value]);;
-        $salesRep->givePermissionTo([
+        $sales_rep = Role::create(['name' => UserRole::SalesRep->value]);
+        $sales_rep->givePermissionTo([
             'manage customers',
         ]);
     }

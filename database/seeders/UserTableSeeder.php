@@ -71,7 +71,7 @@ class UserTableSeeder extends Seeder
                 default      => UserRole::SalesRep,
             };
 
-            $roleName = match ($role) {
+            $role_name = match ($role) {
                 UserRole::Admin => 'Admin',
                 UserRole::Manager => 'Manager',
                 default => 'Sales Rep',
@@ -94,7 +94,7 @@ class UserTableSeeder extends Seeder
                     'updated_at'    => $created_at,
                 ]);
 
-            $staff_user->assignRole($roleName);
+            $staff_user->assignRole($role_name);
 
             // $this->addMedia($staff_user, $character['image']);
             echo '.';

@@ -13,7 +13,7 @@ const props = defineProps ( {
 const page = usePage ();
 const confirm = useConfirm ();
 
-const formatDate = ( date ) => {
+const format_date = ( date ) => {
   return new Date ( date ).toLocaleDateString ( 'en-US', {
     year: 'numeric',
     month: 'short',
@@ -21,15 +21,15 @@ const formatDate = ( date ) => {
   } );
 };
 
-const createUser = () => {
+const create_user = () => {
   router.visit ( route ( 'users.create' ) );
 };
 
-const editUser = ( userId ) => {
-  router.visit ( route ( 'users.edit', userId ) );
+const edit_user = ( user_id ) => {
+  router.visit ( route ( 'users.edit', user_id ) );
 };
 
-const deleteUser = ( user ) => {
+const delete_user = ( user ) => {
   confirm.require ( {
     message: `Are you sure you want to delete ${ user.first_name } ${ user.last_name }?`,
     header: 'Confirm Deletion',
@@ -56,7 +56,7 @@ const deleteUser = ( user ) => {
         <Button
             label="Create User"
             icon="pi pi-plus"
-            @click="createUser"
+            @click="create_user"
             severity="primary"
         />
       </div>
@@ -94,27 +94,27 @@ const deleteUser = ( user ) => {
             header="Created"
             sortable
         >
-          <template #body="slotProps">
-            {{ formatDate ( slotProps.data.created_at ) }}
+          <template #body="slot_props">
+            {{ format_date ( slot_props.data.created_at ) }}
           </template>
         </Column>
         <Column header="Actions">
-          <template #body="slotProps">
+          <template #body="slot_props">
             <div class="flex gap-2">
               <Button
                   icon="pi pi-pencil"
                   severity="secondary"
                   size="small"
-                  @click="editUser(slotProps.data.id)"
+                  @click="edit_user(slot_props.data.id)"
                   v-tooltip.top="'Edit'"
               />
               <Button
                   icon="pi pi-trash"
                   severity="danger"
                   size="small"
-                  @click="deleteUser(slotProps.data)"
-                  :disabled="slotProps.data.id === page.props.auth.user.id"
-                  v-tooltip.top="slotProps.data.id === page.props.auth.user.id ? 'Cannot delete yourself' : 'Delete'"
+                  @click="delete_user(slot_props.data)"
+                  :disabled="slot_props.data.id === page.props.auth.user.id"
+                  v-tooltip.top="slot_props.data.id === page.props.auth.user.id ? 'Cannot delete yourself' : 'Delete'"
               />
             </div>
           </template>

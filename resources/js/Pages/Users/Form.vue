@@ -15,7 +15,7 @@ const props = defineProps({
   },
 });
 
-const isEdit = computed(() => !!props.user);
+const is_edit = computed(() => !!props.user);
 
 const form = useForm({
   first_name: props.user?.first_name || '',
@@ -27,7 +27,7 @@ const form = useForm({
 });
 
 const submit = () => {
-  if (isEdit.value) {
+  if (is_edit.value) {
     form.put(route('users.update', props.user.id), {
       preserveScroll: true,
     });
@@ -48,7 +48,7 @@ const cancel = () => {
     <div class="px-8 py-4">
       <div class="mb-6">
         <h1 class="text-3xl font-bold text-darker-900">
-          {{ isEdit ? 'Edit User' : 'Create User' }}
+          {{ is_edit ? 'Edit User' : 'Create User' }}
         </h1>
       </div>
 
@@ -150,13 +150,13 @@ const cancel = () => {
                   for="password"
                   class="font-semibold"
               >
-                Password {{ isEdit ? '(leave blank to keep current)' : '' }}
+                Password {{ is_edit ? '(leave blank to keep current)' : '' }}
               </label>
               <Password
                   id="password"
                   v-model="form.password"
                   :invalid="!!form.errors.password"
-                  :feedback="!isEdit"
+                  :feedback="!is_edit"
                   toggleMask
                   placeholder="Enter password"
                   inputClass="w-full"
@@ -200,7 +200,7 @@ const cancel = () => {
           <div class="flex gap-4 pt-4">
             <Button 
               type="submit" 
-              :label="isEdit ? 'Update User' : 'Create User'"
+              :label="is_edit ? 'Update User' : 'Create User'"
               :loading="form.processing"
               icon="pi pi-check"
               severity="primary"

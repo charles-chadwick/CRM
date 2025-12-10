@@ -12,8 +12,8 @@ import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
 import 'primeicons/primeicons.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-const MyPreset = definePreset(Aura, {
+const app_name = import.meta.env.VITE_APP_NAME || 'Laravel';
+const my_preset = definePreset(Aura, {
     semantic: {
         primary: {
             50: '{teal.50}',
@@ -78,7 +78,7 @@ const MyPreset = definePreset(Aura, {
     }
 });
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title} - ${app_name}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) });
@@ -90,7 +90,7 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(PrimeVue, {
                 theme: {
-                    preset: MyPreset,
+                    preset: my_preset,
                     options: {
                         prefix: 'p',
                         darkModeSelector: false,

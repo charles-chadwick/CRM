@@ -12,7 +12,7 @@ const main_nav = [
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
 
-const isAdmin = computed(() => page.props.auth?.user?.role === 'Admin');
+const is_admin = computed(() => page.props.auth?.user?.role === 'Admin');
 </script>
 <template>
   <div class="flex h-screen bg-darker-50">
@@ -32,7 +32,7 @@ const isAdmin = computed(() => page.props.auth?.user?.role === 'Admin');
           {{ nav_item.name }}
         </a>
         <a
-            v-if="isAdmin"
+            v-if="is_admin"
             :href="route('users.index')"
             class="block px-4 py-2 text-white font-bold hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
         >
