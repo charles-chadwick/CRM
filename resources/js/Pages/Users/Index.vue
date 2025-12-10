@@ -52,7 +52,7 @@ const deleteUser = ( user ) => {
     <ConfirmDialog />
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-900">Users</h1>
+        <h1 class="text-3xl font-bold text-darker-900">Users</h1>
         <Button
             label="Create User"
             icon="pi pi-plus"
