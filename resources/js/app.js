@@ -8,7 +8,8 @@ import { ZiggyVue } from 'ziggy-js';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import Tooltip from 'primevue/tooltip';
-import { definePreset, Aura } from '@primevue/themes';
+import Aura from '@primeuix/themes/aura';
+import {definePreset} from "@primeuix/themes";
 import 'primeicons/primeicons.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
