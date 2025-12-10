@@ -39,3 +39,13 @@ Discussions are polymorphic and can be between users, or users and customers.
 - Example: `public function store(StoreUserRequest $request)` instead of `public function store(Request $request)`
 
 This keeps validation logic organized, reusable, and follows Laravel best practices.
+
+## PrimeVue Component Imports
+
+**All PrimeVue components MUST be imported using a single destructured import statement.**
+
+- Import all PrimeVue components in one line using destructuring: `import { Button, DataTable, Column, ConfirmDialog } from 'primevue';`
+- Never import components individually like: `import Button from 'primevue/button';`
+- Services, composables, and configuration imports (e.g., `PrimeVue`, `ConfirmationService`, `Tooltip`, `useConfirm`) may still use individual imports as they are not components.
+
+This ensures consistency and cleaner imports across the codebase.
