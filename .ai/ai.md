@@ -46,6 +46,7 @@ This keeps validation logic organized, reusable, and follows Laravel best practi
 
 - Import all PrimeVue components in one line using destructuring: `import { Button, DataTable, Column, ConfirmDialog } from 'primevue';`
 - Never import components individually like: `import Button from 'primevue/button';`
+- The only exception to this rule is for PrimeVue's Editor compnent, which should be used for `<textarea>` elements.
 - Services, composables, and configuration imports (e.g., `PrimeVue`, `ConfirmationService`, `Tooltip`, `useConfirm`) may still use individual imports as they are not components.
 
 This ensures consistency and cleaner imports across the codebase.
