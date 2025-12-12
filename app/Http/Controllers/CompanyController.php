@@ -47,7 +47,8 @@ class CompanyController extends Controller
 
         return redirect()
             ->route('companies.index')
-            ->with('success', 'Company created successfully.');
+            ->with('message', 'Company created successfully.')
+            ->with('type', 'success');
     }
 
     /**
@@ -73,7 +74,8 @@ class CompanyController extends Controller
 
         return redirect()
             ->route('companies.index')
-            ->with('success', 'Company updated successfully.');
+            ->with('message', 'Company created successfully.')
+            ->with('type', 'success');
     }
 
     /**

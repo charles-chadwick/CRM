@@ -1,22 +1,24 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import Message from 'primevue/message';
 
-const page = usePage();
+const page = usePage ();
 
 // Layout component
 const main_nav = [
-  { name: 'Companies', href: route('companies.index'), icon: 'pi pi-building' },
+  { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
   { name: 'Customers', href: '#', icon: 'pi pi-users' },
   { name: 'Contacts', href: '#', icon: 'pi pi-user' },
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
 
-const is_admin = computed(() => page.props.auth?.user?.role === 'Admin');
+const is_admin = computed ( () => page.props.auth?.user?.role === 'Admin' );
+const flash = computed ( () => page.props.flash );
 </script>
 <template>
   <div class="flex h-screen bg-darker-50">
-    <!-- Sidebar -->
+  <!-- Sidebar -->
     <aside class="w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col">
       <div class="p-6 border-b border-b-primary-500">
         <h1 class="text-xl font-semibold text-white">CRM</h1>
@@ -44,6 +46,18 @@ const is_admin = computed(() => page.props.auth?.user?.role === 'Admin');
 
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
+      <div
+          v-if="flash?.message"
+          class="p-4"
+      >
+        <Message
+            :severity="flash.type === 'error' ? 'error' : 'success'"
+            :closable="true"
+            :life="5000"
+        >
+          {{ flash.message }}
+        </Message>
+      </div>
       <slot />
     </main>
   </div>

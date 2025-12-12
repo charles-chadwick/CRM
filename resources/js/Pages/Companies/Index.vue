@@ -10,7 +10,7 @@ const props = defineProps ( {
 } );
 const companies = props.companies;
 const confirm = useConfirm ();
-console.log(companies);
+
 const create_company = () => {
   router.visit ( route ( 'companies.create' ) );
 };

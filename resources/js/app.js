@@ -10,6 +10,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
+import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css';
 
 const app_name = import.meta.env.VITE_APP_NAME || 'Laravel';
