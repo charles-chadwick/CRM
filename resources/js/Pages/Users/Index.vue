@@ -2,24 +2,14 @@
 <script setup>
 import { router, usePage } from '@inertiajs/vue3';
 import { useConfirm } from 'primevue/useconfirm';
-import { Button, DataTable, Column, ConfirmDialog } from 'primevue';
+import { Button, ConfirmDialog } from 'primevue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-
-
 const props = defineProps ( {
   users: Array,
 } );
 
 const page = usePage ();
 const confirm = useConfirm ();
-
-const format_date = ( date ) => {
-  return new Date ( date ).toLocaleDateString ( 'en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  } );
-};
 
 const create_user = () => {
   router.visit ( route ( 'users.create' ) );
@@ -61,65 +51,50 @@ const delete_user = ( user ) => {
         />
       </div>
 
-      <DataTable
-          :value="props.users"
-          stripedRows
-          :paginator="true"
-          :rows="10"
-          :rowsPerPageOptions="[5, 10, 20, 50]"
-          tableStyle="min-width: 50rem"
-      >
-        <Column
-            field="first_name"
-            header="First Name"
-            sortable
-        ></Column>
-        <Column
-            field="last_name"
-            header="Last Name"
-            sortable
-        ></Column>
-        <Column
-            field="email"
-            header="Email"
-            sortable
-        ></Column>
-        <Column
-            field="role"
-            header="Role"
-            sortable
-        ></Column>
-        <Column
-            field="created_at"
-            header="Created"
-            sortable
+      <table class="min-w-full border-collapse">
+        <thead>
+        <tr class="table-header">
+          <th>Role</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Created At</th>
+          <th>Created By</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            v-for="user in props.users.data"
+            :key="user.id"
+            class="table-row"
         >
-          <template #body="slot_props">
-            {{ format_date ( slot_props.data.created_at ) }}
-          </template>
-        </Column>
-        <Column header="Actions">
-          <template #body="slot_props">
-            <div class="flex gap-2">
+          <td class="table-cell">{{ user.attributes.type }}</td>
+          <td class="table-cell">{{ user.attributes.name }}</td>
+          <td class="table-cell">{{ user.attributes.created_at }}</td>
+          <td class="table-cell">{{ user.relationships.created_by.attributes.full_name }}</td>
+          <td class="table-cell">
+            <div class="flex gap-2 justify-center items-center">
               <Button
                   icon="pi pi-pencil"
                   severity="secondary"
                   size="small"
-                  @click="edit_user(slot_props.data.id)"
+                  @click="edit_user(user.id)"
                   v-tooltip.top="'Edit'"
               />
               <Button
                   icon="pi pi-trash"
                   severity="danger"
                   size="small"
-                  @click="delete_user(slot_props.data)"
-                  :disabled="slot_props.data.id === page.props.auth.user.id"
-                  v-tooltip.top="slot_props.data.id === page.props.auth.user.id ? 'Cannot delete yourself' : 'Delete'"
+                  @click="delete_user(user)"
+                  v-tooltip.top="'Delete'"
               />
             </div>
-          </template>
-        </Column>
-      </DataTable>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
     </div>
   </AppLayout>
 </template>
