@@ -20,9 +20,9 @@ const props = defineProps ( {
 const is_edit = computed ( () => !! props.company );
 
 const form = useForm ( {
-  type: props.company.data.attributes?.type || '',
-  name: props.company.data.attributes?.name || '',
-  notes: props.company.data.attributes?.notes || '',
+  type: props.company?.data.attributes?.type || '',
+  name: props.company?.data.attributes?.name || '',
+  notes: props.company?.data.attributes?.notes || '',
 } );
 
 const submit = () => {
