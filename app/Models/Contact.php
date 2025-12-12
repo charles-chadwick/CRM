@@ -12,7 +12,7 @@ class Contact extends Base
     use HasUserRelations;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -45,7 +45,6 @@ class Contact extends Base
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
-
     }
 
     /**

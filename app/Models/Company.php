@@ -14,7 +14,7 @@ class Company extends Base implements HasMedia
     use InteractsWithMedia, LogsActivity, HasUserRelations;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -28,7 +28,6 @@ class Company extends Base implements HasMedia
         parent::__construct($attributes);
         $this->loadRelations();
     }
-
 
     /**
      * Get the customers for this company.
