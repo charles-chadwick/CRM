@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedReference -->
 <script setup>
 import { computed } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
@@ -5,39 +6,39 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Editor from 'primevue/editor'
 import { Button, InputText, Select, Message } from 'primevue';
 
-const props = defineProps({
+const props = defineProps ( {
   company: {
     type: Object,
     default: null,
   },
-  company_types : {
+  company_types: {
     type: Array,
     default: []
   }
-});
+} );
 
-const is_edit = computed(() => !!props.company);
+const is_edit = computed ( () => !! props.company );
 
-const form = useForm({
+const form = useForm ( {
   type: props.company.data.attributes?.type || '',
   name: props.company.data.attributes?.name || '',
   notes: props.company.data.attributes?.notes || '',
-});
+} );
 
 const submit = () => {
-  if (is_edit.value) {
-    form.put(route('companies.update', props.company.id), {
+  if ( is_edit.value ) {
+    form.put ( route ( 'companies.update', props.company.data.id ), {
       preserveScroll: true,
-    });
+    } );
   } else {
-    form.post(route('companies.store'), {
+    form.post ( route ( 'companies.store' ), {
       preserveScroll: true,
-    });
+    } );
   }
 };
 
 const cancel = () => {
-  router.visit(route('companies.index'));
+  router.visit ( route ( 'companies.index' ) );
 };
 </script>
 
@@ -51,7 +52,10 @@ const cancel = () => {
       </div>
 
       <div class="bg-white rounded-lg shadow p-6">
-        <form @submit.prevent="submit" class="space-y-3 max-w-2xl">
+        <form
+            @submit.prevent="submit"
+            class="space-y-3 max-w-2xl"
+        >
           <!-- Type and Name -->
           <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col gap-2">
@@ -124,21 +128,21 @@ const cancel = () => {
 
           <!-- Form Actions -->
           <div class="flex gap-4 pt-4">
-            <Button 
-              type="submit" 
-              :label="is_edit ? 'Update Company' : 'Create Company'"
-              :loading="form.processing"
-              icon="pi pi-check"
-              severity="primary"
+            <Button
+                type="submit"
+                :label="is_edit ? 'Update Company' : 'Create Company'"
+                :loading="form.processing"
+                icon="pi pi-check"
+                severity="primary"
             />
-            <Button 
-              type="button"
-              label="Cancel"
-              severity="secondary"
-              outlined
-              icon="pi pi-times"
-              @click="cancel"
-              :disabled="form.processing"
+            <Button
+                type="button"
+                label="Cancel"
+                severity="secondary"
+                outlined
+                icon="pi pi-times"
+                @click="cancel"
+                :disabled="form.processing"
             />
           </div>
         </form>
