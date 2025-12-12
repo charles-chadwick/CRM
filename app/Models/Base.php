@@ -12,6 +12,7 @@ class Base extends Model
 {
     use SoftDeletes, LogsActivity;
 
+
     /**
      * Get the user that created this record.
      */

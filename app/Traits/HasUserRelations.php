@@ -8,4 +8,5 @@ trait HasUserRelations {
         $this->with[] = 'created_by';
         $this->with[] = 'updated_by';
     }
+
 }
