@@ -1,29 +1,11 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
-import { Button, ConfirmDialog, Paginator } from 'primevue';
-import {deleteRecord} from "../../utils/crudHelpers.js";
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { useConfirm } from "primevue/useconfirm";
+import { ConfirmDialog, Paginator } from 'primevue';
+import { CreateButton, EditButton, DeleteButton} from "../../Components/ActionButtons.vue";
 
-const props = defineProps ( {  companies: Object } );
+const props = defineProps ( { companies: Object } );
 const companies = props.companies;
-const confirm = useConfirm ();
-
-const confirmDelete = (id, message) => {
-  confirm.require({
-    message: `Are you sure you want to delete ${message}?`,
-    header: 'Confirm Deletion',
-    icon: 'pi pi-exclamation-triangle',
-    rejectLabel: 'Cancel',
-    acceptLabel: 'Delete',
-    rejectClass: 'p-button-secondary p-button-outlined',
-    acceptClass: 'p-button-danger',
-    accept: () => {
-      deleteRecord('companies', id);
-    }
-  });
-}
-
 </script>
 
 <template>
@@ -33,11 +15,9 @@ const confirmDelete = (id, message) => {
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-darker-900">Companies</h1>
-        <Button
-            label="Create Company"
-            icon="pi pi-plus"
-            @click="$createRecord('companies')"
-            severity="primary"
+        <CreateButton
+            prefix="companies"
+            message="Company"
         />
       </div>
 
@@ -59,23 +39,18 @@ const confirmDelete = (id, message) => {
         >
           <td class="table-cell">{{ company.attributes.type }}</td>
           <td class="table-cell">{{ company.attributes.name }}</td>
+          <td class="table-cell">{{ company.relationships.created_by?.attributes?.full_name }}</td>
           <td class="table-cell">{{ company.attributes.created_at }}</td>
-          <td class="table-cell">{{ company.relationships.created_by.attributes.full_name }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
-              <Button
-                  icon="pi pi-pencil"
-                  severity="secondary"
-                  size="small"
-                  @click="$editRecord('companies', company.id)"
-                  v-tooltip.top="'Edit'"
+              <EditButton
+                  prefix="companies"
+                  :id="company.id"
               />
-              <Button
-                  icon="pi pi-trash"
-                  severity="danger"
-                  size="small"
-                  @click="confirmDelete(company.id, company.attributes.name)"
-                  v-tooltip.top="'Delete'"
+              <DeleteButton
+                  prefix="companies"
+                  :id="company.id"
+                  :message="company.attributes.name"
               />
             </div>
           </td>
