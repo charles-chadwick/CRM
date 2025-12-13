@@ -52,7 +52,11 @@ const props = defineProps ( {
           <td class="table-cell">{{ user.relationships.created_by.attributes.full_name }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
-              <Link :href="route('users.edit', user.id)">Edit</Link>
+              <DeleteButton
+                  prefix="users"
+                  :id="user.id"
+                  :message="user.attributes.name"
+              />
             </div>
           </td>
         </tr>
