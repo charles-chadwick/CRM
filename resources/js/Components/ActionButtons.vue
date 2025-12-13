@@ -76,4 +76,6 @@ export const DeleteButton = defineComponent ( {
     } );
   }
 } );
+
+export default DeleteButton;
 </script>
