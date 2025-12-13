@@ -2,7 +2,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Select, ConfirmDialog } from 'primevue';
-import { router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { CreateButton, EditButton, DeleteButton} from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
@@ -35,6 +35,7 @@ const handleSortChange = () => {
 </script>
 
 <template>
+  <Head title="Customers" />
   <AppLayout>
     <ConfirmDialog />
     <div class="px-8 py-4">

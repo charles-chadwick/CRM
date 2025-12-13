@@ -4,12 +4,14 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog} from "primevue";
+import { Head } from "@inertiajs/vue3";
 
 const props = defineProps ( { companies: Object } );
 const companies = props.companies;
 </script>
 
 <template>
+  <Head title="Companies" />
   <AppLayout>
     <ConfirmDialog />
 

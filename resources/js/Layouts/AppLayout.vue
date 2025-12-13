@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import Message from 'primevue/message';
 
@@ -8,8 +8,8 @@ const page = usePage ();
 // Layout component
 const main_nav = [
   { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
-  { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-users' },
-  { name: 'Contacts', href: '#', icon: 'pi pi-user' },
+  { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-warehouse' },
+  { name: 'Contacts', href: '#', icon: 'pi pi-phone' },
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
 

@@ -13,6 +13,7 @@ export const CreateButton = defineComponent ( {
   setup ( props ) {
     return () => h ( Button, {
       label: `Create ${ props.message }`,
+      class: 'text-bold',
       icon: 'pi pi-plus',
       severity: 'primary',
       onClick: () => router.visit ( route ( props.prefix + '.create' ) )

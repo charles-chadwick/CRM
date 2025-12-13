@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { computed } from 'vue';
-import { router, useForm } from '@inertiajs/vue3';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Button, InputText, Select, Message, Password } from 'primevue';
 
@@ -51,6 +51,7 @@ const cancel = () => {
 </script>
 
 <template>
+  <Head title="Customers" />
   <AppLayout>
     <div class="px-8 py-4">
       <div class="mb-6">
