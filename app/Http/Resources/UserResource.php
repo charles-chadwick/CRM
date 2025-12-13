@@ -33,8 +33,8 @@ class UserResource extends JsonResource
                 'deleted_at' => $this->deleted_at?->format('m/d/Y h:i A'),
             ],
             'relationships' => [
-                'created_by' => new UserResource($this->created_by),
-                'updated_by' => new UserResource($this->updated_by),
+                'created_by' => new UserResource($this->whenLoaded('created_by')),
+                'updated_by' => new UserResource($this->whenLoaded('updated_by')),
                 'deleted_by' => new UserResource($this->whenLoaded('deleted_by')),
             ],
             'links'         => [

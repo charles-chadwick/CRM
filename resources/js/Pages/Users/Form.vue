@@ -153,7 +153,7 @@ const cancel = () => {
                   for="password"
                   class="font-semibold"
               >
-                Password {{ is_edit ? '(leave blank to keep current)' : '' }}
+                Password
               </label>
               <Password
                   id="password"
@@ -172,6 +172,7 @@ const cancel = () => {
               >
                 {{ form.errors.password }}
               </Message>
+              <p class="text-sm" v-show="is_edit"> (leave blank to keep current)</p>
             </div>
 
             <div class="flex flex-col gap-2">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
@@ -16,11 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')
+        $users = User::with('created_by')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return Inertia::render('Users/Index', [
-            'users' => $users,
+            'users' => UserResource::collection($users),
         ]);
     }
 
@@ -46,7 +48,8 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'User created successfully.');
+            ->with('message', 'User created successfully.')
+            ->with('type', 'success');
     }
 
     /**
@@ -55,7 +58,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Users/Form', [
-            'user' => $user->only('id', 'first_name', 'last_name', 'email', 'role'),
+            'user'  => $user->only('id', 'first_name', 'last_name', 'email', 'role'),
             'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
         ]);
     }
@@ -77,7 +80,8 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'User updated successfully.');
+            ->with('message', 'User updated successfully.')
+            ->with('type', 'success');
     }
 
     /**
@@ -87,13 +91,17 @@ class UserController extends Controller
     {
         // Prevent users from deleting themselves
         if ($user->id === auth()->id()) {
-            return back()->withErrors(['error' => 'You cannot delete your own account.']);
+            return back()
+                ->with('message', 'You cannot delete your own account.')
+                ->with('type', 'error');
+
         }
 
         $user->delete();
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'User deleted successfully.');
+            ->with('message', 'User deleted successfully.')
+            ->with('type', 'success');
     }
 }

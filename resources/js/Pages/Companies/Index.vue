@@ -1,27 +1,17 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
-import { router, usePage } from '@inertiajs/vue3';
-import { useConfirm } from 'primevue/useconfirm';
-import { Button, ConfirmDialog } from 'primevue';
+import { Button, ConfirmDialog, Paginator } from 'primevue';
+import {deleteRecord} from "../../utils/crudHelpers.js";
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { useConfirm } from "primevue/useconfirm";
 
-const props = defineProps ( {
-  companies: Object,
-} );
+const props = defineProps ( {  companies: Object } );
 const companies = props.companies;
 const confirm = useConfirm ();
 
-const create_company = () => {
-  router.visit ( route ( 'companies.create' ) );
-};
-
-const edit_company = ( company_id ) => {
-  router.visit ( route ( 'companies.edit', company_id ) );
-};
-
-const delete_company = ( company ) => {
-  confirm.require ( {
-    message: `Are you sure you want to delete ${ company.attributes.name }?`,
+const confirmDelete = (id, message) => {
+  confirm.require({
+    message: `Are you sure you want to delete ${message}?`,
     header: 'Confirm Deletion',
     icon: 'pi pi-exclamation-triangle',
     rejectLabel: 'Cancel',
@@ -29,24 +19,24 @@ const delete_company = ( company ) => {
     rejectClass: 'p-button-secondary p-button-outlined',
     acceptClass: 'p-button-danger',
     accept: () => {
-      router.delete ( route ( 'companies.destroy', company.id ), {
-        preserveScroll: true,
-      } );
+      deleteRecord('companies', id);
     }
-  } );
-};
+  });
+}
+
 </script>
 
 <template>
   <AppLayout>
     <ConfirmDialog />
+
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-darker-900">Companies</h1>
         <Button
             label="Create Company"
             icon="pi pi-plus"
-            @click="create_company"
+            @click="$createRecord('companies')"
             severity="primary"
         />
       </div>
@@ -77,14 +67,14 @@ const delete_company = ( company ) => {
                   icon="pi pi-pencil"
                   severity="secondary"
                   size="small"
-                  @click="edit_company(company.id)"
+                  @click="$editRecord('companies', company.id)"
                   v-tooltip.top="'Edit'"
               />
               <Button
                   icon="pi pi-trash"
                   severity="danger"
                   size="small"
-                  @click="delete_company(company)"
+                  @click="confirmDelete(company.id, company.attributes.name)"
                   v-tooltip.top="'Delete'"
               />
             </div>
@@ -92,6 +82,10 @@ const delete_company = ( company ) => {
         </tr>
         </tbody>
       </table>
+      <Paginator
+          :totalRecords="companies.meta.total"
+          :rowsPerPageOptions="[10, 20, 30]"
+      />
     </div>
   </AppLayout>
 </template>

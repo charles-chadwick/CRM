@@ -1,27 +1,19 @@
-<!--suppress NpmUsedModulesInstalled -->
+<!--suppress NpmUsedModulesInstalled, JSUnresolvedReference, JSUnresolvedReference -->
 <script setup>
-import { router, usePage } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
 import { useConfirm } from 'primevue/useconfirm';
 import { Button, ConfirmDialog } from 'primevue';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import { deleteRecord } from "../../utils/crudHelpers.js";
+
 const props = defineProps ( {
-  users: Array,
+  users: Object,
 } );
 
-const page = usePage ();
 const confirm = useConfirm ();
 
-const create_user = () => {
-  router.visit ( route ( 'users.create' ) );
-};
-
-const edit_user = ( user_id ) => {
-  router.visit ( route ( 'users.edit', user_id ) );
-};
-
-const delete_user = ( user ) => {
+const confirmDelete = ( id, message ) => {
   confirm.require ( {
-    message: `Are you sure you want to delete ${ user.first_name } ${ user.last_name }?`,
+    message: `Are you sure you want to delete ${ message }?`,
     header: 'Confirm Deletion',
     icon: 'pi pi-exclamation-triangle',
     rejectLabel: 'Cancel',
@@ -29,9 +21,7 @@ const delete_user = ( user ) => {
     rejectClass: 'p-button-secondary p-button-outlined',
     acceptClass: 'p-button-danger',
     accept: () => {
-      router.delete ( route ( 'users.destroy', user.id ), {
-        preserveScroll: true,
-      } );
+      deleteRecord ( 'users', id )
     }
   } );
 };
@@ -46,7 +36,7 @@ const delete_user = ( user ) => {
         <Button
             label="Create User"
             icon="pi pi-plus"
-            @click="create_user"
+            @click="$createRecord('users')"
             severity="primary"
         />
       </div>
@@ -69,8 +59,10 @@ const delete_user = ( user ) => {
             :key="user.id"
             class="table-row"
         >
-          <td class="table-cell">{{ user.attributes.type }}</td>
-          <td class="table-cell">{{ user.attributes.name }}</td>
+          <td class="table-cell">{{ user.attributes.role }}</td>
+          <td class="table-cell">{{ user.attributes.first_name }}</td>
+          <td class="table-cell">{{ user.attributes.last_name }}</td>
+          <td class="table-cell">{{ user.attributes.email }}</td>
           <td class="table-cell">{{ user.attributes.created_at }}</td>
           <td class="table-cell">{{ user.relationships.created_by.attributes.full_name }}</td>
           <td class="table-cell">
@@ -79,14 +71,14 @@ const delete_user = ( user ) => {
                   icon="pi pi-pencil"
                   severity="secondary"
                   size="small"
-                  @click="edit_user(user.id)"
+                  @click="$editRecord('users', user.id)"
                   v-tooltip.top="'Edit'"
               />
               <Button
                   icon="pi pi-trash"
                   severity="danger"
                   size="small"
-                  @click="delete_user(user)"
+                  @click="confirmDelete(user.id, user.attributes.full_name)"
                   v-tooltip.top="'Delete'"
               />
             </div>

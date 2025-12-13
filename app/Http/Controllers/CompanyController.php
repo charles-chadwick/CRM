@@ -17,7 +17,9 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::orderBy('created_at', 'desc')
-            ->get();
+            ->paginate()
+            ->withQueryString();
+
 
         return Inertia::render('Companies/Index', [
             'companies' => CompanyResource::collection($companies),
@@ -57,7 +59,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         return Inertia::render('Companies/Form', [
-            'company' => new CompanyResource($company),
+            'company'       => new CompanyResource($company),
             'company_types' => CompanyType::toSelect()
         ]);
     }
@@ -87,7 +89,8 @@ class CompanyController extends Controller
         $company->save();
         $company->delete();
 
-        return to_route('companies.index')
+        return redirect()
+            ->route('companies.index')
             ->with('success', 'Company deleted successfully.')
             ->with('type', 'success');
     }

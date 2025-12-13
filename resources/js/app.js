@@ -4,13 +4,14 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createRecord, editRecord, deleteRecord } from './utils/crudHelpers';
+
 import { ZiggyVue } from 'ziggy-js';
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
 import Tooltip from 'primevue/tooltip';
 import Aura from '@primeuix/themes/aura';
 import {definePreset} from "@primeuix/themes";
-import ToastService from 'primevue/toastservice';
 import 'primeicons/primeicons.css';
 
 const app_name = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -86,6 +87,11 @@ createInertiaApp({
         
         app.directive('tooltip', Tooltip);
         
+        // Register global CRUD helpers
+        app.config.globalProperties.$createRecord = createRecord;
+        app.config.globalProperties.$editRecord = editRecord;
+        app.config.globalProperties.$deleteRecord = deleteRecord;
+
         return app
             .use(plugin)
             .use(ZiggyVue)
