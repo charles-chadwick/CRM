@@ -2,19 +2,30 @@
 
 namespace App\Models;
 
+use App\Traits\HasContactsRelations;
 use App\Traits\HasUserRelations;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class Customer extends Authenticatable implements HasMedia
+class Customer extends Base implements
+    HasMedia,
+    AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
-    use Notifiable, InteractsWithMedia, LogsActivity, HasUserRelations;
+    use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
+    use Notifiable, HasRoles, InteractsWithMedia, HasUserRelations, HasContactsRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -75,7 +86,7 @@ class Customer extends Authenticatable implements HasMedia
      */
     public function contacts(): MorphMany
     {
-        return $this->morphMany(Contact::class, 'on');
+        return $this->morphMany(Contact::class, 'contactable');
     }
 
     /**
@@ -83,18 +94,8 @@ class Customer extends Authenticatable implements HasMedia
      */
     public function discussions(): MorphMany
     {
-        return $this->morphMany(Discussion::class, 'on');
+        return $this->morphMany(Discussion::class, 'contactable');
     }
 
-    /**
-     * Configure activity log options.
-     */
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['company_id', 'title', 'prefix', 'first_name', 'last_name', 'suffix', 'email'])
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
-    }
 }
 

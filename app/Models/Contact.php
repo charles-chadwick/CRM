@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasUserRelations;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Contact extends Base
 {
@@ -47,12 +45,5 @@ class Contact extends Base
         $this->loadRelations();
     }
 
-    /**
-     * Get the parent-contactable model (Company or Customer).
-     */
-    public function contactable(): MorphTo
-    {
-        return $this->morphTo();
-    }
 }
 

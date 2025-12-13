@@ -8,7 +8,7 @@ const page = usePage ();
 // Layout component
 const main_nav = [
   { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
-  { name: 'Customers', href: '#', icon: 'pi pi-users' },
+  { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-users' },
   { name: 'Contacts', href: '#', icon: 'pi pi-user' },
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
