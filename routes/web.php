@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,10 @@ Route::middleware(['auth'])->group(function () {
 // User management routes - Admin only
 Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::resource('users', UserController::class);
+});
+
+// Image upload and removal routes
+Route::middleware(['auth'])->group(function () {
+    Route::post('/image/upload', [ImageController::class, 'upload'])->name('image.upload');
+    Route::post('/image/remove', [ImageController::class, 'remove'])->name('image.remove');
 });

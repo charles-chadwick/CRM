@@ -63,6 +63,7 @@ export const DeleteButton = defineComponent ( {
         accept: async () => {
 
           router.delete ( route ( props.prefix + '.destroy', props.id ) )
+          router.reload()
 
         }
       } );

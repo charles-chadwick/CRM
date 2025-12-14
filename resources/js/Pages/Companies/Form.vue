@@ -3,6 +3,7 @@
 import { computed } from 'vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Image from "../../Components/Image.vue";
 import Editor from 'primevue/editor'
 import { Button, InputText, Select, Message } from 'primevue';
 
@@ -23,7 +24,12 @@ const form = useForm ( {
   type: props.company?.data.attributes?.type || '',
   name: props.company?.data.attributes?.name || '',
   notes: props.company?.data.attributes?.notes || '',
+  logo: null,
 } );
+
+const onLogoSelect = ( event ) => {
+  form.logo = event.files[ 0 ];
+};
 
 const submit = () => {
   if ( is_edit.value ) {
@@ -55,76 +61,96 @@ const cancel = () => {
       <div class="bg-white rounded-lg shadow p-6">
         <form
             @submit.prevent="submit"
-            class="space-y-3 max-w-2xl"
+            class="space-y-3"
         >
-          <!-- Type and Name -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="flex flex-col gap-2">
-              <label
-                  for="type"
-                  class="font-semibold"
-              >Type</label>
-              <Select
-                  id="type"
-                  v-model="form.type"
-                  optionLabel="label"
-                  optionValue="value"
-                  :options="props.company_types"
-                  :invalid="!!form.errors.type"
-                  placeholder="Select company type"
-                  class="w-full"
-              />
-              <Message
-                  v-if="form.errors.type"
-                  severity="error"
-                  :closable="false"
-              >
-                {{ form.errors.type }}
-              </Message>
+          <!-- Type, Name and Logo -->
+          <div class="flex flex-row justify-between gap-4">
+
+            <div class="w-2/3 grid grid-cols-1 gap-4">
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
+                  <label
+                      for="type"
+                      class="font-semibold"
+                  >Type</label>
+                  <Select
+                      id="type"
+                      v-model="form.type"
+                      optionLabel="label"
+                      optionValue="value"
+                      :options="props.company_types"
+                      :invalid="!!form.errors.type"
+                      placeholder="Select company type"
+                      class="w-full"
+                  />
+                  <Message
+                      v-if="form.errors.type"
+                      severity="error"
+                      :closable="false"
+                  >
+                    {{ form.errors.type }}
+                  </Message>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label
+                      for="name"
+                      class="font-semibold"
+                  >Name</label>
+                  <InputText
+                      id="name"
+                      v-model="form.name"
+                      :invalid="!!form.errors.name"
+                      placeholder="Enter company name"
+                  />
+                  <Message
+                      v-if="form.errors.name"
+                      severity="error"
+                      :closable="false"
+                  >
+                    {{ form.errors.name }}
+                  </Message>
+                </div>
+              </div>
+
+              <!-- Notes -->
+              <div class="flex flex-col gap-2">
+                <label
+                    for="notes"
+                    class="font-semibold"
+                >Notes</label>
+                <Editor
+                    id="notes"
+                    v-model="form.notes"
+                    :invalid="!!form.errors.notes"
+                    placeholder="Enter notes (optional)"
+                    editorStyle="height: 200px"
+                    class="w-full"
+                />
+                <Message
+                    v-if="form.errors.notes"
+                    severity="error"
+                    :closable="false"
+                >
+                  {{ form.errors.notes }}
+                </Message>
+              </div>
             </div>
 
             <div class="flex flex-col gap-2">
               <label
-                  for="name"
+                  for="notes"
                   class="font-semibold"
-              >Name</label>
-              <InputText
-                  id="name"
-                  v-model="form.name"
-                  :invalid="!!form.errors.name"
-                  placeholder="Enter company name"
+              >Logo</label>
+              <Image
+                  v-if="is_edit"
+                  image_type="logo"
+                  on_type="Company"
+                  size="lg"
+                  :on_id="props.company.data.id"
+                  :image="props.company.data.attributes.logo"
               />
-              <Message
-                  v-if="form.errors.name"
-                  severity="error"
-                  :closable="false"
-              >
-                {{ form.errors.name }}
-              </Message>
             </div>
-          </div>
-
-          <!-- Notes -->
-          <div class="flex flex-col gap-2">
-            <label
-                for="notes"
-                class="font-semibold"
-            >Notes</label>
-            <Editor
-                id="notes"
-                v-model="form.notes"
-                :invalid="!!form.errors.notes"
-                placeholder="Enter notes (optional)"
-                editorStyle="height: 200px"
-                class="w-full"
-            />
-            <Message
-                v-if="form.errors.notes"
-                severity="error"
-                :closable="false"
-            >
-              {{ form.errors.notes }}
-            </Message>
           </div>
 
           <!-- Form Actions -->

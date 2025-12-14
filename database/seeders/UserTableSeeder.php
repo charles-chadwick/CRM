@@ -96,7 +96,7 @@ class UserTableSeeder extends Seeder
 
             $staff_user->assignRole($role_name);
 
-            // $this->addMedia($staff_user, $character['image']);
+            $this->addMedia($staff_user, $character['image']);
             echo '.';
         });
 

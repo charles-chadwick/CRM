@@ -4,17 +4,41 @@ import { Dialog, Button, FileUpload } from "primevue";
 import { ref } from "vue";
 
 const props = defineProps ( {
-  avatar: String,
-  on: Object,
+  image: String,
+  on_type: String,
+  on_id: [ String, Number ],
   size: String,
   show_form: {
     type: Boolean,
     default: false
+  },
+  upload_endpoint: {
+    type: String,
+    default: '/image/upload'
+  },
+  remove_endpoint: {
+    type: String,
+    default: '/image/remove'
+  },
+  alt_text: {
+    type: String,
+    default: 'Image'
+  },
+  remove_label: {
+    type: String,
+    default: 'Remove This Image'
+  },
+  placeholder_text: {
+    type: String,
+    default: 'Drag and drop image here to upload.'
+  },
+  image_type: {
+    type: String,
+    default: "logo"
   }
 } )
-const on = props.on;
 const size = props.size;
-let avatar = props.avatar;
+let image = props.image;
 
 const sizes = {
   sm: 'size-16',
@@ -23,18 +47,19 @@ const sizes = {
 }
 
 const form = useForm ( {
-  on_type: on.type,
-  on_id: on.id,
-  avatar: null,
+  on_type: props.on_type,
+  on_id: props.on_id,
+  image: null,
+  image_type: props.image_type
 } )
 
-const uploadAvatar = () => {
-  form.post ( '/avatar/upload' )
+const uploadImage = () => {
+  form.post ( props.upload_endpoint )
 }
 
-const removeAvatar = () => {
-  form.post ( '/avatar/remove' )
-  avatar = null;
+const removeImage = () => {
+  form.post ( props.remove_endpoint )
+  image = null;
 }
 
 const showDialog = ref ( false )
@@ -51,19 +76,19 @@ const handleCloseDialog = () => {
 
 <template>
   <div>
-    <div v-if="avatar">
+    <div v-if="image">
       <img
           @click="handleShowDialog"
-          alt="Avatar"
+          :alt="alt_text"
           :class="['rounded-2xl mx-auto my-2 border-2 border-darker-300 hover:border-primary-600', sizes[size]]"
-          :src="avatar"
+          :src="image"
       />
       <Button
-          v-if="show_form"
-          @click="removeAvatar"
-          class="flex-none cursor-pointer"
+          v-if="!show_form"
+          @click="removeImage"
+          class="flex-none cursor-pointer rounded-2xl"
       >
-        Remove This Avatar
+        {{ remove_label }}
       </Button>
     </div>
     <div v-else>
@@ -71,12 +96,13 @@ const handleCloseDialog = () => {
           :maxFileSize="2000000"
           accept="image/*"
           :customUpload="true"
-          @uploader="uploadAvatar"
-          @select="(e) => form.avatar = e.files[0]"
+          @uploader="uploadImage"
+          @select="(e) => form.image = e.files[0]"
       >
         <template #empty>
-          <p>Drag and drop image here to upload.</p>
+          <p>{{ placeholder_text }}</p>
         </template>
+
       </FileUpload>
     </div>
   </div>
@@ -88,9 +114,9 @@ const handleCloseDialog = () => {
     <template #container>
       <img
           @click="handleCloseDialog"
-          :src="avatar"
+          :src="image"
           class="rounded-xl border-2 border-darker-300 hover:border-primary-600"
-          alt="Avatar"
+          :alt="alt_text"
       />
 
     </template>

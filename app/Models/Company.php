@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Traits\HasUserRelations;
 use App\Traits\Orderable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Company extends Base implements HasMedia
 {
@@ -53,6 +56,35 @@ class Company extends Base implements HasMedia
     public function discussions() : MorphMany
     {
         return $this->morphMany(Discussion::class, 'on');
+    }
+
+    public function registerMediaConversions(?Media $media = null) : void
+    {
+        $this->addMediaConversion('avatars')
+            ->fit(Fit::Contain, 300, 300)
+            ->nonQueued();
+    }
+
+    public function registerMediaCollections() : void
+    {
+        $this->addMediaCollection('avatars')
+            ->singleFile();
+    }
+
+    public function logo() : Attribute
+    {
+        // check to make sure it exists, default if it doesn't
+        if (!file_exists($this->getFirstMediaPath('logo'))) {
+            $image = null;
+        } else {
+            $image = url(str($this->getFirstMediaUrl('logo')));
+        }
+
+        return Attribute::make(
+            get: function () use ($image) {
+                return $image;
+            }
+        );
     }
 
 }
