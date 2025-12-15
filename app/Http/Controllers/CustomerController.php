@@ -97,8 +97,6 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->deleted_by_id = auth()->id();
-        $customer->save();
         $customer->delete();
 
         return redirect()

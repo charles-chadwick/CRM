@@ -41,9 +41,6 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $validated = $request->validated();
-        $validated['created_by_id'] = auth()->id();
-        $validated['updated_by_id'] = auth()->id();
-
         Company::create($validated);
 
         return redirect()
@@ -69,8 +66,6 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $validated = $request->validated();
-        $validated['updated_by_id'] = auth()->id();
-
         $company->update($validated);
 
         return redirect()
@@ -84,8 +79,6 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $company->deleted_by_id = auth()->id();
-        $company->save();
         $company->delete();
 
         return redirect()

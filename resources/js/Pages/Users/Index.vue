@@ -27,6 +27,7 @@ const props = defineProps ( {
       <table class="min-w-full border-collapse">
         <thead>
         <tr class="table-header">
+          <th>ID</th>
           <th>Role</th>
           <th>Name</th>
           <th>Created By</th>
@@ -40,6 +41,7 @@ const props = defineProps ( {
             :key="user.id"
             class="table-row"
         >
+          <td class="table-cell">{{ user.attributes.id }}</td>
           <td class="table-cell">{{ user.attributes.role }}</td>
           <td class="table-cell">{{ user.attributes.full_name }}</td>
           <td class="table-cell">{{ user.relationships.created_by.attributes.full_name }}</td>

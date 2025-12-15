@@ -7,7 +7,6 @@ import { ConfirmDialog} from "primevue";
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps ( { companies: Object } );
-const companies = props.companies;
 </script>
 
 <template>
@@ -36,7 +35,7 @@ const companies = props.companies;
         </thead>
         <tbody>
         <tr
-            v-for="company in companies.data"
+            v-for="company in props.companies.data"
             :key="company.id"
             class="table-row"
         >
@@ -61,7 +60,7 @@ const companies = props.companies;
         </tbody>
       </table>
       <Pagination
-        :pagination="companies.meta"
+        :pagination="props.companies.meta"
       />
     </div>
   </AppLayout>
