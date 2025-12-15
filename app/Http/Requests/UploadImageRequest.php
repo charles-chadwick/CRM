@@ -34,7 +34,7 @@ class UploadImageRequest extends FormRequest
             'image_type' => [
                 'required',
                 'string',
-                'in:avatar,logo'
+                'in:avatars,logo'
             ],
             'image' => [
                 'required',

@@ -60,14 +60,14 @@ class Company extends Base implements HasMedia
 
     public function registerMediaConversions(?Media $media = null) : void
     {
-        $this->addMediaConversion('avatars')
+        $this->addMediaConversion('logo')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
     }
 
     public function registerMediaCollections() : void
     {
-        $this->addMediaCollection('avatars')
+        $this->addMediaCollection('logo')
             ->singleFile();
     }
 

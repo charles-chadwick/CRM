@@ -66,7 +66,7 @@ const cancel = () => {
           <!-- Type, Name and Logo -->
           <div class="flex flex-row justify-between gap-4">
 
-            <div class="w-2/3 grid grid-cols-1 gap-4">
+            <div class="w-2/3 gap-4">
 
               <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
@@ -135,9 +135,10 @@ const cancel = () => {
                   {{ form.errors.notes }}
                 </Message>
               </div>
+
             </div>
 
-            <div class="max-w-1/3 flex flex-col gap-2">
+            <div class="max-w-1/3 gap-2">
               <label
                   for="notes"
                   class="font-semibold"

@@ -59,7 +59,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Users/Form', [
-            'user'  => $user->only('id', 'first_name', 'last_name', 'email', 'role'),
+            'user'  => new UserResource($user),
             'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
         ]);
     }
