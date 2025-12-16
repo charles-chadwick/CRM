@@ -211,7 +211,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="max-w-1/3 pt-4 text-center">
+            <div class="max-w-1/3">
               <label
                   for="notes"
                   class="font-semibold"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
@@ -12,17 +13,14 @@ Route::get('/', function () {
     return Inertia::render('Index');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('companies', CompanyController::class);
-});
-
-Route::middleware(['auth'])->group(function () {
-});
 
 // User management routes - Admin only
 Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('users', UserController::class);
+    Route::resource('companies', CompanyController::class);
+    Route::resource('contacts', ContactController::class);
+
 });
 
 // Image upload and removal routes

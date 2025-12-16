@@ -6,7 +6,7 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import { Head } from "@inertiajs/vue3";
-import UserDetails from "../../Components/UserDetails.vue";
+import UserDetails from "./Partials/UserDetails.vue";
 
 const props = defineProps ( {
   users: Object,
@@ -31,7 +31,6 @@ const props = defineProps ( {
       <table class="min-w-full border-collapse">
         <thead>
         <tr class="table-header">
-          <th>ID</th>
           <th>Role</th>
           <th>Name</th>
           <th>Created By</th>
@@ -45,7 +44,6 @@ const props = defineProps ( {
             :key="user.id"
             class="table-row"
         >
-          <td class="table-cell">{{ user.attributes.id }}</td>
           <td class="table-cell">{{ user.attributes.role }}</td>
           <td class="table-cell">{{ user.attributes.full_name }}</td>
           <td class="table-cell">

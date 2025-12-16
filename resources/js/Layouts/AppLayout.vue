@@ -9,7 +9,7 @@ const page = usePage ();
 const main_nav = [
   { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
   { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-warehouse' },
-  { name: 'Contacts', href: '#', icon: 'pi pi-phone' },
+  { name: 'Contacts', href: route('contacts.index'), icon: 'pi pi-phone' },
   { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
 
