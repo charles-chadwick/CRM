@@ -24,6 +24,13 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function show(Company $company)
+    {
+        return Inertia::render('Companies/Show', [
+            'company' => $company,
+        ]);
+    }
+
     /**
      * Show the form for creating a new company.
      */

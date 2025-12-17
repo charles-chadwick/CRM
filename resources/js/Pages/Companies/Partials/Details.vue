@@ -5,7 +5,8 @@ import Avatar from "../../../Components/Avatar.vue";
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
 
-const props = defineProps ( { user: Object } )
+const props = defineProps ( { company: Object } )
+const company = props.company;
 const op = ref (); // Reference to the OverlayPanel
 
 const toggle = ( event ) => {
@@ -16,32 +17,39 @@ const toggle = ( event ) => {
 
 <template>
   <button
-      class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+      class="flex items-center gap-2"
       @click="toggle"
   >
-    <Avatar :image="user.avatar" />
-    <span>{{ user.full_name }}</span>
+    <span>{{ company.name }}</span>
   </button>
   <Popover ref="op">
     <div class="px-2 py-1 flex justify-between text-sm">
 
       <!-- I had to do the image up like this because the avatar component was not working -->
+      <div class="rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 ">
+        <img
+            v-if="company?.logo"
+            :src="company?.logo"
+            alt="Logo"
+            class="cursor-pointer"
+        />
 
-      <img
-          :src="user.avatar"
-          alt="Avatar"
-          class="rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
-      />
+        <p
+            v-else
+            class="font-bold flex items-center justify-center text-darker-600 text-lg"
+        >No Logo</p>
+
+      </div>
 
       <div class="pl-4">
 
-        <h1 class="font-bold">{{ user.full_name }}</h1>
-        <p>{{ user.role }}</p>
-        <p>{{ user.email }}</p>
-        <Link :href="route('users.show', user.id)">
+        <h1 class="font-bold">{{ company.name }}</h1>
+        <p>{{ company.type }}</p>
+        <p>{{ company.email }}</p>
+        <Link :href="route('companies.show', company.id)">
 
           <Button class="mt-2 font-bold">
-            Go to profile
+            Go to company
           </Button>
         </Link>
       </div>

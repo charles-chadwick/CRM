@@ -6,7 +6,7 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog} from "primevue";
 import { Head } from "@inertiajs/vue3";
 import UserDetails from "../Users/Partials/Details.vue";
-
+import CompanyDetails from "./Partials/Details.vue"
 const props = defineProps ( { companies: Object } );
 </script>
 
@@ -41,7 +41,9 @@ const props = defineProps ( { companies: Object } );
             class="table-row"
         >
           <td class="table-cell">{{ company.type }}</td>
-          <td class="table-cell">{{ company.name }}</td>
+          <td class="table-cell">
+            <CompanyDetails :company="company" />
+          </td>
           <td class="table-cell">
             <UserDetails :user="company.created_by" />
           </td>
