@@ -3,13 +3,14 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
 import UserDetails from "../Users/Partials/UserDetails.vue";
-import { CreateButton, EditButton, DeleteButton } from '@/Components/ActionButtons.vue';
+import { EditButton, DeleteButton } from '@/Components/ActionButtons.vue';
 import { ConfirmDialog } from 'primevue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
   contacts: Object,
 });
+
 </script>
 
 <template>
@@ -20,11 +21,6 @@ const props = defineProps({
     <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-darker-900">Contacts</h1>
-
-        <CreateButton
-          prefix="contacts"
-          message="Contact"
-        />
       </div>
 
       <table class="min-w-full border-collapse">
@@ -51,28 +47,28 @@ const props = defineProps({
                 class="text-primary-700 hover:underline"
                 :href="route('contacts.show', contact.id)"
               >
-                {{ contact.attributes.type }}
+                {{ contact.type }}
               </Link>
             </td>
 
             <td class="table-cell">
-              {{ contact.attributes.is_primary ? 'Yes' : 'No' }}
+              {{ contact.is_primary ? 'Yes' : 'No' }}
             </td>
 
             <td class="table-cell">
-              {{ contact.attributes.on_type }} #{{ contact.attributes.on_id }}
+              {{ contact.on_type }} #{{ contact.on_id }}
             </td>
 
             <td class="table-cell">
-              {{ contact.attributes.city }}
+              {{ contact.city }}
             </td>
 
             <td class="table-cell">
-              <UserDetails :user="contact.relationships.created_by" />
+              <UserDetails :user="contact.created_by" />
             </td>
 
             <td class="table-cell">
-              {{ contact.attributes.created_at }}
+              {{ contact.created_at }}
             </td>
 
             <td class="table-cell">
@@ -85,7 +81,7 @@ const props = defineProps({
         </tbody>
       </table>
 
-      <Pagination :pagination="props.contacts.meta" />
+      <Pagination :pagination="props.contacts" />
     </div>
   </AppLayout>
 </template>

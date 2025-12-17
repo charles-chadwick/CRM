@@ -8,7 +8,11 @@ export const CreateButton = defineComponent ( {
   name: 'CreateButton',
   props: {
     prefix: String,
-    message: String
+    message: String,
+    query_parameters: {
+      type: Object,
+      default: null
+    }
   },
   setup ( props ) {
     return () => h ( Button, {
@@ -16,7 +20,7 @@ export const CreateButton = defineComponent ( {
       class: 'text-bold',
       icon: 'pi pi-plus',
       severity: 'primary',
-      onClick: () => router.visit ( route ( props.prefix + '.create' ) )
+      onClick: () => router.visit ( route ( props.prefix + '.create', props,query_parameters ) )
     } );
   }
 } );

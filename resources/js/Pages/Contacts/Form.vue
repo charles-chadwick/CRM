@@ -2,7 +2,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
-import { Button, InputText, Dropdown, Checkbox, Textarea } from 'primevue';
+import { Button, InputText, Select, Checkbox, Textarea } from 'primevue';
 
 const props = defineProps({
   contact: { type: Object, default: null },
@@ -13,17 +13,17 @@ const props = defineProps({
 const isEdit = !!props.contact?.id;
 
 const form = useForm({
-  on_type: props.contact?.attributes?.on_type ?? 'Company',
-  on_id: props.contact?.attributes?.on_id ?? null,
-  type: props.contact?.attributes?.type ?? (props.contact_types[0] ?? 'Personal'),
-  is_primary: props.contact?.attributes?.is_primary ?? false,
-  address_1: props.contact?.attributes?.address_1 ?? null,
-  address_2: props.contact?.attributes?.address_2 ?? null,
-  city: props.contact?.attributes?.city ?? null,
-  state: props.contact?.attributes?.state ?? null,
-  postal_code: props.contact?.attributes?.postal_code ?? null,
-  country: props.contact?.attributes?.country ?? null,
-  notes: props.contact?.attributes?.notes ?? null,
+  on_type: props.contact?.on_type ?? 'Company',
+  on_id: props.contact?.on_id ?? null,
+  type: props.contact?.type ?? (props.contact_types[0] ?? 'Personal'),
+  is_primary: props.contact?.is_primary ?? false,
+  address_1: props.contact?.address_1 ?? null,
+  address_2: props.contact?.address_2 ?? null,
+  city: props.contact?.city ?? null,
+  state: props.contact?.state ?? null,
+  postal_code: props.contact?.postal_code ?? null,
+  country: props.contact?.country ?? null,
+  notes: props.contact?.notes ?? null,
 });
 
 function submit() {
@@ -53,30 +53,18 @@ function submit() {
 
       <form class="space-y-6" @submit.prevent="submit">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-medium mb-1">On Type</label>
-            <Dropdown
-              v-model="form.on_type"
-              :options="props.on_types"
-              placeholder="Select model type"
-              class="w-full"
-            />
-            <small v-if="form.errors.on_type" class="text-red-600">{{ form.errors.on_type }}</small>
-          </div>
-
-          <div>
-            <label class="block font-medium mb-1">On ID</label>
-            <InputText v-model="form.on_id" class="w-full" />
-            <small v-if="form.errors.on_id" class="text-red-600">{{ form.errors.on_id }}</small>
-          </div>
 
           <div>
             <label class="block font-medium mb-1">Contact Type</label>
-            <Dropdown
-              v-model="form.type"
-              :options="props.contact_types"
-              placeholder="Select contact type"
-              class="w-full"
+            <Select
+                id="type"
+                v-model="form.type"
+                optionLabel="label"
+                optionValue="value"
+                :options="props.contact_types"
+                :invalid="!!form.errors.type"
+                placeholder="Select company type"
+                class="w-full"
             />
             <small v-if="form.errors.type" class="text-red-600">{{ form.errors.type }}</small>
           </div>

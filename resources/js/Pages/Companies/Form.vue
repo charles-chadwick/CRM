@@ -21,9 +21,9 @@ const props = defineProps ( {
 const is_edit = computed ( () => !! props.company );
 
 const form = useForm ( {
-  type: props.company?.data.attributes?.type || '',
-  name: props.company?.data.attributes?.name || '',
-  notes: props.company?.data.attributes?.notes || '',
+  type: props.company?.type || '',
+  name: props.company?.name || '',
+  notes: props.company?.notes || '',
   logo: null,
 } );
 
@@ -33,7 +33,7 @@ const onLogoSelect = ( event ) => {
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'companies.update', props.company.data.id ), {
+    form.put ( route ( 'companies.update', props.company/id ), {
       preserveScroll: true,
     } );
   } else {
@@ -148,8 +148,8 @@ const cancel = () => {
                   image_type="logo"
                   on_type="Company"
                   size="lg"
-                  :on_id="props.company.data.id"
-                  :image="props.company.data.attributes.logo"
+                  :on_id="props.company/id"
+                  :image="props.company/logo"
               />
             </div>
           </div>

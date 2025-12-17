@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ContactType;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use function request;
 
 class ContactController extends Controller
 {
@@ -27,7 +29,12 @@ class ContactController extends Controller
 
     public function create()
     {
-        return Inertia::render('Contacts/Form');
+        return Inertia::render('Contacts/Form',
+            [
+                'on_type'       => request()->on_type,
+                'on_id'         => request()->on_id,
+                'contact_types' => ContactType::toSelect()
+            ]);
     }
 
     public function store(StoreContactRequest $request)
@@ -53,7 +60,8 @@ class ContactController extends Controller
     public function edit(Contact $contact)
     {
         return Inertia::render('Contacts/Form', [
-            'contact' => $contact,
+            'contact'       => $contact,
+            'contact_types' => ContactType::toSelect()
         ]);
     }
 

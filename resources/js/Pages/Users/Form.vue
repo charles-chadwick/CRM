@@ -16,7 +16,7 @@ const props = defineProps ( {
   },
 } );
 
-const user = props.user.data;
+const user = props.user;
 
 const is_edit = computed ( () => !! user );
 
@@ -154,7 +154,7 @@ const cancel = () => {
               </div>
 
               <!-- Password and Password Confirmation -->
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-2 gap-4 mt-4">
                 <div class="flex flex-col gap-2">
                   <label
                       for="password"
