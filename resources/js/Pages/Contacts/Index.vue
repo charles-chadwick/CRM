@@ -7,9 +7,9 @@ import { EditButton, DeleteButton } from '@/Components/ActionButtons.vue';
 import { ConfirmDialog } from 'primevue';
 import { Head, Link } from '@inertiajs/vue3';
 
-const props = defineProps({
+const props = defineProps ( {
   contacts: Object,
-});
+} );
 
 </script>
 
@@ -25,59 +25,66 @@ const props = defineProps({
 
       <table class="min-w-full border-collapse">
         <thead>
-          <tr class="table-header">
-            <th>Type</th>
-            <th>Primary</th>
-            <th>On</th>
-            <th>City</th>
-            <th>Created By</th>
-            <th>Created At</th>
-            <th>Actions</th>
-          </tr>
+        <tr class="table-header">
+          <th>Type</th>
+          <th>Primary</th>
+          <th>On</th>
+          <th>City</th>
+          <th>Created By</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
         </thead>
 
         <tbody>
-          <tr
+        <tr
             v-for="contact in props.contacts.data"
             :key="contact.id"
             class="table-row"
-          >
-            <td class="table-cell">
-              <Link
+        >
+          <td class="table-cell">
+            <Link
                 class="text-primary-700 hover:underline"
                 :href="route('contacts.show', contact.id)"
-              >
-                {{ contact.type }}
-              </Link>
-            </td>
+            >
+              {{ contact.type }}
+            </Link>
+          </td>
 
-            <td class="table-cell">
-              {{ contact.is_primary ? 'Yes' : 'No' }}
-            </td>
+          <td class="table-cell">
+            {{ contact.is_primary ? 'Yes' : 'No' }}
+          </td>
 
-            <td class="table-cell">
-              {{ contact.on_type }} #{{ contact.on_id }}
-            </td>
+          <td class="table-cell">
+            {{ contact.on_type }} #{{ contact.on_id }}
+          </td>
 
-            <td class="table-cell">
-              {{ contact.city }}
-            </td>
+          <td class="table-cell">
+            {{ contact.city }}
+          </td>
 
-            <td class="table-cell">
-              <UserDetails :user="contact.created_by" />
-            </td>
+          <td class="table-cell">
+            <UserDetails :user="contact.created_by" />
+          </td>
 
-            <td class="table-cell">
-              {{ contact.created_at }}
-            </td>
+          <td class="table-cell">
+            {{ contact.created_at }}
+          </td>
 
-            <td class="table-cell">
-              <div class="flex gap-2 justify-center items-center">
-                <EditButton prefix="contacts" :id="contact.id" />
-                <DeleteButton prefix="contacts" :id="contact.id" :message="`Contact #${contact.id}`" />
-              </div>
-            </td>
-          </tr>
+          <td class="table-cell">
+            <div class="flex gap-2 justify-center items-center">
+              <EditButton
+                  prefix="contacts"
+                  :id="contact.id"
+              />
+              <DeleteButton
+                  prefix="contacts"
+                  :id="contact.id"
+                  :message="`Contact #${contact.id}`"
+              />
+            </div>
+          </td>
+        </tr>
         </tbody>
       </table>
 

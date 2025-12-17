@@ -41,15 +41,15 @@ const props = defineProps ( { customers: Object } );
             :key="customer.id"
             class="table-row"
         >
-          <td class="table-cell">{{ customer.attributes.full_name_salutations }}</td>
-          <td class="table-cell">{{ customer.attributes.title }}</td>
+          <td class="table-cell">{{ customer.full_name }}</td>
+          <td class="table-cell">{{ customer.title }}</td>
           <td class="table-cell">
-            {{ customer.relationships.company?.attributes?.name }}
+            {{ customer?.company?.name }}
           </td>
           <td class="table-cell">
             <UserDetails :user="customer.relationships.created_by" />
           </td>
-          <td class="table-cell">{{ customer.attributes.created_at }}</td>
+          <td class="table-cell">{{ customer.created_at }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton
@@ -59,7 +59,7 @@ const props = defineProps ( { customers: Object } );
               <DeleteButton
                   prefix="customers"
                   :id="customer.id"
-                  :message="customer.attributes.full_name"
+                  :message="customer.full_name"
               />
             </div>
           </td>
