@@ -2,7 +2,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
-import UserDetails from "../Users/Partials/UserDetails.vue";
+import UserDetails from "../Users/Partials/Details.vue";
 import { EditButton, DeleteButton } from '@/Components/ActionButtons.vue';
 import { ConfirmDialog } from 'primevue';
 import { Head, Link } from '@inertiajs/vue3';
