@@ -65,3 +65,7 @@
 .click {
     @apply cursor-pointer hover:text-accent-500;
 }
+
+.card-header {
+    @apply text-3xl font-bold text-darker-900;
+}

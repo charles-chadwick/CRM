@@ -31,7 +31,7 @@ class User extends Base implements
     use HasFactory, Notifiable, HasRoles, InteractsWithMedia, IsPerson;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var list<string>
      */
@@ -42,8 +42,6 @@ class User extends Base implements
         'email',
         'password'
     ];
-
-    protected $appends = ['avatar', 'full_name'];
 
     /**
      * The attributes that should be hidden for serialization.

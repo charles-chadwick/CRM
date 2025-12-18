@@ -64,7 +64,6 @@ const flash = computed ( () => page.props.flash );
           <slot name="header" />
         </h1>
 
-
           <slot />
       </div>
     </main>

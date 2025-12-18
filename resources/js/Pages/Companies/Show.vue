@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Contacts from '@/Pages/Contacts/Partials/Details.vue';
-
+import Card from '@/Components/Card.vue';
 const { company } = defineProps ( {
   company: {
     type: Object,
@@ -18,8 +18,8 @@ const pageTitle = computed ( () => `${ company.name } Information` );
   <AppLayout>
     <Head :title="pageTitle" />
 
-    <div class="px-8 py-4 text-left">
-      <div class="p-6 flex justify-between">
+
+      <Card class="flex justify-between">
         <div class="flex gap-4">
           <!-- Logo Section -->
           <div
@@ -29,7 +29,7 @@ const pageTitle = computed ( () => `${ company.name } Information` );
             <img
                 :src="company.logo"
                 :alt="`${company.name} Logo`"
-                class="size-full rounded-xl border-2 border-darker-300 object-cover"
+                class="rounded-xl size-32 border-2 border-darker-300 object-cover"
             >
           </div>
           <div
@@ -56,7 +56,7 @@ const pageTitle = computed ( () => `${ company.name } Information` );
             :on_id="company.id"
             on_type="Company"
         />
-      </div>
-    </div>
+      </Card>
+
   </AppLayout>
 </template>
