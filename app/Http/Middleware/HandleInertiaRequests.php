@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\ContactType;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -36,11 +37,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request) : array
     {
+        // set up the array
         return [
             ...parent::share($request),
             'auth'  => [
                 'user' => $request->user() ? $request->user()
                     ->only('id', 'first_name', 'last_name', 'email', 'role') : null,
+            ],
+            'contacts' => [
+                'types' => ContactType::toSelect(),
             ],
             'flash' => [
                 'message' => $request->session()

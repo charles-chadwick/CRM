@@ -17,7 +17,7 @@ class Contact extends Base
      * @var array<int, string>
      */
     protected $fillable = [
-        'on',
+        'on_id',
         'on_type',
         'type',
         'is_primary',

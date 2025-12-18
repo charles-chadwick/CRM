@@ -24,22 +24,22 @@ class ContactController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        return Inertia::render('Contacts/Form',
-            [
-                'on_type'       => request()->on_type,
-                'on_id'         => request()->on_id,
-                'contact_types' => ContactType::toSelect()
-            ]);
-    }
-
     public function store(StoreContactRequest $request)
     {
-        $contact = Contact::create($request->validated());
+        $on_type = "App\Models\\" . ucfirst($request->on_type);
+        if ($request->is_primary) {
+            Contact::where('on_id', $request->on_id)
+                ->where('on_type', $on_type)
+                ->update(['is_primary' => 0]);
+        }
+
+        $validated = $request->validated();
+        $validated['on_type'] = $on_type;
+        Contact::create($validated);
 
         return redirect()
-            ->route('contacts.index')
+            ->route($request->route()
+                ->getName())
             ->with('success', 'Contact created successfully.');
     }
 
@@ -54,13 +54,6 @@ class ContactController extends Controller
         ]);
     }
 
-    public function edit(Contact $contact)
-    {
-        return Inertia::render('Contacts/Form', [
-            'contact'       => $contact,
-            'contact_types' => ContactType::toSelect()
-        ]);
-    }
 
     public function update(UpdateContactRequest $request, Contact $contact)
     {

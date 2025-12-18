@@ -44,7 +44,7 @@ const company = props.company;
           </div>
         </div>
 
-        <Contacts :contacts="company.contacts" />
+        <Contacts :contacts="company.contacts" :on_id="company.id" on_type="Company" />
       </div>
     </div>
 

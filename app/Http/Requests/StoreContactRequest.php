@@ -17,8 +17,7 @@ class StoreContactRequest extends FormRequest
         return [
             'on_type' => [
                 'required',
-                'string',
-                Rule::in(['Company', 'Customer']),
+                'string'
             ],
             'on_id' => [
                 'required',
@@ -27,8 +26,7 @@ class StoreContactRequest extends FormRequest
             ],
             'type' => [
                 'required',
-                'string',
-                Rule::in(['Personal', 'Cell', 'Office']),
+                'string'
             ],
             'is_primary' => [
                 'nullable',
