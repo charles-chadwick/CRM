@@ -7,7 +7,6 @@ import { ConfirmDialog } from "primevue";
 import { Head } from "@inertiajs/vue3";
 import UserDetails from "../Users/Partials/Details.vue";
 import CompanyDetails from '../Companies/Partials/Details.vue';
-
 const props = defineProps ( { customers: Object } );
 </script>
 

@@ -31,7 +31,7 @@ const toggle = ( event ) => {
             v-if="company?.logo"
             :src="company?.logo"
             alt="Company Logo"
-            class="size-32  hover:border-primary-600"
+            class="size-32 hover:border-primary-600"
         />
           <p v-else class="size-32 text-center flex items-center justify-center font-bold bg-darker-200">
             No Logo

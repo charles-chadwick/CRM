@@ -15,6 +15,7 @@ const company = props.company;
 <template>
   <AppLayout>
     <Head :title="company.name + ` Information`" />
+    <!-- start banner -->
     <div class="px-8 py-4 text-left">
       <div class="bg-white rounded-lg shadow p-6 flex justify-between">
 
@@ -28,7 +29,7 @@ const company = props.company;
           </div>
           <div
               v-else
-              class="size-32 rounded-xl border-2 border-darker-300 flex items-center justify-center"
+              class="size-32 rounded-xl border-2 border-darker-300 bg-darker-200 text-darker-400 font-semibold flex items-center justify-center"
           >
             <p>No Logo</p>
           </div>
@@ -44,8 +45,10 @@ const company = props.company;
         </div>
 
         <Contacts :contacts="company.contacts" />
-
       </div>
     </div>
+
+    <!-- start banner -->
+
   </AppLayout>
 </template>
