@@ -98,21 +98,29 @@ onMounted ( () => {
                 v-if="current_contact"
                 class="bg-darker-50 p-4 rounded-lg"
             >
-              <p
-                  v-if="current_contact.is_primary"
-                  class="font-medium"
-              >Primary Contact</p>
-              <h3 class="font-semibold text-lg mb-2">{{ current_contact.name }}</h3>
+              <div class="flex justify-between">
+                <h3 class="font-semibold text-lg mb-2">{{ current_contact.type }}</h3>
+                <i
+                    class="pi pi-star-fill text-accent-500"
+                    v-if="current_contact.is_primary"
+                />
+              </div>
+
               <div class="space-y-1 text-sm">
-                <p v-if="current_contact.address_1 && current_contact.address_2"> {{ current_contact.address_1 }}
-                                                                                  {{ current_contact.address_2 }}</p>
+
+                <p v-if="current_contact.address_1 && current_contact.address_2">
+                  {{ current_contact.address_1 }} {{ current_contact.address_2 }}
+                </p>
+
                 <p v-if="current_contact.city || current_contact.state">
                   {{ current_contact.city }}, {{ current_contact.state }} {{ current_contact.postal_code }}
                 </p>
 
                 <p v-if="current_contact.phone">Phone: {{ current_contact.phone }}</p>
+                <p v-if="current_contact.fax">Fax: {{ current_contact.fax }}</p>
 
               </div>
+
             </div>
           </div>
         </div>

@@ -76,6 +76,9 @@ class ContactTableSeeder extends Seeder
                     'postal_code' => fake()->postcode(),
                     'country'     => 'US',
                     'notes'       => rand(0, 1) ? fake()->sentence() : null,
+                    'phone'       => fake()->phoneNumber(),
+                    'fax'         => fake()->phoneNumber(),
+
                 ]);
             }
         }
