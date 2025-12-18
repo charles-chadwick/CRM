@@ -4,15 +4,13 @@ namespace App\Models;
 
 use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 
 class DiscussionPost extends Base
 {
     use HasUserRelations;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

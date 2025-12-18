@@ -5,8 +5,6 @@ namespace App\Models;
 use App\Traits\HasUserRelations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 
 class Discussion extends Base
 {

@@ -29,6 +29,8 @@ class Company extends Base implements HasMedia
         'notes'
     ];
 
+    protected $appends = ['logo'];
+
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
