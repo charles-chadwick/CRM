@@ -17,7 +17,6 @@ defineProps ( { customer: Object } )
             alt="Avatar"
             class=" rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
         />
-
         <h1 class="card-header pl-4">{{ customer.full_name_with_salutations }}</h1>
       </div>
       <div>

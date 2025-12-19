@@ -59,12 +59,8 @@ const flash = computed ( () => page.props.flash );
         </Message>
       </div>
       <div class="px-8 py-4 mb-6">
-
-        <h1 class="text-3xl font-bold text-darker-900">
-          <slot name="header" />
-        </h1>
-
-          <slot />
+        <slot name="header" />
+        <slot />
       </div>
     </main>
   </div>
