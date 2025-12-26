@@ -17,10 +17,33 @@ const flash = computed ( () => page.props.flash );
 </script>
 <template>
   <div class="flex h-screen bg-darker-50">
+    <!-- Hamburger Toggle (hidden checkbox) -->
+    <input
+        type="checkbox"
+        id="sidebar-toggle"
+        class="peer hidden"
+    />
+
+    <!-- Hamburger Menu Icon -->
+    <label
+        for="sidebar-toggle"
+        class="fixed top-4 left-4 z-50 md:hidden cursor-pointer bg-primary-600 p-3 rounded-md"
+    >
+      <div class="w-6 h-0.5 bg-white mb-1.5"></div>
+      <div class="w-6 h-0.5 bg-white mb-1.5"></div>
+      <div class="w-6 h-0.5 bg-white"></div>
+    </label>
+
+    <!-- Backdrop overlay for mobile -->
+    <label
+        for="sidebar-toggle"
+        class="fixed inset-0 bg-darker-200/50 hidden peer-checked:block md:peer-checked:hidden"
+    ></label>
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col">
-      <div class="p-6 border-b border-b-primary-500">
-        <h1 class="text-xl font-semibold text-white">CRM</h1>
+    <aside class="fixed md:relative top-0 left-0 h-full w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col z-40 -translate-x-full md:translate-x-0 peer-checked:translate-x-0 transition-transform duration-300">
+    <div class="p-6 border-b border-b-primary-500">
+        <h1 class="text-xl font-semibold text-white pl-12 md:pl-0">CRM</h1>
       </div>
       <nav class="flex-1 p-4 space-y-2">
         <a
