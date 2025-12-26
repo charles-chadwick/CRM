@@ -69,7 +69,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->edit($user);
+        $user->load(['created_by']);
+        return Inertia::render('Users/Show', ["user" => $user]);
     }
 
     /**
