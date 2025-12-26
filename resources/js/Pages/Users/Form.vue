@@ -222,7 +222,10 @@ const cancel = () => {
                   :on_id="props.user.id"
                   :image="props.user.avatar"
               />
-              <p v-else>You will be able to add an avatar once the user is created.</p>
+              <p
+                  class="text-darker-600"
+                  v-else
+              >You will be able to add an avatar once the user is created.</p>
             </div>
 
           </div>

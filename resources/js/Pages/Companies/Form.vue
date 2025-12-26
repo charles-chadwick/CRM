@@ -57,11 +57,11 @@ const cancel = () => {
             class="space-y-3"
         >
           <!-- Type, Name and Logo -->
-          <div class="flex flex-row justify-between gap-4">
+          <div class="flex md:flex-row flex-col justify-between gap-4">
 
-            <div class="w-2/3 gap-4">
+            <div class="md:w-2/3 gap-4">
 
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid md:grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
                   <label
                       for="type"
@@ -107,7 +107,7 @@ const cancel = () => {
               </div>
 
               <!-- Notes -->
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-2 mt-4">
                 <label
                     for="notes"
                     class="font-semibold"
@@ -131,7 +131,7 @@ const cancel = () => {
 
             </div>
 
-            <div class="w-1/3 gap-2">
+            <div class="md:w-1/3 gap-2">
               <label
                   for="notes"
                   class="font-semibold"
@@ -144,7 +144,10 @@ const cancel = () => {
                   :on_id="props.company.id"
                   :image="props.company.logo"
               />
-              <p v-else>You will be able to add a logo once the user is created.</p>
+              <p
+                  class="text-darker-600"
+                  v-else
+              >You will be able to add a logo once the user is created.</p>
 
             </div>
           </div>

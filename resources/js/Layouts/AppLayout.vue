@@ -76,8 +76,8 @@ const flash = computed ( () => page.props.flash );
         <Message
             :severity="flash.type === 'error' ? 'error' : 'success'"
             :closable="true"
-            :life="5000"
-            class="mx-8 mt-4"
+            :life="3000"
+            class="ml-16 mr-8 md:mx-8 mt-4"
 
         >
           {{ flash.message }}
