@@ -4,7 +4,9 @@ import { computed } from 'vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Image from "../../Components/Image.vue";
+import Card from "../../Components/Card.vue";
 import { Button, InputText, Password, Select, Message } from 'primevue';
+import FormHeader from "../../Components/FormHeader.vue";
 
 const props = defineProps ( {
   user: {
@@ -30,9 +32,9 @@ const form = useForm ( {
 
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'users.update', props.user.id ));
+    form.put ( route ( 'users.update', props.user.id ) );
   } else {
-    form.post ( route ( 'users.store' ));
+    form.post ( route ( 'users.store' ) );
   }
 };
 
@@ -45,26 +47,18 @@ const cancel = () => {
   <Head title="Users" />
   <AppLayout>
     <div class="px-8 py-4">
-      <div class="mb-6 flex justify-between items-center">
-        <h1 class="text-3xl font-bold text-darker-900">
-          {{ is_edit ? 'Edit User' : 'Create User' }}
-        </h1>
-        <Button
-            type="button"
-            label="Back to Users"
-            severity="secondary"
-            outlined
-            icon="pi pi-left-arrow"
-            @click="cancel"
-            :disabled="form.processing"
-        />
-      </div>
+      <FormHeader
+          :header="is_edit ? 'Edit User' : 'Create User'"
+          to_route="users.index"
+          label="Back to Users"
+      />
 
-      <div class="bg-white rounded-lg shadow p-6">
+      <Card class="mb-4">
         <form
             @submit.prevent="submit"
             class="space-y-6"
-         roles="">
+            roles=""
+        >
 
           <div class="flex flex-row justify-start gap-4">
             <div class="w-2/3">
@@ -231,7 +225,7 @@ const cancel = () => {
               <p v-else>You will be able to add an avatar once the user is created.</p>
             </div>
 
-      </div>
+          </div>
           <!-- Form Actions -->
           <div class="flex gap-4 pt-4">
             <Button
@@ -252,7 +246,7 @@ const cancel = () => {
             />
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   </AppLayout>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import Message from 'primevue/message';
 
 const page = usePage ();
@@ -43,7 +43,9 @@ const flash = computed ( () => page.props.flash );
     <!-- Sidebar -->
     <aside class="fixed md:relative top-0 left-0 h-full w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col z-40 -translate-x-full md:translate-x-0 peer-checked:translate-x-0 transition-transform duration-300">
     <div class="p-6 border-b border-b-primary-500">
-        <h1 class="text-xl font-semibold text-white pl-12 md:pl-0">CRM</h1>
+        <h1 class="text-xl font-semibold text-white pl-12 md:pl-0">
+          <Link :href="route('dashboard')">CRM</Link>
+        </h1>
       </div>
       <nav class="flex-1 p-4 space-y-2">
         <a

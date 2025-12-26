@@ -4,8 +4,10 @@ import { computed } from 'vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Image from "../../Components/Image.vue";
+import Card from "../../Components/Card.vue";
 import Editor from 'primevue/editor'
 import { Button, InputText, Select, Message } from 'primevue';
+import FormHeader from "../../Components/FormHeader.vue";
 
 const props = defineProps ( {
   company: {
@@ -28,9 +30,9 @@ const form = useForm ( {
 } );
 const submit = () => {
   if ( is_edit.value ) {
-    form.put ( route ( 'companies.update', props.company.id ));
+    form.put ( route ( 'companies.update', props.company.id ) );
   } else {
-    form.post ( route ( 'companies.store' ));
+    form.post ( route ( 'companies.store' ) );
   }
 };
 
@@ -43,13 +45,13 @@ const cancel = () => {
   <Head title="Companies" />
   <AppLayout>
     <div class="px-8 py-4">
-      <div class="mb-6">
-        <h1 class="text-3xl font-bold text-darker-900">
-          {{ is_edit ? 'Edit Company' : 'Create Company' }}
-        </h1>
-      </div>
+      <FormHeader
+          :header="is_edit ? 'Edit Company' : 'Create Company'"
+          to_route="companies.index"
+          label="Back to Companies"
+      />
 
-      <div class="bg-white rounded-lg shadow p-6">
+      <Card>
         <form
             @submit.prevent="submit"
             class="space-y-3"
@@ -167,7 +169,7 @@ const cancel = () => {
             />
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   </AppLayout>
 </template>

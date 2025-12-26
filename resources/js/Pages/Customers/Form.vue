@@ -6,6 +6,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Button, InputText, Select, Message, Password } from 'primevue';
 import Image from "../../Components/Image.vue";
 import Card from "../../Components/Card.vue";
+import FormHeader from "../../Components/FormHeader.vue";
 
 const props = defineProps ( {
   customer: {
@@ -56,12 +57,12 @@ const cancel = () => {
   <Head title="Customers" />
   <AppLayout header="hi">
     <div class="px-8 py-4">
-      <div class="mb-6">
-        <h1 class="text-3xl font-bold text-darker-900">
-          {{ is_edit ? 'Edit Customer' : 'Create Customer' }}
-        </h1>
-      </div>
-      <div class="bg-white rounded-lg shadow p-6">
+      <FormHeader
+          :header="is_edit ? 'Edit Customer' : 'Create Customer'"
+          to_route="customers.index"
+          label="Back to Customers"
+      />
+      <Card>
         <form
             @submit.prevent="submit"
             class="space-y-6"
@@ -307,11 +308,14 @@ const cancel = () => {
                   :on_id="props.customer.id"
                   :image="props.customer.avatar"
               />
-              <p class="text-darker-600" v-else>You will be able to add an avatar once the customer is created.</p>
+              <p
+                  class="text-darker-600"
+                  v-else
+              >You will be able to add an avatar once the customer is created.</p>
             </div>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   </AppLayout>
 </template>
