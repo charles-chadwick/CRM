@@ -60,7 +60,7 @@ const cancel = () => {
       <FormHeader
           :header="is_edit ? 'Edit Customer' : 'Create Customer'"
           to_route="customers.index"
-          label="Back to Customers"
+          label="Back to Customers"w
       />
       <Card>
         <form
