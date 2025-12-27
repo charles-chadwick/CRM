@@ -1,9 +1,12 @@
 <script setup>
-import { computed } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import { Head, router } from '@inertiajs/vue3';
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Contacts from '@/Pages/Contacts/Partials/Details.vue';
 import Card from '@/Components/Card.vue';
+import { Menu, Button, ConfirmDialog } from 'primevue';
+import { useConfirm } from 'primevue/useconfirm';
+
 const { company } = defineProps ( {
   company: {
     type: Object,
@@ -11,15 +14,54 @@ const { company } = defineProps ( {
   },
 } );
 
-const pageTitle = computed ( () => `${ company.name } Information` );
+const page_title = computed ( () => `${ company.name } Information` );
+
+const menu = ref ();
+const confirm = useConfirm ();
+
+const items = [
+  {
+    label: 'Edit',
+    icon: 'pi pi-pencil',
+    command: () => {
+      router.visit ( route ( 'companies.edit', company.id ) );
+    }
+  },
+  {
+    label: 'Delete',
+    icon: 'pi pi-trash',
+    command: () => {
+      confirm.require ( {
+        message: 'Are you sure you want to delete this company?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        rejectLabel: 'Cancel',
+        acceptLabel: 'Delete',
+        rejectProps: {
+          severity: 'secondary'
+        },
+        acceptProps: {
+          severity: 'danger'
+        },
+        accept: () => {
+          router.delete ( route ( 'companies.destroy', company.id ) );
+        }
+      } );
+    }
+  }
+];
+
+const toggle = ( event ) => {
+  menu.value.toggle ( event );
+};
+
 </script>
 
 <template>
   <AppLayout>
-    <Head :title="pageTitle" />
-
-
-      <Card class="flex justify-between">
+    <Head :title="page_title" />
+    <ConfirmDialog />
+    <Card class="flex justify-between">
         <div class="flex gap-4">
           <!-- Logo Section -->
           <div
@@ -56,7 +98,24 @@ const pageTitle = computed ( () => `${ company.name } Information` );
             :on_id="company.id"
             on_type="Company"
         />
-      </Card>
+
+        <!-- Menu Component -->
+      <div>
+        <Button
+            icon="pi pi-ellipsis-v"
+            severity="secondary"
+            @click="toggle"
+            aria-haspopup="true"
+            aria-controls="overlay_menu"
+        />
+        <Menu
+            ref="menu"
+            id="overlay_menu"
+            :model="items"
+            :popup="true"
+        />
+      </div>
+    </Card>
 
   </AppLayout>
 </template>
