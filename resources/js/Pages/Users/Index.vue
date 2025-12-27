@@ -5,7 +5,6 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import { Head } from "@inertiajs/vue3";
-import UserDetails from "./Partials/Details.vue";
 
 const props = defineProps ( {
   users: Object,
