@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
 abstract class Base extends Model
 {
     use SoftDeletes;
-    use LogsActivity;
 
     /**
      * The attributes that should be cast.
@@ -104,7 +102,7 @@ abstract class Base extends Model
     /**
      * Load default relationships.
      *
-     * @return array
+     * @return void
      */
     protected static function booted(): void
     {

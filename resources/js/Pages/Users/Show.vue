@@ -19,6 +19,12 @@ const items = [
     command: () => {
       router.visit ( route ( 'users.edit', props.user.id ) );
     }
+  }, {
+    label: 'See Activity',
+    icon: 'pi pi-history',
+    command: () => {
+      router.visit ( route ( 'activity.index', { on: 'User', id: props.user.id } ) );
+    }
   },
   {
     label: 'Delete',
@@ -56,14 +62,14 @@ const toggle = ( event ) => {
     <Card class="flex justify-between gap-4">
       <div class="flex flex-start flex-row">
         <img
-            :src="user.avatar"
+            :src="user?.avatar || '/images/default-user.png'"
             alt="Avatar"
             class=" rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
         />
         <div class="pl-4">
-          <h1 class="card-header">{{ user.full_name_with_salutations }}</h1>
-          <p class="mt-1">{{ user.role }}</p>
-          <p class="mt-1">{{ user.email }}</p>
+          <h1 class="card-header">{{ user?.full_name_with_salutations }}</h1>
+          <p class="mt-1">{{ user?.role }}</p>
+          <p class="mt-1">{{ user?.email }}</p>
         </div>
       </div>
       <div>

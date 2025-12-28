@@ -4,7 +4,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps ( {
   users: Object,
@@ -41,7 +41,15 @@ const props = defineProps ( {
             class="table-row"
         >
           <td class="table-cell">{{ user.role }}</td>
-          <td class="table-cell">{{ user.full_name }}</td>
+          <td class="table-cell">
+            <Link
+                :href="route('users.show', user.id)"
+                target="_blank"
+                class="click"
+            >
+              {{ user.full_name }}
+            </Link>
+          </td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton
