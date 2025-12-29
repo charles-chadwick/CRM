@@ -27,7 +27,7 @@ class CompanyController extends Controller
 
     public function show(Company $company)
     {
-        $company->load(['contacts']);
+        $company->load(['contacts', 'customers']);
 
         return Inertia::render('Companies/Show', [
             'company' => $company,

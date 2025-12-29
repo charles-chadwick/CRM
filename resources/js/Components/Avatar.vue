@@ -8,7 +8,7 @@ const props = defineProps ( {
   size: { type: String, default: 'xs' },
   allow_popup: { type: Boolean, default: false }
 } )
-const image = props.image;
+const image = props.image || '/images/default-user.png';
 const size = props.size;
 
 const sizes = {
