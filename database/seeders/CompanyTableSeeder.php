@@ -61,7 +61,7 @@ class CompanyTableSeeder extends Seeder
 
             $created_at = fake()->dateTimeBetween($start_date, $end_date);
 
-            Company::create([
+            $company = Company::create([
                 'type'          => fake()->randomElement(CompanyType::cases()),
                 'name'          => FilterData::censor($episode['name']),
                 'notes'         => fake()
@@ -72,6 +72,8 @@ class CompanyTableSeeder extends Seeder
                 'created_at'    => $created_at,
                 'updated_at'    => $created_at,
             ]);
+
+            activity()->performedOn($company)->log('Created');
 
             echo '.';
         });

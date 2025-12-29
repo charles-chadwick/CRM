@@ -10,6 +10,8 @@ class ActivityController extends Controller
     public function index(string $on, int $id)
     {
         $activities = Activity::where('subject_type', "App\\Models\\{$on}")
+            ->with('causer')
+            ->where('log_name', '!=', 'auth.login')
             ->orderBy('created_at', 'DESC')
             ->where('subject_id', $id)
             ->get();

@@ -30,6 +30,13 @@ const items = [
     }
   },
   {
+    label: 'See Activity',
+    icon: 'pi pi-history',
+    command: () => {
+      router.visit ( route ( 'activity.index', { on: 'Company', id: company.id } ) );
+    }
+  },
+  {
     label: 'Delete',
     icon: 'pi pi-trash',
     command: () => {
@@ -108,7 +115,15 @@ const toggle = ( event ) => {
             id="overlay_menu"
             :model="items"
             :popup="true"
-        />
+        >
+          <template #item="{ item, props }">
+            <a class="flex items-center" v-bind="props.action">
+              <span :class="item.icon" />
+              <span>{{ item.label }}</span>
+              <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            </a>
+          </template>
+        </Menu>
       </div>
     </Card>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

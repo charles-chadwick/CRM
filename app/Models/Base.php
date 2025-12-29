@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 abstract class Base extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
     /**
      * The attributes that should be cast.
@@ -57,15 +58,25 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
+                    ->useLog('database')
                     ->log(class_basename($model) . ' created');
             }
         });
 
         static::updated(function ($model) {
             if (auth()->check()) {
+                $changes = $model->getChanges();
+                $original = $model->getOriginal();
+                $properties = [
+                    'attributes' => $changes,
+                    'old'        => array_intersect_key($original, $changes)
+                ];
+
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
+                    ->withProperties($properties)
+                    ->useLog('database')
                     ->log(class_basename($model) . ' updated');
             }
         });
@@ -75,6 +86,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
+                    ->useLog('database')
                     ->log(class_basename($model) . ' deleted');
             }
         });
@@ -84,6 +96,8 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
+                    
+                    ->useLog('database')
                     ->log(class_basename($model) . ' restored');
             }
         });
@@ -93,6 +107,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
+                    ->useLog('database')
                     ->log(class_basename($model) . ' permanently deleted');
             }
         });
@@ -114,13 +129,12 @@ abstract class Base extends Model
             });
         }
     }
-
     /**
      * Get the activity log options.
      *
      * @return LogOptions
      */
-    public function getActivitylogOptions(): LogOptions
+    public function getActivitylogOptions() : LogOptions
     {
         return LogOptions::defaults()
             ->logAll()

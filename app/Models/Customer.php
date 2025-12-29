@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\HasContacts;
-use App\Traits\HasContactsRelations;
 use App\Traits\HasUsers;
 use App\Traits\IsPerson;
 use App\Traits\Orderable;

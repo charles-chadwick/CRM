@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Company extends Base implements HasMedia
 {
-    use InteractsWithMedia, LogsActivity, HasUsers;
+    use InteractsWithMedia, HasUsers;
     use Orderable, HasContacts;
 
     /**
