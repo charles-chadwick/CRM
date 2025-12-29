@@ -7,6 +7,7 @@ use App\Enums\ContactType;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
@@ -14,9 +15,10 @@ class CompanyController extends Controller
     /**
      * Display a listing of companies.
      */
-    public function index()
+    public function index(Request $request)
     {
         $companies = Company::ordered()
+            ->where('name', 'LIKE', '%' . $request->search . '%')
             ->paginate()
             ->withQueryString();
 
