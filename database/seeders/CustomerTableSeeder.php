@@ -109,7 +109,7 @@ class CustomerTableSeeder extends Seeder
 
                 activity()
                     ->performedOn($customer)
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Created');
 
                 $name_index++;

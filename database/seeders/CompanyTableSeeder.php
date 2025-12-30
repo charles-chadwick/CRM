@@ -76,7 +76,7 @@ class CompanyTableSeeder extends Seeder
 
             activity()
                 ->performedOn($company)
-                ->useLog('database')
+                ->useLog('Database')
                 ->log('Created');
 
             echo '.';

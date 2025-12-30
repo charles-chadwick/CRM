@@ -98,7 +98,7 @@ class UserTableSeeder extends Seeder
 
             activity()
                 ->performedOn($staff_user)
-                ->useLog('database')
+                ->useLog('Database')
                 ->log('Created');
 
             $this->addMedia($staff_user, $character['image']);

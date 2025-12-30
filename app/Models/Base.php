@@ -56,7 +56,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Created');
             }
         });
@@ -74,7 +74,7 @@ abstract class Base extends Model
                     ->performedOn($model)
                     ->causedBy(auth()->user())
                     ->withProperties($properties)
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Updated');
             }
         });
@@ -84,7 +84,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Deleted');
             }
         });
@@ -94,7 +94,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Restored');
             }
         });
@@ -104,7 +104,7 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
-                    ->useLog('database')
+                    ->useLog('Database')
                     ->log('Permanently deleted');
             }
         });
