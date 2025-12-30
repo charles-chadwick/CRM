@@ -4,7 +4,7 @@ import { Button, InputText } from "primevue";
 import { ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 
-const props = defineProps ( { url: { type: String, required: true } } )
+const props = defineProps ( { route: { type: String, required: true } } )
 const search = ref ( '' )
 const clearSearch = () => {
   search.value = ''
@@ -12,7 +12,7 @@ const clearSearch = () => {
 
 watch ( [ search ], ( [ searchValue ] ) => {
   router.get (
-      props.url,
+      route(props.route),
       {
         search: searchValue,
       },

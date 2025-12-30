@@ -5,9 +5,10 @@ import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionB
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { Head } from "@inertiajs/vue3";
-import UserDetails from "../Users/Partials/Details.vue";
 import CompanyDetails from '../Companies/Partials/Details.vue';
 import CustomerDetails from './Partials/Details.vue';
+import Search from "../../Components/Search.vue";
+
 const props = defineProps ( { customers: Object } );
 </script>
 
@@ -23,6 +24,13 @@ const props = defineProps ( { customers: Object } );
         <CreateButton
             prefix="customers"
             message="Customer"
+        />
+      </div>
+
+      <div class="mb-4">
+        <Search
+            route="customers.index"
+            placeholder="Search Customers"
         />
       </div>
 

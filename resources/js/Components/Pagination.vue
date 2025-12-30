@@ -12,10 +12,10 @@ defineProps({
     <template v-for="link in pagination.links" :key="link.label">
       <Link
           preserve-scroll
-          :href="link.url ?? ''"
+          :href="link.route ?? ''"
           v-html="link.label"
           class="flex items-center justify-center px-4 py-2 rounded-full text-darker-600"
-          :class="{ 'bg-darker-200': link.active, '!text-darker-300': !link.url }"
+          :class="{ 'bg-darker-200': link.active, '!text-darker-300': !link.route }"
       />
     </template>
   </nav>

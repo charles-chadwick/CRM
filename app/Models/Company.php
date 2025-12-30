@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasContacts;
 use App\Traits\HasUsers;
 use App\Traits\Orderable;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -17,7 +18,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Company extends Base implements HasMedia
 {
     use InteractsWithMedia, HasUsers;
-    use Orderable, HasContacts;
+    use Orderable, HasContacts, Searchable;
 
     /**
      * The attributes that are mass-assignable.

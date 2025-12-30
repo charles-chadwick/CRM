@@ -3,27 +3,13 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
-import { ConfirmDialog} from "primevue";
-import { Head, router } from "@inertiajs/vue3";
-import UserDetails from "../Users/Partials/Details.vue";
+import { ConfirmDialog } from "primevue";
+import { Head } from "@inertiajs/vue3";
 import CompanyDetails from "./Partials/Details.vue"
-import { ref, watch } from 'vue';
+import Search from "../../Components/Search.vue";
 
 const props = defineProps ( { companies: Object } );
 
-const search = ref ( new URLSearchParams ( window.location.search ).get ( 'search' ) || '' );
-
-let searchTimeout = null;
-watch ( search, ( value ) => {
-  clearTimeout ( searchTimeout );
-  searchTimeout = setTimeout ( () => {
-    router.get ( route ( 'companies.index' ), { search: value }, {
-      preserveState: true,
-      preserveScroll: true,
-      replace: true
-    } );
-  }, 300 );
-} );
 </script>
 
 <template>
@@ -41,11 +27,9 @@ watch ( search, ( value ) => {
       </div>
 
       <div class="mb-4">
-        <input
-            v-model="search"
-            type="text"
-            placeholder="Search companies..."
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <Search
+            route="companies.index"
+            placeholder="Search Companies"
         />
       </div>
 
@@ -84,7 +68,7 @@ watch ( search, ( value ) => {
         </tbody>
       </table>
       <Pagination
-        :pagination="props.companies"
+          :pagination="props.companies"
       />
     </div>
   </AppLayout>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Company;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -14,9 +15,10 @@ class CustomerController extends Controller
     /**
      * Display a listing of customers.
      */
-    public function index()
+    public function index(Request $request)
     {
         $customers = Customer::with(['company'])
+            ->search(['first_name', 'last_name', 'email'], $request->search)
             ->ordered()
             ->paginate()
             ->withQueryString();

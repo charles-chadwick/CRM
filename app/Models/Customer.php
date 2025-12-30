@@ -6,6 +6,7 @@ use App\Traits\HasContacts;
 use App\Traits\HasUsers;
 use App\Traits\IsPerson;
 use App\Traits\Orderable;
+use App\Traits\Searchable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -31,7 +32,7 @@ class Customer extends Base implements
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
     use Notifiable, HasRoles, InteractsWithMedia, HasUsers;
-    use Orderable, IsPerson, HasContacts;
+    use Orderable, IsPerson, HasContacts, Searchable;
 
     /**
      * The attributes that are mass-assignable.

@@ -18,7 +18,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $companies = Company::ordered()
-            ->where('name', 'LIKE', '%' . $request->search . '%')
+            ->search('name', $request->search)
             ->paginate()
             ->withQueryString();
 
@@ -29,7 +29,10 @@ class CompanyController extends Controller
 
     public function show(Company $company)
     {
-        $company->load(['contacts', 'customers']);
+        $company->load([
+            'contacts',
+            'customers'
+        ]);
 
         return Inertia::render('Companies/Show', [
             'company' => $company,
@@ -66,7 +69,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         return Inertia::render('Companies/Form', [
-            'company'       => $company,
+            'company' => $company,
             'company_types' => CompanyType::toSelect()
         ]);
     }
