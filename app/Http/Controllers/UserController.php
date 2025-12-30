@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -15,9 +16,10 @@ class UserController extends Controller
     /**
      * Display a listing of users.
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::with('created_by')
+            ->search(['first_name', 'last_name', 'email'], $request?->search)
             ->orderBy('created_at', 'desc')
             ->paginate()
             ->withQueryString();
@@ -89,7 +91,7 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()
-            ->route('users.index')
+            ->route('users.show', $user->id)
             ->with('message', 'User updated successfully.')
             ->with('type', 'success');
     }

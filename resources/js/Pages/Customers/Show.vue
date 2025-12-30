@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3'
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
 import Contacts from '../Contacts/Partials/Details.vue';
+
 defineProps ( { customer: Object } )
 </script>
 
@@ -13,20 +14,27 @@ defineProps ( { customer: Object } )
     <Card class="flex justify-between gap-4">
       <div class="flex flex-start flex-row">
         <img
-            :src="customer.avatar"
+            :src="customer?.avatar || '/images/default-user.jpg'"
             alt="Avatar"
             class=" rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
         />
-        <h1 class="card-header pl-4">{{ customer.full_name_with_salutations }}</h1>
+        <div class="pl-4">
+          <h1 class="card-header">{{ customer.full_name_with_salutations }}</h1>
+          <p v-if="customer.title">{{ customer.title }}</p>
+          <p>{{ customer.email }}</p>
+        </div>
       </div>
-      <div>
+    </Card>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card class="mt-4">
         <Contacts
             :contacts="customer.contacts"
             :on_id="customer.id"
             on_type="Company"
         />
-      </div>
-    </Card>
 
+      </Card>
+    </div>
   </AppLayout>
 </template>

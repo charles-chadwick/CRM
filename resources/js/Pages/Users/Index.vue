@@ -5,6 +5,7 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import { Head, Link } from "@inertiajs/vue3";
+import Search from "../../Components/Search.vue";
 
 const props = defineProps ( {
   users: Object,
@@ -23,6 +24,12 @@ const props = defineProps ( {
         <CreateButton
             prefix="users"
             message="User"
+        />
+      </div>
+      <div class="mb-4">
+        <Search
+            route="users.index"
+            placeholder="Search Users"
         />
       </div>
 

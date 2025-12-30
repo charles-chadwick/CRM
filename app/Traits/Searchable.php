@@ -4,11 +4,12 @@ namespace App\Traits;
 
 trait Searchable
 {
-    public function scopeSearch($query, string|array $fields, string $search)
+    public function scopeSearch($query, string|array $fields, string|null $search = "")
     {
+        if ($search == "") return $query;
         if (!is_array($fields)) {
             $fields = [$fields];
         }
-        return $query->whereAny($fields, 'LIKE', '%'.$search.'%');
+        return $query->when($search !== "", fn($query) => $query->whereAny($fields, 'LIKE', '%'.$search.'%'));
     }
 }

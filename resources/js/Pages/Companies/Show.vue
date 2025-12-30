@@ -6,7 +6,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Contacts from '@/Pages/Contacts/Partials/Details.vue';
 import Card from '@/Components/Card.vue';
 import CustomerList from '@/Pages/Customers/Partials/List.vue';
-import { Menu, Button, ConfirmDialog } from 'primevue';
+import ActionMenu from '@/Components/ActionMenu.vue';
+import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
 
 const { company } = defineProps ( {
@@ -18,7 +19,6 @@ const { company } = defineProps ( {
 
 const page_title = computed ( () => `${ company.name } Information` );
 
-const menu = ref ();
 const confirm = useConfirm ();
 
 const items = [
@@ -60,10 +60,6 @@ const items = [
   }
 ];
 
-const toggle = ( event ) => {
-  menu.value.toggle ( event );
-};
-
 </script>
 
 <template>
@@ -102,29 +98,7 @@ const toggle = ( event ) => {
       </div>
 
       <!-- Menu Component -->
-      <div>
-        <Button
-            icon="pi pi-ellipsis-v"
-            severity="secondary"
-            @click="toggle"
-            aria-haspopup="true"
-            aria-controls="overlay_menu"
-        />
-        <Menu
-            ref="menu"
-            id="overlay_menu"
-            :model="items"
-            :popup="true"
-        >
-          <template #item="{ item, props }">
-            <a class="flex items-center" v-bind="props.action">
-              <span :class="item.icon" />
-              <span>{{ item.label }}</span>
-              <span v-if="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            </a>
-          </template>
-        </Menu>
-      </div>
+      <ActionMenu :items="items" />
     </Card>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card class="mt-4">

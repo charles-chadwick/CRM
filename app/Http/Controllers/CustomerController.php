@@ -18,7 +18,7 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customers = Customer::with(['company'])
-            ->search(['first_name', 'last_name', 'email'], $request->search)
+            ->search(['first_name', 'last_name', 'email'], $request?->search)
             ->ordered()
             ->paginate()
             ->withQueryString();
@@ -95,7 +95,7 @@ class CustomerController extends Controller
         $customer->update($validated);
 
         return redirect()
-            ->route('customers.index')
+            ->route('customers.show', $customer->id)
             ->with('message', 'Customer updated successfully.')
             ->with('type', 'success');
     }
