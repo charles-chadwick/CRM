@@ -22,10 +22,8 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => [
-                'required',
-                'string',
-                'max:255'
+            'company_type_id' => [
+                'required'
             ],
             'name' => [
                 'required',
