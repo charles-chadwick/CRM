@@ -1,6 +1,6 @@
 <script>
 import { defineComponent, h } from 'vue';
-import { Button } from "primevue";
+import { Button } from 'primevue';
 import { router } from "@inertiajs/vue3";
 import { useConfirm } from "primevue/useconfirm";
 

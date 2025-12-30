@@ -5,7 +5,7 @@ import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Image from "../../Components/Image.vue";
 import Card from "../../Components/Card.vue";
-import Editor from 'primevue/editor'
+import Editor from 'primevue/editor';
 import { Button, InputText, Select, Message } from 'primevue';
 import Header from "../../Components/Header.vue";
 

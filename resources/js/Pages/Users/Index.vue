@@ -2,7 +2,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from "../../Components/Pagination.vue";
-import { ConfirmDialog } from "primevue";
+import { ConfirmDialog } from 'primevue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import Search from "../../Components/Search.vue";

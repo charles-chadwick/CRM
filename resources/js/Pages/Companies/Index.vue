@@ -3,7 +3,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
-import { ConfirmDialog } from "primevue";
+import { ConfirmDialog } from 'primevue';
 import { Head } from "@inertiajs/vue3";
 import CompanyDetails from "./Partials/Details.vue"
 import Search from "../../Components/Search.vue";
