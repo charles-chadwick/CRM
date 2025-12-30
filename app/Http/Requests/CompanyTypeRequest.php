@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCompanyTypeRequest extends FormRequest
+class CompanyTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,16 @@ class UpdateCompanyTypeRequest extends FormRequest
      */
     public function rules(): array
     {
+        $companyType = $this->route('company_type');
+
         return [
             'name' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('company_types', 'name')->ignore($this->company_type)
+                $companyType
+                    ? Rule::unique('company_types', 'name')->ignore($companyType)
+                    : 'unique:company_types,name'
             ],
         ];
     }

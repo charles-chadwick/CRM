@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyType;
-use App\Http\Requests\StoreCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
+use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -52,7 +51,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created company in storage.
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(CompanyRequest $request)
     {
         $validated = $request->validated();
         $company = Company::create($validated);
@@ -78,7 +77,7 @@ class CompanyController extends Controller
     /**
      * Update the specified company in storage.
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(CompanyRequest $request, Company $company)
     {
         $validated = $request->validated();
         $company->update($validated);

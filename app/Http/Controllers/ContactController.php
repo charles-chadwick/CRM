@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\UpdateContactRequest;
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use function ucfirst;
 
 class ContactController extends Controller
 {
-    public function store(StoreContactRequest $request)
+    public function store(ContactRequest $request)
     {
         $on_type = $this->handlePrimaryStatus($request);
 
@@ -31,7 +30,7 @@ class ContactController extends Controller
             ->with('success', 'Contact created successfully.');
     }
 
-    public function update(UpdateContactRequest $request, Contact $contact)
+    public function update(ContactRequest $request, Contact $contact)
     {
         $this->handlePrimaryStatus($request);
 
