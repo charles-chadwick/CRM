@@ -68,7 +68,7 @@ const formatPropertyName = ( property ) => {
         <div>
 
           <a
-              v-if="activity.log_name === 'database' && activity.description === 'Updated'"
+              v-if="activity.log_name === 'Database' && activity.description === 'Updated'"
               href="#"
               @click.prevent="toggle_changes ( activity.id )"
               class="ml-2.5"
