@@ -17,7 +17,7 @@ const toggle = ( event ) => {
 <template>
 
   <button
-      class="flex text-left gap-2 items-center hover:opacity-80 transition-opacity"
+      class="flex text-left gap-2 items-center hover:opacity-80 transition-opacity click"
       @click="toggle"
   >
     <Avatar :image="customer.avatar" />
