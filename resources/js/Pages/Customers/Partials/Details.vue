@@ -29,7 +29,7 @@ const toggle = ( event ) => {
       <!-- I had to do the image up like this because the avatar component was not working -->
 
       <img
-          :src="customer.avatar"
+          :src="customer?.avatar || '/images/default-user.jpg'"
           alt="Avatar"
           class="rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
       />
