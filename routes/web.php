@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyTypeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -23,6 +24,10 @@ Route::middleware([
     EnsureUserIsAdmin::class
 ])
     ->group(function () {
+
+        Route::post('/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
+        Route::post('/discussions/{discussion}/reply', [DiscussionController::class, 'reply'])->name('discussions.reply');
+        Route::delete('/discussion-posts/{post}', [DiscussionController::class, 'destroyPost'])->name('discussions.posts.destroy');
         Route::resource('customers', CustomerController::class);
         Route::resource('users', UserController::class);
         Route::resource('companies', CompanyController::class);

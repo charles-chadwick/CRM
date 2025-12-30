@@ -21,12 +21,14 @@ class Discussion extends Base
         'type',
         'title',
         'status',
-        'notes'
+        'notes',
+        'on_id'
     ];
 
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
+        $this->with[] = 'posts';
 
     }
 

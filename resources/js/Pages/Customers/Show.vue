@@ -7,7 +7,7 @@ import Contacts from '../Contacts/Partials/Details.vue';
 import Header from "../../Components/Header.vue";
 import { useConfirm } from "primevue/useconfirm";
 import ActionMenu from "../../Components/ActionMenu.vue";
-import Discussions from "../../Pages/Discuss/Partials/List.vue"
+import Discussions from "../../Components/Discussions.vue";
 const props = defineProps ( { customer: Object } )
 const customer = props.customer;
 
@@ -76,17 +76,21 @@ const items = [
 
     </Card>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <Card class="mt-4">
+    <div class="flex gap-4">
+      <Card class="mt-4 w-1/2">
         <Contacts
             :contacts="customer.contacts"
             :on_id="customer.id"
-            on_type="Company"
+            on_type="Customer"
         />
 
       </Card>
-      <Card class="mt-4">
-        <Discussions :discussions="customer.discussions" />
+      <Card class="mt-4 w-1/2">
+        <Discussions
+            :discussions="customer.discussions"
+            :on_id="customer.id"
+            on_type="Customer"
+        />
       </Card>
     </div>
   </AppLayout>
