@@ -1,7 +1,8 @@
 <script setup>
 import Details from "./Details.vue";
-import Avatar from "../../../Components/Avatar.vue";
-const props = defineProps({customers: Array|Object})
+import ActionButtons from "../../../Components/ActionButtons.vue";
+
+const props = defineProps ( { customers: Array | Object } )
 
 </script>
 
@@ -9,8 +10,9 @@ const props = defineProps({customers: Array|Object})
   <h2 class="font-semibold mb-4">Customers</h2>
 
   <ul>
-    <li v-for="customer in customers">
-<Details :customer="customer" />
+    <li v-for="customer in customers" class="py-2 flex flex-row justify-between gap-2">
+      <Details :customer="customer" />
+      <ActionButtons :customer="customer" />
     </li>
   </ul>
 

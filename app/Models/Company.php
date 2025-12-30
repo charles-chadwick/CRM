@@ -62,14 +62,6 @@ class Company extends Base implements HasMedia
     }
 
 
-    /**
-     * Get all discussions for this company.
-     */
-    public function discussions() : MorphMany
-    {
-        return $this->morphMany(Discussion::class, 'on');
-    }
-
     public function registerMediaConversions(?Media $media = null) : void
     {
         $this->addMediaConversion('logo')

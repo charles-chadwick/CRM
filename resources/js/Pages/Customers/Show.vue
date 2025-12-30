@@ -7,7 +7,7 @@ import Contacts from '../Contacts/Partials/Details.vue';
 import Header from "../../Components/Header.vue";
 import { useConfirm } from "primevue/useconfirm";
 import ActionMenu from "../../Components/ActionMenu.vue";
-
+import Discussions from "../../Pages/Discuss/Partials/List.vue"
 const props = defineProps ( { customer: Object } )
 const customer = props.customer;
 
@@ -84,6 +84,9 @@ const items = [
             on_type="Company"
         />
 
+      </Card>
+      <Card class="mt-4">
+        <Discussions :discussions="customer.discussions" />
       </Card>
     </div>
   </AppLayout>

@@ -18,7 +18,11 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::with(['company'])
-            ->search(['first_name', 'last_name', 'email'])
+            ->search([
+                'first_name',
+                'last_name',
+                'email'
+            ])
             ->ordered()
             ->paginate()
             ->withQueryString();
@@ -33,7 +37,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $companies = Company::orderBy('name', 'asc')->get();
+        $companies = Company::orderBy('name', 'asc')
+            ->get();
 
         return Inertia::render('Customers/Form', [
             'companies' => $companies,
@@ -52,7 +57,7 @@ class CustomerController extends Controller
         $customer = Customer::create($validated);
 
         return redirect()
-            ->route('customers.edit' , $customer->id)
+            ->route('customers.edit', $customer->id)
             ->with('message', 'Customer created successfully.')
             ->with('type', 'success');
     }
@@ -62,17 +67,21 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        $companies = Company::orderBy('name', 'asc')->get();
+        $companies = Company::orderBy('name', 'asc')
+            ->get();
 
         return Inertia::render('Customers/Form', [
-            'customer'  => $customer->load(['company']),
+            'customer' => $customer->load(['company']),
             'companies' => $companies,
         ]);
     }
 
     public function show(Customer $customer)
     {
-        $customer->load(['contacts']);
+        $customer->load([
+            'contacts',
+            'discussions'
+        ]);
         return Inertia::render('Customers/Show', [
             'customer' => $customer->load(['company']),
         ]);

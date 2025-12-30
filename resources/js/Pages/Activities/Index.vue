@@ -58,8 +58,14 @@ const formatPropertyName = ( property ) => {
               <template v-if="property !== 'created_at' && property !== 'updated_at' && property !== 'updated_by_id'">
                 <strong>{{ formatPropertyName ( property ) }}:</strong>
                 <div class="pl-2.5">
-                  <div>Old: <span class="text-red-500" v-html="activity.properties.old?.[ property ] ?? 'N/A'"></span></div>
-                  <div>New: <span class="text-lime-700" v-html="new_value"></span></div>
+                  <div>Old: <span
+                      class="text-red-500"
+                      v-html="activity.properties.old?.[ property ] ?? 'N/A'"
+                  ></span></div>
+                  <div>New: <span
+                      class="text-lime-700"
+                      v-html="new_value"
+                  ></span></div>
                 </div>
               </template>
             </div>

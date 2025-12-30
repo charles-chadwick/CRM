@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasContacts;
+use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
 use App\Traits\IsPerson;
 use App\Traits\Orderable;
@@ -31,7 +32,7 @@ class Customer extends Base implements
     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
-    use Notifiable, HasRoles, InteractsWithMedia, HasUsers;
+    use Notifiable, HasRoles, InteractsWithMedia, HasUsers, HasDiscussions;
     use Orderable, IsPerson, HasContacts, Searchable;
 
     /**
@@ -88,14 +89,6 @@ class Customer extends Base implements
     public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    /**
-     * Get all discussions for this customer.
-     */
-    public function discussions() : MorphMany
-    {
-        return $this->morphMany(Discussion::class, 'contactable');
     }
 
     public function registerMediaConversions(?Media $media = null) : void

@@ -66,7 +66,10 @@ const items = [
 <template>
   <AppLayout>
     <Head :title="page_title" />
-    <Header header="Company" label="Back" />
+    <Header
+        header="Company"
+        label="Back"
+    />
     <ConfirmDialog />
     <Card class="flex justify-between">
       <div class="flex gap-4">
