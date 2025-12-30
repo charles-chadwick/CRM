@@ -55,7 +55,7 @@
 
 .table-row {
     @apply border-b border-darker-200 odd:bg-darker-100;
-    @apply hover:bg-darker-200;
+    @apply hover:bg-darker-200/75;
 }
 
 .table-cell {
@@ -63,7 +63,7 @@
 }
 
 .click {
-    @apply cursor-pointer hover:text-accent-500;
+    @apply cursor-pointer hover:text-accent-600;
 }
 
 .card-header {

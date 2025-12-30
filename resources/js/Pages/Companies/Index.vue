@@ -69,7 +69,9 @@ const props = defineProps ( { companies: Object } );
       </table>
       <Pagination
           :pagination="props.companies"
+          v-if="props.companies.data.length > 0"
       />
+        <p class="p-4 text-center" v-else>No companies found.</p>
       </Card>
     </div>
   </AppLayout>
