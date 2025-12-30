@@ -26,4 +26,15 @@ class CompanyType extends Base
     {
         return $this->hasMany(Company::class);
     }
+    
+    public function toSelect() : array {
+        return $this->get()
+            ->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->name
+                ];
+            })
+            ->toArray();
+    }
 }

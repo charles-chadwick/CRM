@@ -23,7 +23,7 @@ const props = defineProps ( {
 const is_edit = computed ( () => !! props.company );
 
 const form = useForm ( {
-  type: props.company?.type || '',
+  company_type_id: props.company?.company_type_id || '',
   name: props.company?.name || '',
   notes: props.company?.notes || '',
   logo: null,
@@ -64,25 +64,25 @@ const cancel = () => {
               <div class="grid md:grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
                   <label
-                      for="type"
+                      for="company_type_id"
                       class="font-semibold"
                   >Type</label>
                   <Select
-                      id="type"
-                      v-model="form.type"
+                      id="company_type_id"
+                      v-model="form.company_type_id"
                       optionLabel="label"
                       optionValue="value"
                       :options="props.company_types"
-                      :invalid="!!form.errors.type"
+                      :invalid="!!form.errors.company_type_id"
                       placeholder="Select company type"
                       class="w-full"
                   />
                   <Message
-                      v-if="form.errors.type"
+                      v-if="form.errors.company_type_id"
                       severity="error"
                       :closable="false"
                   >
-                    {{ form.errors.type }}
+                    {{ form.errors.company_type_id }}
                   </Message>
                 </div>
                 <div class="flex flex-col gap-2">

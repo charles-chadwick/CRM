@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
 use function ucfirst;
 
-// ... existing code ...
 class ContactController extends Controller
 {
     public function store(StoreContactRequest $request)

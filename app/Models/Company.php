@@ -28,7 +28,6 @@ class Company extends Base implements HasMedia
      */
     protected $fillable = [
         'company_type_id',
-        'type',
         'name',
         'notes'
     ];
@@ -38,6 +37,12 @@ class Company extends Base implements HasMedia
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
+        $this->with[] = 'companyType';
+    }
+
+    public function toSelect(): array
+    {
+        return $this->toArray();
     }
 
     /**

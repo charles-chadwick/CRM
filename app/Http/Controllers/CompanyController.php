@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CompanyType;
-use App\Enums\ContactType;
+use App\Models\CompanyType;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
@@ -24,6 +23,7 @@ class CompanyController extends Controller
 
         return Inertia::render('Companies/Index', [
             'companies' => $companies,
+            'company_types' => (new CompanyType())->toSelect()
         ]);
     }
 
@@ -31,7 +31,7 @@ class CompanyController extends Controller
     {
         $company->load([
             'contacts',
-            'customers'
+            'customers',
         ]);
 
         return Inertia::render('Companies/Show', [
@@ -45,7 +45,7 @@ class CompanyController extends Controller
     public function create()
     {
         return Inertia::render('Companies/Form', [
-            'company_types' => CompanyType::toSelect(),
+            'company_types' => (new CompanyType())->toSelect()
         ]);
     }
 
@@ -70,7 +70,8 @@ class CompanyController extends Controller
     {
         return Inertia::render('Companies/Form', [
             'company' => $company,
-            'company_types' => CompanyType::toSelect()
+            'company_types' => (new CompanyType())->toSelect()
+
         ]);
     }
 

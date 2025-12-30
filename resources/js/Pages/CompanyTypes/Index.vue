@@ -40,21 +40,21 @@ const props = defineProps({ company_types: Object });
         </thead>
         <tbody>
         <tr
-            v-for="companyType in props.company_types.data"
-            :key="companyType.id"
+            v-for="company_type in props.company_types.data"
+            :key="company_type.id"
             class="table-row"
         >
-          <td class="table-cell">{{ companyType.name }}</td>
+          <td class="table-cell">{{ company_type.name }}</td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
               <EditButton
                   prefix="company-types"
-                  :id="companyType.id"
+                  :id="company_type.id"
               />
               <DeleteButton
                   prefix="company-types"
-                  :id="companyType.id"
-                  :message="companyType.name"
+                  :id="company_type.id"
+                  :message="company_type.name"
               />
             </div>
           </td>

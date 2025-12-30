@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\CompanyType;
+use App\Models\CompanyType;
 use App\Models\Company;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -63,7 +63,7 @@ class CompanyTableSeeder extends Seeder
             $created_at = fake()->dateTimeBetween($start_date, $end_date);
 
             $company = Company::create([
-                'type'          => fake()->randomElement(CompanyType::cases()),
+                'company_type_id'          => CompanyType::inRandomOrder()->first()->id,
                 'name'          => FilterData::censor($episode['name']),
                 'notes'         => fake()
                     ->optional(0.3)

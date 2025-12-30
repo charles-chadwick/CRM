@@ -47,7 +47,7 @@ const props = defineProps ( { companies: Object } );
             :key="company.id"
             class="table-row"
         >
-          <td class="table-cell">{{ company.type }}</td>
+          <td class="table-cell">{{ company.company_type.name }}</td>
           <td class="table-cell click">
             <CompanyDetails :company="company" />
           </td>

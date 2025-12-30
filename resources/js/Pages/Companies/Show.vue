@@ -92,7 +92,7 @@ const items = [
             {{ company.name }}
           </h1>
           <p class="text-darker-600">
-            {{ company.type }}
+            {{ company.company_type.name }}
           </p>
         </div>
       </div>
