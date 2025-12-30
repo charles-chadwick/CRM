@@ -7,7 +7,7 @@ const props = defineProps({
 })
 
 const pagination = props.pagination;
-console.log(pagination)
+
 </script>
 
 <template>
