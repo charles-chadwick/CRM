@@ -9,6 +9,7 @@ import CustomerList from '@/Pages/Customers/Partials/List.vue';
 import ActionMenu from '@/Components/ActionMenu.vue';
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
+import Header from "../../Components/Header.vue";
 
 const { company } = defineProps ( {
   company: {
@@ -65,6 +66,7 @@ const items = [
 <template>
   <AppLayout>
     <Head :title="page_title" />
+    <Header header="Company" label="Back" />
     <ConfirmDialog />
     <Card class="flex justify-between">
       <div class="flex gap-4">

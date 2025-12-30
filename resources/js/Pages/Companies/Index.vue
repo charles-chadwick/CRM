@@ -7,7 +7,7 @@ import { ConfirmDialog } from "primevue";
 import { Head } from "@inertiajs/vue3";
 import CompanyDetails from "./Partials/Details.vue"
 import Search from "../../Components/Search.vue";
-
+import Card from '@/Components/Card.vue'
 const props = defineProps ( { companies: Object } );
 
 </script>
@@ -32,7 +32,7 @@ const props = defineProps ( { companies: Object } );
             placeholder="Search Companies"
         />
       </div>
-
+      <Card>
       <table class="min-w-full border-collapse">
         <thead>
         <tr class="table-header">
@@ -70,6 +70,7 @@ const props = defineProps ( { companies: Object } );
       <Pagination
           :pagination="props.companies"
       />
+      </Card>
     </div>
   </AppLayout>
 </template>

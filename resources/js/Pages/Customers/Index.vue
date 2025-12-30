@@ -8,6 +8,7 @@ import { Head } from "@inertiajs/vue3";
 import CompanyDetails from '../Companies/Partials/Details.vue';
 import CustomerDetails from './Partials/Details.vue';
 import Search from "../../Components/Search.vue";
+import Card from "@/Components/Card.vue";
 
 const props = defineProps ( { customers: Object } );
 </script>
@@ -33,7 +34,7 @@ const props = defineProps ( { customers: Object } );
             placeholder="Search Customers"
         />
       </div>
-
+      <Card>
       <table class="min-w-full border-collapse table-auto">
         <thead>
         <tr class="table-header">
@@ -79,6 +80,7 @@ const props = defineProps ( { customers: Object } );
       <Pagination
           :pagination="props.customers"
       />
+      </Card>
     </div>
   </AppLayout>
 </template>

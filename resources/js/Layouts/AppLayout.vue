@@ -16,10 +16,9 @@ const main_nav = [
 
 const settings_menu = [
   { name: 'Users', href: route ( 'users.index' ), icon: 'pi pi-users' },
-  { name: 'Company Types', href: route ( 'company-types.index' ), icon: 'pi pi-list' }
+  { name: 'Company Types', href: route ( 'company-types.index' ), icon: 'pi pi-tags' }
 ];
-
-const is_admin = computed ( () => page.props.auth?.user?.role === 'Admin' );
+computed ( () => page.props.auth?.user?.role === 'Admin' );
 const flash = computed ( () => page.props.flash );
 </script>
 <template>
@@ -86,7 +85,7 @@ const flash = computed ( () => page.props.flash );
               v-for="settings_item in settings_menu"
               :key="settings_item.name"
               :href="settings_item.href"
-              class="block px-4 py-2 text-white hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
+              class="block px-4 py-2 text-white hover:bg-primary-500 hover:rounded-md items-center gap-2"
           >
             <i :class="settings_item.icon"></i>
             {{ settings_item.name }}
