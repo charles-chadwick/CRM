@@ -7,6 +7,7 @@ use App\Traits\HasUsers;
 use App\Traits\Orderable;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -26,6 +27,7 @@ class Company extends Base implements HasMedia
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_type_id',
         'type',
         'name',
         'notes'
@@ -36,6 +38,14 @@ class Company extends Base implements HasMedia
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
+    }
+
+    /**
+     * Get the company type for this company.
+     */
+    public function companyType(): BelongsTo
+    {
+        return $this->belongsTo(CompanyType::class);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyTypeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ImageController;
@@ -25,6 +26,7 @@ Route::middleware([
         Route::resource('customers', CustomerController::class);
         Route::resource('users', UserController::class);
         Route::resource('companies', CompanyController::class);
+        Route::resource('company-types', CompanyTypeController::class);
         Route::resource('contacts', ContactController::class);
         Route::get('/activity/{on}/{id}', [
             ActivityController::class,

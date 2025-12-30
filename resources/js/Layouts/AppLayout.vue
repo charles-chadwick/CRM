@@ -14,6 +14,11 @@ const main_nav = [
   // { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
 ];
 
+const settings_menu = [
+  { name: 'Users', href: route ( 'users.index' ), icon: 'pi pi-users' },
+  { name: 'Company Types', href: route ( 'company-types.index' ), icon: 'pi pi-list' }
+];
+
 const is_admin = computed ( () => page.props.auth?.user?.role === 'Admin' );
 const flash = computed ( () => page.props.flash );
 </script>
@@ -78,11 +83,13 @@ const flash = computed ( () => page.props.flash );
             class="mt-2 space-y-1 pl-4"
         >
           <Link
-              :href="route('users.index')"
-              class="block px-4 py-2 text-white hover:bg-primary-500 hover:rounded-md items-center gap-2"
+              v-for="settings_item in settings_menu"
+              :key="settings_item.name"
+              :href="settings_item.href"
+              class="block px-4 py-2 text-white hover:bg-primary-500 hover:rounded-md flex items-center gap-2"
           >
-            <i class="pi pi-users"></i>
-            Users
+            <i :class="settings_item.icon"></i>
+            {{ settings_item.name }}
           </Link>
         </div>
       </div>
