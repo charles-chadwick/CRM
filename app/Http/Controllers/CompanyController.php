@@ -14,10 +14,10 @@ class CompanyController extends Controller
     /**
      * Display a listing of companies.
      */
-    public function index(Request $request)
+    public function index()
     {
         $companies = Company::ordered()
-            ->search('name', $request->search)
+            ->search('name')
             ->paginate()
             ->withQueryString();
 

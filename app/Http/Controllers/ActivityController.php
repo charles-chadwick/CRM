@@ -11,7 +11,7 @@ class ActivityController extends Controller
     {
         $activities = Activity::where('subject_type', "App\\Models\\{$on}")
             ->with('causer')
-            ->where('log_name', '!=', 'auth.login')
+            ->where('log_name', '=', 'database')
             ->orderBy('created_at', 'DESC')
             ->where('subject_id', $id)
             ->get();

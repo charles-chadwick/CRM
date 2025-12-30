@@ -13,10 +13,10 @@ class CompanyTypeController extends Controller
     /**
      * Display a listing of company types.
      */
-    public function index(Request $request)
+    public function index()
     {
         $companyTypes = CompanyType::ordered()
-            ->search('name', $request->search)
+            ->search('name')
             ->paginate()
             ->withQueryString();
 

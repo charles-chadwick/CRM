@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,10 +15,10 @@ class UserController extends Controller
     /**
      * Display a listing of users.
      */
-    public function index(Request $request)
+    public function index()
     {
         $users = User::with('created_by')
-            ->search(['first_name', 'last_name', 'email'], $request?->search)
+            ->search(['first_name', 'last_name', 'email'])
             ->orderBy('created_at', 'desc')
             ->paginate()
             ->withQueryString();

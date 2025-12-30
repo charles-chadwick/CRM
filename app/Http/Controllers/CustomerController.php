@@ -15,10 +15,10 @@ class CustomerController extends Controller
     /**
      * Display a listing of customers.
      */
-    public function index(Request $request)
+    public function index()
     {
         $customers = Customer::with(['company'])
-            ->search(['first_name', 'last_name', 'email'], $request?->search)
+            ->search(['first_name', 'last_name', 'email'])
             ->ordered()
             ->paginate()
             ->withQueryString();

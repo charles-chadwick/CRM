@@ -4,8 +4,9 @@ namespace App\Traits;
 
 trait Searchable
 {
-    public function scopeSearch($query, string|array $fields, string|null $search = "")
+    public function scopeSearch($query, string|array $fields)
     {
+        $search = request('search');
         if ($search == "") return $query;
         if (!is_array($fields)) {
             $fields = [$fields];
