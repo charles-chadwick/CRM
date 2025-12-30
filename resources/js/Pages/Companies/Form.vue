@@ -7,7 +7,7 @@ import Image from "../../Components/Image.vue";
 import Card from "../../Components/Card.vue";
 import Editor from 'primevue/editor'
 import { Button, InputText, Select, Message } from 'primevue';
-import FormHeader from "../../Components/FormHeader.vue";
+import Header from "../../Components/Header.vue";
 
 const props = defineProps ( {
   company: {
@@ -45,7 +45,7 @@ const cancel = () => {
   <Head title="Companies" />
   <AppLayout>
     <div class="px-8 md:py-4">
-      <FormHeader
+      <Header
           :header="is_edit ? 'Edit Company' : 'Create Company'"
           to_route="companies.index"
           label="Back to Companies"

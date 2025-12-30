@@ -66,15 +66,15 @@ class UserTableSeeder extends Seeder
             $last_name = str($name_parts->pop())->title();
 
             $role = match (true) {
-                $index <= 3  => UserRole::Admin,
-                $index <= 7  => UserRole::Manager,
-                default      => UserRole::SalesRep,
+                $index <= 3 => UserRole::Admin,
+                $index <= 7 => UserRole::Manager,
+                default     => UserRole::SalesRep,
             };
 
             $role_name = match ($role) {
-                UserRole::Admin => 'Admin',
+                UserRole::Admin   => 'Admin',
                 UserRole::Manager => 'Manager',
-                default => 'Sales Rep',
+                default           => 'Sales Rep',
             };
 
             $staff_user = User::factory()
@@ -95,6 +95,11 @@ class UserTableSeeder extends Seeder
                 ]);
 
             $staff_user->assignRole($role_name);
+
+            activity()
+                ->performedOn($staff_user)
+                ->useLog('database')
+                ->log('Created');
 
             $this->addMedia($staff_user, $character['image']);
             echo '.';

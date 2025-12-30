@@ -18,6 +18,7 @@ class LogActivity
 
             activity()
                 ->causedBy(auth()->user())
+                ->useLog('User Accessed')
                 ->withProperties([
                     'route'      => $routeName,
                     'method'     => $method,
@@ -25,7 +26,7 @@ class LogActivity
                     'ip'         => $request->ip(),
                     'user_agent' => $request->userAgent(),
                 ])
-                ->log("User accessed: {$routeName}");
+                ->log("{$routeName}");
         }
 
         return $next($request);

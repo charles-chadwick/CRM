@@ -91,7 +91,7 @@ class CustomerTableSeeder extends Seeder
                 $first_name = $name_parts[0] ?? '';
                 $last_name = isset($name_parts[1]) ? implode(' ', array_slice($name_parts, 1)) : '';
 
-                Customer::create([
+                $customer = Customer::create([
                     'company_id'        => $company->id,
                     'title'             => fake()->optional(0.3)->jobTitle(),
                     'prefix'            => fake()->optional(0.2)->randomElement(['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.']),
@@ -106,6 +106,11 @@ class CustomerTableSeeder extends Seeder
                     'created_at'        => $created_at,
                     'updated_at'        => $created_at,
                 ]);
+
+                activity()
+                    ->performedOn($customer)
+                    ->useLog('database')
+                    ->log('Created');
 
                 $name_index++;
                 echo '.';

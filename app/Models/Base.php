@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 abstract class Base extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes;
 
     /**
      * The attributes that should be cast.
@@ -28,7 +26,7 @@ abstract class Base extends Model
      *
      * @return void
      */
-    protected static function boot(): void
+    protected static function boot() : void
     {
         parent::boot();
 
@@ -59,7 +57,7 @@ abstract class Base extends Model
                     ->performedOn($model)
                     ->causedBy(auth()->user())
                     ->useLog('database')
-                    ->log(class_basename($model) . ' created');
+                    ->log('Created');
             }
         });
 
@@ -77,7 +75,7 @@ abstract class Base extends Model
                     ->causedBy(auth()->user())
                     ->withProperties($properties)
                     ->useLog('database')
-                    ->log(class_basename($model) . ' updated');
+                    ->log('Updated');
             }
         });
 
@@ -87,7 +85,7 @@ abstract class Base extends Model
                     ->performedOn($model)
                     ->causedBy(auth()->user())
                     ->useLog('database')
-                    ->log(class_basename($model) . ' deleted');
+                    ->log('Deleted');
             }
         });
 
@@ -96,9 +94,8 @@ abstract class Base extends Model
                 activity()
                     ->performedOn($model)
                     ->causedBy(auth()->user())
-                    
                     ->useLog('database')
-                    ->log(class_basename($model) . ' restored');
+                    ->log('Restored');
             }
         });
 
@@ -108,7 +105,7 @@ abstract class Base extends Model
                     ->performedOn($model)
                     ->causedBy(auth()->user())
                     ->useLog('database')
-                    ->log(class_basename($model) . ' permanently deleted');
+                    ->log('Permanently deleted');
             }
         });
     }
@@ -119,27 +116,19 @@ abstract class Base extends Model
      *
      * @return void
      */
-    protected static function booted(): void
+    protected static function booted() : void
     {
         parent::booted();
 
         if (static::class !== User::class) {
             static::retrieved(function ($model) {
-                $model->loadMissing(['created_by', 'updated_by', 'deleted_by']);
+                $model->loadMissing([
+                    'created_by',
+                    'updated_by',
+                    'deleted_by'
+                ]);
             });
         }
-    }
-    /**
-     * Get the activity log options.
-     *
-     * @return LogOptions
-     */
-    public function getActivitylogOptions() : LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll()
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
     }
 
     /**
@@ -147,11 +136,15 @@ abstract class Base extends Model
      *
      * @return array
      */
-    public function getFillable(): array
+    public function getFillable() : array
     {
         return array_merge(
             $this->fillable,
-            ['created_at', 'updated_at', 'deleted_at']
+            [
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
         );
     }
 
@@ -160,7 +153,7 @@ abstract class Base extends Model
      *
      * @return BelongsTo
      */
-    public function created_by(): BelongsTo
+    public function created_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
@@ -170,7 +163,7 @@ abstract class Base extends Model
      *
      * @return BelongsTo
      */
-    public function updated_by(): BelongsTo
+    public function updated_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by_id');
     }
@@ -180,7 +173,7 @@ abstract class Base extends Model
      *
      * @return BelongsTo
      */
-    public function deleted_by(): BelongsTo
+    public function deleted_by() : BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by_id');
     }

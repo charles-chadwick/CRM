@@ -45,7 +45,8 @@ class CompanyTableSeeder extends Seeder
         echo "\nCreating Companies\n";
 
         $episodes->each(function ($episode) use ($users) {
-            $random_user = User::inRandomOrder()->first();
+            $random_user = User::inRandomOrder()
+                ->first();
 
             // Set the causer resolver for activity logging
             CauserResolver::setCauser($random_user);
@@ -73,7 +74,10 @@ class CompanyTableSeeder extends Seeder
                 'updated_at'    => $created_at,
             ]);
 
-            activity()->performedOn($company)->log('Created');
+            activity()
+                ->performedOn($company)
+                ->useLog('database')
+                ->log('Created');
 
             echo '.';
         });

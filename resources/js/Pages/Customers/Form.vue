@@ -6,7 +6,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Button, InputText, Select, Message, Password } from 'primevue';
 import Image from "../../Components/Image.vue";
 import Card from "../../Components/Card.vue";
-import FormHeader from "../../Components/FormHeader.vue";
+import Header from "../../Components/Header.vue";
 
 const props = defineProps ( {
   customer: {
@@ -57,7 +57,7 @@ const cancel = () => {
   <Head title="Customers" />
   <AppLayout>
     <div class="px-8 md:py-4">
-      <FormHeader
+      <Header
           :header="is_edit ? 'Edit Customer' : 'Create Customer'"
           to_route="customers.index"
           label="Back to Customers"

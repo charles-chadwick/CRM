@@ -10,7 +10,11 @@ const props = defineProps({
 })
 
 const cancel = () => {
-  router.visit ( route ( props.to_route ) );
+  if ( props.to_route ) {
+    router.visit ( route ( props.to_route ) );
+  } else {
+    window.history.back ();
+  }
 };
 
 </script>

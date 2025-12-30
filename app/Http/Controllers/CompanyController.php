@@ -80,7 +80,7 @@ class CompanyController extends Controller
         $company->update($validated);
 
         return redirect()
-            ->route('companies.index')
+            ->route('companies.show', $company->id)
             ->with('message', 'Company updated successfully.')
             ->with('type', 'success');
     }
