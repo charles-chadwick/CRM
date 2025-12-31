@@ -7,16 +7,21 @@ import Header from "../../Components/Header.vue";
 import UserDetails from "../../Pages/Users/Partials/Details.vue"
 import Pagination from "../../Components/Pagination.vue";
 import Editor from "primevue/editor";
-import { Button, Message } from "primevue";
+import { Button, Message, InputText } from "primevue";
 
 const props = defineProps ( { discussion: Object, posts: Object } )
 const discussion = props.discussion
 
 const submit = () => {
-  form.post ( route ( 'discussions.reply', { discussion: discussion.id } ), { preserveScroll: true } );
+  if ( discussion.id ) {
+    form.post ( route ( 'discussions.reply', { discussion: discussion.id } ), { preserveScroll: true } );
+  } else {
+    form.post ( route ( 'discussions.store' ), { preserveScroll: true } );
+  }
 }
 
 const form = useForm ( {
+  title: discussion.title || '',
   content: '',
   on_type: discussion.on_type,
   on_id: discussion.on_id,
@@ -35,10 +40,32 @@ const form = useForm ( {
     <Card>
       <div class="flex justify-between gap-4">
         <div>
-          <h1 class="card-header">{{ discussion.title }}</h1>
-          <p class="text-sm">
-            Created {{ discussion.created_at }} <br />by {{ discussion.created_by.full_name }}
-          </p>
+          <div v-if="!discussion.id">
+            <label
+                for="title"
+                class="font-semibold"
+            >Thread Title</label>
+            <InputText
+                id="title"
+                v-model="form.title"
+                :invalid="!!form.errors.title"
+                placeholder="Enter thread title"
+                class="w-full"
+            />
+            <Message
+                v-if="form.errors.title"
+                severity="error"
+                :closable="false"
+            >
+              {{ form.errors.title }}
+            </Message>
+          </div>
+          <div v-else>
+            <h1 class="card-header">{{ discussion.title }}</h1>
+            <p class="text-sm">
+              Created {{ discussion.created_at }} <br />by {{ discussion.created_by.full_name }}
+            </p>
+          </div>
         </div>
         <div class="text-sm text-right">
           <h2 class="font-bold mb-2">Users In This Discussion</h2>
@@ -87,7 +114,7 @@ const form = useForm ( {
       <div class="flex justify-center p-4">
         <Button
             type="submit"
-            label="Reply"
+            :label="discussion.id ? 'Reply' : 'Create Thread'"
             icon="pi pi-check"
             severity="primary"
         />

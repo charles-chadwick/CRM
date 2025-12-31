@@ -6,8 +6,8 @@ const props = defineProps({ discussions: Array, on_type: String, on_id: Number }
 </script>
 <template>
   <div class="flex justify-between">
-    <h2 class="font-semibold mb-4">Discussions</h2>
-    <p class="text-darker-700">({{ discussions.length }} total)</p>
+    <h2 class="font-semibold mb-4">Discussions ({{ discussions.length }} total)</h2>
+    <Link :href="route('discussions.show', { on_type, on_id })" class="btn btn-primary">New Discussion</Link>
   </div>
   <ul>
     <li
