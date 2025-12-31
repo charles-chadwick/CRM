@@ -38,7 +38,7 @@ const formatPropertyName = ( property ) => {
 <template>
   <Head title="Activities" />
   <AppLayout>
-    <Header header="Activities" />
+    <Header header="Activities" label="Back" />
     <Card>
       <div
           v-for="activity in activities"

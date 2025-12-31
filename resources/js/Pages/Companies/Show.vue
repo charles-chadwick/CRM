@@ -113,8 +113,10 @@ const items = [
             on_type="Company"
         />
       </Card>
-      <Card class="mt-4">
-        <CustomerList
+      <Card
+          class="mt-4"
+      >
+      <CustomerList
             :customers="company.customers"
         />
       </Card>
