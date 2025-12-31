@@ -44,7 +44,7 @@ class CompanyTableSeeder extends Seeder
 
         echo "\nCreating Companies\n";
 
-        $episodes->each(function ($episode) use ($users) {
+        for($i = 0; $i < 25; $i++) {
             $random_user = User::inRandomOrder()
                 ->first();
 
@@ -64,7 +64,7 @@ class CompanyTableSeeder extends Seeder
 
             $company = Company::create([
                 'company_type_id'          => CompanyType::inRandomOrder()->first()->id,
-                'name'          => FilterData::censor($episode['name']),
+                'name'          => fake()->company(),
                 'notes'         => fake()
                     ->optional(0.3)
                     ->sentence(),
@@ -80,7 +80,7 @@ class CompanyTableSeeder extends Seeder
                 ->log('Created');
 
             echo '.';
-        });
+        }
 
         echo "\n";
     }
