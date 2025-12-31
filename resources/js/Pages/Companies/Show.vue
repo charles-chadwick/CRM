@@ -71,7 +71,8 @@ const items = [
         label="Back"
     />
     <ConfirmDialog />
-    <Card class="flex justify-between">
+    <Card>
+      <div  class="flex justify-between">
       <div class="flex gap-4">
         <!-- Logo Section -->
         <div
@@ -83,6 +84,8 @@ const items = [
               :alt="`${company.name} Logo`"
               class="rounded-xl size-32 border-2 border-darker-300 object-cover"
           >
+
+
         </div>
         <div
             v-else
@@ -96,14 +99,19 @@ const items = [
           <h1 class="text-3xl font-bold text-darker-900">
             {{ company.name }}
           </h1>
-          <p class="text-darker-600">
+          <p class="text-darker-800">
             {{ company.company_type.name }}
           </p>
+          <p class="mt-4 text-darker-800">Notes: <span v-html="company.notes"></span></p>
+
         </div>
+
       </div>
 
       <!-- Menu Component -->
       <ActionMenu :items="items" />
+      </div>
+
     </Card>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card class="mt-4">
