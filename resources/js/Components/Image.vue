@@ -81,11 +81,14 @@ const handleCloseDialog = () => {
 
 <template>
   <div>
-    <div v-if="image" class="flex flex-col items-center justify-center">
+    <div
+        v-if="image"
+        class="flex flex-col items-center justify-center"
+    >
       <img
           @click="handleShowDialog"
           :alt="alt_text"
-          :class="['rounded-2xl mx-auto my-2 border-2 border-darker-300 hover:border-primary-600', sizes[size]]"
+          :class="['rounded-2xl mx-auto my-2 border-2 border-darker-500 hover:border-primary-600', sizes[size]]"
           :src="image"
       />
       <Button
@@ -103,6 +106,7 @@ const handleCloseDialog = () => {
           :customUpload="true"
           @uploader="uploadImage"
           @select="(e) => form.image = e.files[0]"
+
       >
         <template #empty>
           <p>{{ placeholder_text }}</p>
@@ -120,7 +124,7 @@ const handleCloseDialog = () => {
       <img
           @click="handleCloseDialog"
           :src="image"
-          class="rounded-xl border-2 border-darker-300 hover:border-primary-600"
+          class="rounded-xl border-2 border-darker-500 hover:border-primary-600"
           :alt="alt_text"
       />
 

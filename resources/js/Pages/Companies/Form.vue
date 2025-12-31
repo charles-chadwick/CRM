@@ -132,10 +132,9 @@ const cancel = () => {
             </div>
 
             <div class="md:w-1/3 gap-2">
-              <label
-                  for="notes"
-                  class="font-semibold"
-              >Logo</label>
+              <div
+                  class="font-semibold mb-2"
+              >Logo</div>
               <Image
                   v-if="is_edit"
                   image_type="logo"

@@ -21,7 +21,7 @@ const cancel = () => {
 
 <template>
   <div class="mb-6 flex justify-between items-center">
-    <h1 class="text-xl md:text-3xl font-bold text-darker-900">
+    <h1 class="page-header">
       {{ props.header }}
     </h1>
     <Button

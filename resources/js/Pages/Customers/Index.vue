@@ -21,7 +21,7 @@ const props = defineProps ( { customers: Object } );
 
     <div class="px-8 md:py-4">
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl md:text-3xl font-bold text-darker-900">Customers</h1>
+        <h1 class="page-header">Customers</h1>
         <CreateButton
             prefix="customers"
             message="Customer"
