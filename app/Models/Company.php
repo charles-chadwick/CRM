@@ -38,6 +38,7 @@ class Company extends Base implements HasMedia
         parent::__construct($attributes);
         $this->loadRelations();
         $this->with[] = 'companyType';
+        $this->withCount[] = 'customers';
     }
 
     public function toSelect(): array

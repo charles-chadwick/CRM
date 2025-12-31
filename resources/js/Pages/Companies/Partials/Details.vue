@@ -41,7 +41,8 @@ const toggle = ( event ) => {
         <div class="pl-4">
 
           <h1 class="font-bold">{{ company.name }}</h1>
-          <p>{{ company.type }}</p>
+          <p>{{ company.company_type.name }}</p>
+          <p>{{  company?.customers_count }} Customers</p>
           <Link :href="route('companies.show', company.id)">
 
             <Button class="mt-2 font-bold">
