@@ -7,10 +7,15 @@ const props = defineProps ( { customers: Array | Object } )
 </script>
 
 <template>
-  <h2 class="font-semibold mb-4">Customers</h2>
-
+  <div class="flex justify-between">
+    <h2 class="font-semibold mb-4">Customers</h2>
+    <p class="text-darker-700">({{ customers.length }} total)</p>
+  </div>
   <ul>
-    <li v-for="customer in customers" class="py-2 flex flex-row justify-between gap-2">
+    <li
+        v-for="customer in customers"
+        class="py-2 flex flex-row justify-between gap-2"
+    >
       <Details :customer="customer" />
       <ActionButtons :customer="customer" />
     </li>
