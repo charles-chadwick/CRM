@@ -12,6 +12,7 @@ class DiscussionController extends Controller
 {
     public function show(Discussion $discussion)
     {
+        $discussion->load(['posts']);
         return Inertia::render('Discussions/Show', [
             'discussion' => $discussion,
         ]);

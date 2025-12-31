@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasUsers;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Collection;
 
 class Discussion extends Base
 {
@@ -25,7 +26,10 @@ class Discussion extends Base
         'on_id'
     ];
 
-    public function __construct(array $attributes = []) {
+    public $appends = ['users'];
+
+    public function __construct(array $attributes = [])
+    {
         parent::__construct($attributes);
         $this->loadRelations();
         $this->with[] = 'posts';
@@ -35,7 +39,7 @@ class Discussion extends Base
     /**
      * Get the parent-discussable model (User, Company, or Customer).
      */
-    public function discussable(): MorphTo
+    public function discussable() : MorphTo
     {
         return $this->morphTo();
     }
@@ -43,9 +47,18 @@ class Discussion extends Base
     /**
      * Get all posts for this discussion.
      */
-    public function posts(): HasMany
+    public function posts() : HasMany
     {
         return $this->hasMany(DiscussionPost::class);
+    }
+
+    public function getUsersAttribute()
+    {
+        return User::whereIn('id', $this->posts()
+            ->get()
+            ->pluck('created_by_id')
+            ->unique())
+            ->get();
     }
 
 }
