@@ -8,6 +8,7 @@ import { Head, Link } from "@inertiajs/vue3";
 import CompanyDetails from "./Partials/Details.vue"
 import Search from "../../Components/Search.vue";
 import Card from '@/Components/Card.vue'
+import Sort from "../../Components/Sort.vue";
 const props = defineProps ( { companies: Object } );
 
 </script>
@@ -26,11 +27,12 @@ const props = defineProps ( { companies: Object } );
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-4 flex justify-between">
         <Search
             route="companies.index"
             placeholder="Search Companies"
         />
+
       </div>
       <Card>
       <table class="min-w-full border-collapse">

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CompanyType;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use function request;
 
 class CompanyController extends Controller
 {
@@ -16,12 +16,11 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::search('name')
-            ->ordered()
             ->paginate()
             ->withQueryString();
 
         return Inertia::render('Companies/Index', [
-            'companies' => $companies,
+            'companies'     => $companies,
             'company_types' => (new CompanyType())->toSelect()
         ]);
     }
@@ -68,7 +67,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         return Inertia::render('Companies/Form', [
-            'company' => $company,
+            'company'       => $company,
             'company_types' => (new CompanyType())->toSelect()
 
         ]);
