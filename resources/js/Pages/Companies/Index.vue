@@ -4,7 +4,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from 'primevue';
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import CompanyDetails from "./Partials/Details.vue"
 import Search from "../../Components/Search.vue";
 import Card from '@/Components/Card.vue'
@@ -49,7 +49,7 @@ const props = defineProps ( { companies: Object } );
         >
           <td class="table-cell">{{ company.company_type.name }}</td>
           <td class="table-cell click">
-            <CompanyDetails :company="company" />
+            <Link :href="route('companies.show', company.id)">{{  company.name }}</Link>
           </td>
           <td class="table-cell">
             <div class="flex gap-2 justify-center items-center">
