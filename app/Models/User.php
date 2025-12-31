@@ -95,7 +95,7 @@ class User extends Base implements
         if (!file_exists($this->getFirstMediaPath('avatars'))) {
             $image = null;
         } else {
-            $image = url(str($this->getFirstMediaUrl('avatars')));
+            $image = str($this->getFirstMediaUrl('avatars'))->replace('http://127.0.0.1:8000', '');
         }
 
         return Attribute::make(
