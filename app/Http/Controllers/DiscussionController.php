@@ -6,9 +6,17 @@ use App\Models\Discussion;
 use App\Models\DiscussionPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class DiscussionController extends Controller
 {
+    public function show(Discussion $discussion)
+    {
+        return Inertia::render('Discussions/Show', [
+            'discussion' => $discussion,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
