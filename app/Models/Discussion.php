@@ -11,7 +11,7 @@ class Discussion extends Base
     use HasUsers;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
