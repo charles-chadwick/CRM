@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCustomerRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,10 +19,13 @@ class StoreCustomerRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        $customer = $this->route('customer');
+        $isUpdate = $customer !== null;
+
         return [
             'company_id' => [
                 'nullable',
@@ -56,10 +61,12 @@ class StoreCustomerRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                'unique:customers,email'
+                $isUpdate
+                    ? Rule::unique('customers', 'email')->ignore($customer->id)
+                    : 'unique:customers,email'
             ],
             'password' => [
-                'required',
+                $isUpdate ? 'nullable' : 'required',
                 'string',
                 'min:8',
                 'confirmed'

@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Enums\UserRole;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class UpdateUserRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,11 +20,12 @@ class UpdateUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         $user = $this->route('user');
+        $is_update = $user !== null;
 
         return [
             'first_name' => [
@@ -41,10 +43,10 @@ class UpdateUserRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                'unique:users,email,'.$user->id
+                $is_update ? 'unique:users,email,'.$user->id : 'unique:users'
             ],
             'password' => [
-                'nullable',
+                $is_update ? 'nullable' : 'required',
                 'confirmed',
                 Password::defaults()
             ],
@@ -56,4 +58,3 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 }
-

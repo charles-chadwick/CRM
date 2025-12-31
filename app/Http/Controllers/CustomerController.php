@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Requests\CustomerRequest;
 use App\Models\Company;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -48,7 +47,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created customer in storage.
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(CustomerRequest $request)
     {
         $validated = $request->validated();
         $validated['created_by_id'] = auth()->id();
@@ -90,7 +89,7 @@ class CustomerController extends Controller
     /**
      * Update the specified customer in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
         $validated = $request->validated();
         $validated['updated_by_id'] = auth()->id();

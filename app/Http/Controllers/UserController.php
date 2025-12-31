@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +40,7 @@ class UserController extends Controller
     /**
      * Store a newly created user in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
         $validated = $request->validated();
         $validated['password'] = Hash::make($validated['password']);
@@ -77,7 +76,7 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $validated = $request->validated();
 
