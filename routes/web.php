@@ -25,6 +25,7 @@ Route::middleware([
 ])
     ->group(function () {
 
+        Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions.show');
         Route::post('/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
         Route::post('/discussions/{discussion}/reply', [DiscussionController::class, 'reply'])->name('discussions.reply');
         Route::delete('/discussion-posts/{post}', [DiscussionController::class, 'destroyPost'])->name('discussions.posts.destroy');
