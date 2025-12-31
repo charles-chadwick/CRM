@@ -4,9 +4,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import CompanyDetails from '../Companies/Partials/Details.vue';
-import CustomerDetails from './Partials/Details.vue';
+import Avatar from '../../Components/Avatar.vue';
 import Search from "../../Components/Search.vue";
 import Card from "@/Components/Card.vue";
 
@@ -51,7 +51,10 @@ const props = defineProps ( { customers: Object } );
               class="table-row"
           >
             <td class="table-cell">
-              <CustomerDetails :customer="customer" />
+              <div class="flex justify-start gap-2 items-center">
+                <Avatar :image="customer.avatar" />
+                <Link :href="route('customers.show', customer.id)">{{ customer.full_name }}</Link>
+              </div>
             </td>
             <td class="table-cell">{{ customer.title }}</td>
             <td class="table-cell click">
@@ -81,7 +84,10 @@ const props = defineProps ( { customers: Object } );
             :pagination="props.customers"
             v-if="props.customers.data.length > 0"
         />
-        <p class="p-4 text-center" v-else>No customers found.</p>
+        <p
+            class="p-4 text-center"
+            v-else
+        >No customers found.</p>
       </Card>
     </div>
   </AppLayout>
