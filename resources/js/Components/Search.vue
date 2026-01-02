@@ -4,7 +4,9 @@ import { Button, InputText } from "primevue";
 import { ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
 
-const props = defineProps ( { route: { type: String, required: true } } )
+const props = defineProps ( {
+  route: { type: String, required: true },
+  placeholder: { type: String, default: 'Search...' } } )
 const search = ref ( '' )
 const clearSearch = () => {
   search.value = ''
@@ -30,7 +32,7 @@ watch ( [ search ], ( [ searchValue ] ) => {
     <InputText
         v-model="search"
         type="text"
-        placeholder="Search patients..."
+        :placeholder="props.placeholder"
         class="w-full"
     />
     <Button

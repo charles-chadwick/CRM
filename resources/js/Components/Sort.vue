@@ -33,7 +33,7 @@ watch ( sort_direction, ( value ) => {
         v-model="sort_by"
         :options="sort_by_items"
         optionLabel="label"
-        placeholder="Sort Customers"
+        placeholder="Sort By..,"
         optionValue="value"
     />
 
