@@ -3,9 +3,8 @@
 import { computed, ref } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AppLayout from "@/Layouts/AppLayout.vue";
-import Contacts from '@/Pages/Contacts/Partials/Details.vue';
+import Contacts from '@/Components/Contacts.vue';
 import Card from '@/Components/Card.vue';
-import CustomerList from '@/Pages/Customers/Partials/List.vue';
 import ActionMenu from '@/Components/ActionMenu.vue';
 import Header from "../../Components/Header.vue";
 import Discussions from "../Discussions/Partials/List.vue";
@@ -126,13 +125,7 @@ const items = [
             on_type="Company"
         />
       </Card>
-<!--      <Card-->
-<!--          class="mt-4"-->
-<!--      >-->
-<!--        <CustomerList-->
-<!--            :customers="company.customers"-->
-<!--        />-->
-<!--      </Card>-->
+
       <Card class="mt-4">
         <Discussions
             on_type="Company"

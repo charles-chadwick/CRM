@@ -3,11 +3,11 @@
 import { Head, router } from '@inertiajs/vue3'
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
-import Contacts from '../Contacts/Partials/Details.vue';
+import Contacts from '../../Components/Contacts.vue';
 import Header from "../../Components/Header.vue";
-import { useConfirm } from "primevue/useconfirm";
 import ActionMenu from "../../Components/ActionMenu.vue";
 import Discussions from "../Discussions/Partials/List.vue";
+import { useConfirm } from "primevue/useconfirm";
 
 const props = defineProps ( { customer: Object } )
 const customer = props.customer;
