@@ -5,7 +5,11 @@ import Avatar from "../../../Components/Avatar.vue";
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
 
-const props = defineProps ( { user: Object, show_name: { type: Boolean, default: true } } )
+const props = defineProps ( {
+  user: Object,
+  show_name: { type: Boolean, default: true },
+  show_avatar: { type: Boolean, default: true }
+} )
 const op = ref (); // Reference to the OverlayPanel
 
 const toggle = ( event ) => {
@@ -19,7 +23,10 @@ const toggle = ( event ) => {
       class="flex text-left gap-2 items-center hover:opacity-80 transition-opacity click"
       @click="toggle"
   >
-    <Avatar :image="user?.avatar" />
+    <Avatar
+        v-if="show_avatar"
+        :image="user?.avatar"
+    />
     <span v-if="show_name">{{ user?.full_name }}</span>
   </button>
   <Popover ref="op">
