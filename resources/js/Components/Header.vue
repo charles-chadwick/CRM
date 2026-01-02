@@ -24,14 +24,6 @@ const cancel = () => {
     <h1 class="page-header">
       {{ props.header }}
     </h1>
-    <Button
-        type="button"
-        :label="props.label"
-        severity="secondary"
-        outlined
-        icon="pi pi-arrow-left"
-        @click="cancel"
-    />
   </div>
 </template>
 
