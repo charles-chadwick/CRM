@@ -1,9 +1,12 @@
+<!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head } from '@inertiajs/vue3'
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
-import { ref } from 'vue'
 import Header from "../../Components/Header.vue";
+import UserDetails from "../../Pages/Users/Partials/Details.vue"
+import { ref } from 'vue'
+
 
 defineProps ( { activities: Array | Object } )
 
@@ -38,7 +41,11 @@ const formatPropertyName = ( property ) => {
 <template>
   <Head title="Activities" />
   <AppLayout>
-    <Header header="Activities" label="Back" />
+    <Header
+        header="Activities"
+        label="Back"
+    />
+
     <Card>
       <div
           v-for="activity in activities"
@@ -46,10 +53,16 @@ const formatPropertyName = ( property ) => {
           class="flex justify-between gap-4 border-b border-darker-200 py-2"
       >
         <div>
-          {{ activity.description }} by {{ activity.causer.full_name }} on {{ format_date ( activity.created_at ) }}
+          <div  class="flex justify-start py-2 gap-1">
+          {{ activity.description }} by
+
+          <UserDetails :show_avatar="false" :user="activity.causer" />
+
+          on {{ format_date ( activity.created_at ) }}
+          </div>
           <div
               v-if="expanded_activities[activity.id]"
-              class="mt-2.5 pl-5"
+              class="mt-2.5 pl-5 flex-none"
           >
             <div
                 v-for="( new_value, property ) in activity.properties.attributes"
