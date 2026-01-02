@@ -16,6 +16,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::search('name')
+            ->sort()
             ->paginate()
             ->withQueryString();
 

@@ -22,7 +22,7 @@ class CustomerController extends Controller
                 'last_name',
                 'email'
             ])
-            ->ordered()
+            ->sort()
             ->paginate()
             ->withQueryString();
 

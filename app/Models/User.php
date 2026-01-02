@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\IsPerson;
 use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -30,7 +31,7 @@ class User extends Base implements
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
     use HasFactory, Notifiable, HasRoles, InteractsWithMedia, IsPerson;
-    use Searchable;
+    use Searchable, Sortable;
 
     /**
      * The attributes that are mass-assignable.

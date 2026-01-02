@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $users = User::with('created_by')
             ->search(['first_name', 'last_name', 'email'])
-            ->orderBy('created_at', 'desc')
+            ->sort()
             ->paginate()
             ->withQueryString();
 
