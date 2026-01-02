@@ -25,10 +25,31 @@ Route::middleware([
 ])
     ->group(function () {
 
-        Route::get('/discussions/{discussion}', [DiscussionController::class, 'show'])->name('discussions.show');
-        Route::post('/discussions', [DiscussionController::class, 'store'])->name('discussions.store');
-        Route::post('/discussions/{discussion}/reply', [DiscussionController::class, 'reply'])->name('discussions.reply');
-        Route::delete('/discussion-posts/{post}', [DiscussionController::class, 'destroyPost'])->name('discussions.posts.destroy');
+        Route::get('/discussions/{on_type}/{on_id}', [
+            DiscussionController::class,
+            'create'
+        ])
+            ->name('discussions.create');
+        Route::get('/discussions/{discussion}', [
+            DiscussionController::class,
+            'show'
+        ])
+            ->name('discussions.show');
+        Route::post('/discussions', [
+            DiscussionController::class,
+            'store'
+        ])
+            ->name('discussions.store');
+        Route::post('/discussions/{discussion}/reply', [
+            DiscussionController::class,
+            'reply'
+        ])
+            ->name('discussions.reply');
+        Route::delete('/discussions/{post}', [
+            DiscussionController::class,
+            'destroyPost'
+        ])
+            ->name('discussions.posts.destroy');
         Route::resource('customers', CustomerController::class);
         Route::resource('users', UserController::class);
         Route::resource('companies', CompanyController::class);

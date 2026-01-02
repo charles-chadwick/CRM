@@ -7,10 +7,10 @@ import Contacts from '../Contacts/Partials/Details.vue';
 import Header from "../../Components/Header.vue";
 import { useConfirm } from "primevue/useconfirm";
 import ActionMenu from "../../Components/ActionMenu.vue";
-import List from "../Discussions/Partials/List.vue";
+import Discussions from "../Discussions/Partials/List.vue";
+
 const props = defineProps ( { customer: Object } )
 const customer = props.customer;
-
 const confirm = useConfirm ();
 
 const items = [
@@ -86,7 +86,7 @@ const items = [
 
       </Card>
       <Card class="mt-4 w-1/2">
-        <List
+        <Discussions
             :discussions="customer.discussions"
             :on_id="customer.id"
             on_type="Customer"

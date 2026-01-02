@@ -30,6 +30,7 @@ class CompanyController extends Controller
         $company->load([
             'contacts',
             'customers',
+            'discussions'
         ]);
 
         return Inertia::render('Companies/Show', [
@@ -79,6 +80,12 @@ class CompanyController extends Controller
     public function update(CompanyRequest $request, Company $company)
     {
         $validated = $request->validated();
+
+        // sanity check for notes
+        if (trim(strip_tags($validated['notes'])) === '') {
+            $validated['notes'] = null;
+        }
+
         $company->update($validated);
 
         return redirect()

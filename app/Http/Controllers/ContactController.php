@@ -50,7 +50,7 @@ class ContactController extends Controller
             ->with('success', 'Contact deleted successfully.');
     }
 
-    private function handlePrimaryStatus(StoreContactRequest|UpdateContactRequest $request) : string
+    private function handlePrimaryStatus(ContactRequest $request) : string
     {
         $on_type = "App\\Models\\".ucfirst($request->on_type);
         $contact = Contact::where('on_id', $request->on_id)

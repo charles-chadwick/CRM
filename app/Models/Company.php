@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasContacts;
+use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
 use App\Traits\Orderable;
 use App\Traits\Searchable;
@@ -19,7 +20,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Company extends Base implements HasMedia
 {
     use InteractsWithMedia, HasUsers;
-    use Orderable, HasContacts, Searchable;
+    use Orderable, Searchable;
+    use HasDiscussions, HasContacts;
 
     /**
      * The attributes that are mass-assignable.

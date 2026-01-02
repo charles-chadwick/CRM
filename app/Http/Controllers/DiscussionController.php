@@ -10,11 +10,24 @@ use Inertia\Inertia;
 
 class DiscussionController extends Controller
 {
+    public function create(string $on, int $id)
+    {
+        $discussion = new Discussion;
+        $discussion->on_id = $id;
+        $discussion->on_type = $on;
+
+        return Inertia::render('Discussions/Show', [
+            'discussion' => $discussion,
+            'posts'      => [new DiscussionPost]
+        ]);
+    }
+
     public function show(Discussion $discussion)
     {
         $posts = $discussion->posts()
             ->paginate(10)
             ->withQueryString();
+
         return Inertia::render('Discussions/Show', [
             'discussion' => $discussion,
             'posts'      => $posts,
@@ -43,9 +56,11 @@ class DiscussionController extends Controller
                 'status'  => 'Published',
             ]);
 
-        return back()
-            ->with('message', 'Thread started successfully.')
-            ->with('type', 'success');
+        // for some reason this was not redirecting properly. Now it is.
+        session()->flash('message', 'Thread started successfully.');
+        session()->flash('type', 'success');
+        return Inertia::location(route('discussions.show', $discussion->id));
+
     }
 
     public function reply(Request $request, Discussion $discussion)

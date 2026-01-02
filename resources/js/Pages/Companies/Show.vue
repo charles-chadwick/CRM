@@ -7,9 +7,11 @@ import Contacts from '@/Pages/Contacts/Partials/Details.vue';
 import Card from '@/Components/Card.vue';
 import CustomerList from '@/Pages/Customers/Partials/List.vue';
 import ActionMenu from '@/Components/ActionMenu.vue';
+import Header from "../../Components/Header.vue";
+import Discussions from "../Discussions/Partials/List.vue";
+
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
-import Header from "../../Components/Header.vue";
 
 const { company } = defineProps ( {
   company: {
@@ -72,44 +74,48 @@ const items = [
     />
     <ConfirmDialog />
     <Card>
-      <div  class="flex justify-between">
-      <div class="flex gap-4">
-        <!-- Logo Section -->
-        <div
-            v-if="company.logo"
-            class="size-32"
-        >
-          <img
-              :src="company.logo"
-              :alt="`${company.name} Logo`"
-              class="rounded-xl size-32 border-2 border-darker-300 object-cover"
+      <div class="flex justify-between">
+        <div class="flex gap-4">
+          <!-- Logo Section -->
+          <div
+              v-if="company.logo"
+              class="size-32"
           >
+            <img
+                :src="company.logo"
+                :alt="`${company.name} Logo`"
+                class="rounded-xl size-32 border-2 border-darker-300 object-cover"
+            >
 
+
+          </div>
+          <div
+              v-else
+              class="size-32 rounded-xl border-2 border-darker-300 bg-darker-200 text-darker-400 font-semibold flex items-center justify-center"
+          >
+            <p>No Logo</p>
+          </div>
+
+          <!-- Company Info -->
+          <div>
+            <h1 class="text-3xl font-bold text-darker-900">
+              {{ company.name }}
+            </h1>
+            <p class="text-darker-800">
+              {{ company.company_type.name }}
+            </p>
+
+            <p
+                v-if="company?.notes"
+                class="mt-4 text-darker-800"
+            >Notes: <span v-html="company.notes"></span></p>
+
+          </div>
 
         </div>
-        <div
-            v-else
-            class="size-32 rounded-xl border-2 border-darker-300 bg-darker-200 text-darker-400 font-semibold flex items-center justify-center"
-        >
-          <p>No Logo</p>
-        </div>
 
-        <!-- Company Info -->
-        <div>
-          <h1 class="text-3xl font-bold text-darker-900">
-            {{ company.name }}
-          </h1>
-          <p class="text-darker-800">
-            {{ company.company_type.name }}
-          </p>
-          <p class="mt-4 text-darker-800">Notes: <span v-html="company.notes"></span></p>
-
-        </div>
-
-      </div>
-
-      <!-- Menu Component -->
-      <ActionMenu :items="items" />
+        <!-- Menu Component -->
+        <ActionMenu :items="items" />
       </div>
 
     </Card>
@@ -124,8 +130,16 @@ const items = [
       <Card
           class="mt-4"
       >
-      <CustomerList
+        <CustomerList
             :customers="company.customers"
+        />
+      </Card>
+      <Card class="mt-4">
+        <Discussions
+            on_type="Company"
+            :on_id="company.id"
+
+            :discussions="company.discussions"
         />
       </Card>
     </div>
