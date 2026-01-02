@@ -7,10 +7,17 @@ import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionB
 import { Head, Link } from "@inertiajs/vue3";
 import Search from "../../Components/Search.vue";
 import Card from "../../Components/Card.vue";
+import Sort from "../../Components/Sort.vue";
 
 const props = defineProps ( {
   users: Object,
 } );
+
+const sort_by_items = [
+  { label: 'First Name', value: 'first_name' },
+  { label: 'Last Name', value: 'last_name' },
+  { label: 'Role', value: 'role' }
+]
 
 </script>
 
@@ -26,12 +33,18 @@ const props = defineProps ( {
             message="User"
         />
       </div>
-      <div class="mb-4">
-        <Search
-            route="users.index"
-            placeholder="Search Users"
-        />
-      </div>
+    <div class="flex justify-between items-center mb-6">
+      <Search
+          route="customers.index"
+          placeholder="Search Customers"
+          class="w-1/3"
+      />
+      <Sort
+          :sort_by_items="sort_by_items"
+          route="customers.index"
+          class="w-1/3"
+      />
+    </div>
       <Card>
         <table class="min-w-full border-collapse">
           <thead>
