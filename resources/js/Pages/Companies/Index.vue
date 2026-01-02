@@ -33,16 +33,16 @@ const sort_by_items = [
     <!-- end header -->
 
     <!-- start search and sort -->
-    <div class="mb-4 flex justify-between">
+    <div class="mb-4 flex justify-between gap-4 items-center">
       <Search
           route="companies.index"
           placeholder="Search Companies"
-          class="w-1/4"
+          class="w-1/3"
       />
       <Sort
           :sort_by_items="sort_by_items"
           route="companies.index"
-          class="w-1/4"
+          class="w-1/3"
       />
     </div>
     <!-- end search and sort -->

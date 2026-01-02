@@ -35,6 +35,7 @@ watch ( sort_direction, ( value ) => {
         optionLabel="label"
         placeholder="Sort By..,"
         optionValue="value"
+        class="w-1/2"
     />
 
     <Select
@@ -43,6 +44,7 @@ watch ( sort_direction, ( value ) => {
         optionLabel="label"
         placeholder="Direction"
         optionValue="value"
+        class="w-1/2"
     />
   </div>
 </template>

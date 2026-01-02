@@ -21,7 +21,6 @@ const sort_by_items = [
 ]
 
 
-
 </script>
 
 <template>
@@ -42,9 +41,14 @@ const sort_by_items = [
       <Search
           route="customers.index"
           placeholder="Search Customers"
+          class="w-1/3"
       />
-      <Sort :sort_by_items="sort_by_items" route="customers.index" />
-  </div>
+      <Sort
+          :sort_by_items="sort_by_items"
+          route="customers.index"
+          class="w-1/3"
+      />
+    </div>
 
 
     <Card>
