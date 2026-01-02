@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { Popover, Button } from "primevue";
-import Avatar from "../../../Components/Avatar.vue";
+import Avatar from "@/Components/Avatar.vue";
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
 

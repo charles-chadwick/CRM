@@ -1,14 +1,15 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3'
-import AppLayout from "../../Layouts/AppLayout.vue";
-import Card from "../../Components/Card.vue";
-import Header from "../../Components/Header.vue";
-import UserDetails from "../../Pages/Users/Partials/Details.vue"
-import Pagination from "../../Components/Pagination.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Card from "@/Components/Card.vue";
+import Header from "@/Components/Header.vue";
+import UserDetails from "@/Pages/Users/Partials/Details.vue"
+import Pagination from "@/Components/Pagination.vue";
+import DeleteButton from "@/Components/ActionButtons.vue";
+
 import Editor from "primevue/editor";
 import { Button, Message, InputText, ConfirmDialog } from "primevue";
-import DeleteButton from "../../Components/ActionButtons.vue";
 
 const props = defineProps ( { discussion: Object, posts: Object, on_type: String, on_id: Number } )
 const discussion = props.discussion

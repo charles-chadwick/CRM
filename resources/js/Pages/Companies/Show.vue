@@ -6,8 +6,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Contacts from '@/Components/Contacts.vue';
 import Card from '@/Components/Card.vue';
 import ActionMenu from '@/Components/ActionMenu.vue';
-import Header from "../../Components/Header.vue";
-import Discussions from "../Discussions/Partials/List.vue";
+import Header from "@/Components/Header.vue";
+import Discussions from "@/Pages/Discussions/Partials/List.vue";
 
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';

@@ -3,9 +3,9 @@
 import { computed } from 'vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Card from "../../Components/Card.vue";
+import Card from "@/Components/Card.vue";
 import { Button, InputText, Message } from 'primevue';
-import Header from "../../Components/Header.vue";
+import Header from "@/Components/Header.vue";
 
 const props = defineProps({
   company_type: {

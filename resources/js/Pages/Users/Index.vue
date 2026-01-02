@@ -1,13 +1,13 @@
 <!--suppress NpmUsedModulesInstalled, JSUnresolvedReference, JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Pagination from "../../Components/Pagination.vue";
+import Pagination from "@/Components/Pagination.vue";
 import { ConfirmDialog } from 'primevue';
-import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
+import { CreateButton, EditButton, DeleteButton } from "@/Components/ActionButtons.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import Search from "../../Components/Search.vue";
-import Card from "../../Components/Card.vue";
-import Sort from "../../Components/Sort.vue";
+import Search from "@/Components/Search.vue";
+import Card from "@/Components/Card.vue";
+import Sort from "@/Components/Sort.vue";
 
 const props = defineProps ( {
   users: Object,

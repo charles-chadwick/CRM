@@ -1,10 +1,10 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import AppLayout from "../../Layouts/AppLayout.vue";
-import Card from "../../Components/Card.vue";
-import Header from "../../Components/Header.vue";
-import UserDetails from "../../Pages/Users/Partials/Details.vue"
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Card from "@/Components/Card.vue";
+import Header from "@/Components/Header.vue";
+import UserDetails from "@/Pages/Users/Partials/Details.vue"
 import { ref } from 'vue'
 
 

@@ -1,12 +1,12 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
-import AppLayout from "../../Layouts/AppLayout.vue";
-import Card from "../../Components/Card.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Card from "@/Components/Card.vue";
 import { Menu, Button, ConfirmDialog } from 'primevue';
 import { ref } from 'vue';
 import { useConfirm } from 'primevue/useconfirm';
-import Header from "../../Components/Header.vue";
+import Header from "@/Components/Header.vue";
 
 const props = defineProps ( { user: Object } )
 
