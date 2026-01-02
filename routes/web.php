@@ -61,6 +61,12 @@ Route::middleware([
         ])
             ->name('activity.index');
 
+        Route::get('/activity/download/{on}/{id}', [
+            ActivityController::class,
+            'downloadPdf'
+        ])
+            ->name('activity.index');
+
         Route::post('/image/upload', [
             ImageController::class,
             'upload'
