@@ -7,7 +7,7 @@ import Header from "../../Components/Header.vue";
 import UserDetails from "../../Pages/Users/Partials/Details.vue"
 import Pagination from "../../Components/Pagination.vue";
 import Editor from "primevue/editor";
-import { Button, Message, InputText } from "primevue";
+import { Button, Message, InputText, ConfirmDialog } from "primevue";
 import DeleteButton from "../../Components/ActionButtons.vue";
 
 const props = defineProps ( { discussion: Object, posts: Object, on_type: String, on_id: Number } )
@@ -38,6 +38,7 @@ const form = useForm ( {
         header="Discussion"
         label="Back"
     />
+    <ConfirmDialog />
     <Card>
       <div class="flex justify-between gap-4">
 
@@ -104,10 +105,11 @@ const form = useForm ( {
         />
         <div class="text-sm text-right shrink-0">
           <UserDetails :user="post.created_by" />
-          <p>{{ post.created_at }}</p>
+          <p class="mb-2">{{ post.created_at }}</p>
           <DeleteButton
-              :post="post"
-              :discussion="discussion"
+              prefix="discussions.posts"
+              :id="post.id"
+              message="Post"
           />
         </div>
       </div>
