@@ -1,6 +1,5 @@
 <script setup>
 
-import { Button } from "primevue";
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -24,6 +23,8 @@ const cancel = () => {
     <h1 class="page-header">
       {{ props.header }}
     </h1>
+
+
   </div>
 </template>
 

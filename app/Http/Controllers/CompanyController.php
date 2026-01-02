@@ -6,7 +6,6 @@ use App\Models\CompanyType;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use Inertia\Inertia;
-use function request;
 
 class CompanyController extends Controller
 {

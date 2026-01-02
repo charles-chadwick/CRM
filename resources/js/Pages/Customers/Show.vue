@@ -56,7 +56,7 @@ const items = [
 <template>
   <AppLayout header="Customer">
     <Head title="Show" />
-    <Header header="Customer" label="Back to Company" />
+    <Header header="Customer Profile" />
     <Card class="flex justify-between gap-4">
       <div class="flex flex-start flex-row">
         <img

@@ -1,50 +1,48 @@
 <script setup>
 
-import { Button, Select } from "primevue";
-
-const sortOptions = [
-  { label: 'Type', value: 'company_type_id' }
-]
 import { ref, watch } from "vue";
 import { router } from "@inertiajs/vue3";
+import { Select } from "primevue";
 
-const props = defineProps ( { route: { type: String, required: true } } )
-const sort_by = ref ( '' )
-const clearSort = () => {
-  sort_by.value = ''
-}
+const sort_by = ref ()
+const sort_direction = ref ()
+const sort_directions = [
+  { label: 'Ascending', value: 'asc' },
+  { label: 'Descending', value: 'desc' },
+]
 
-watch ( [ sort_by ], ( [ sort_by_value ] ) => {
-  router.get (
-      route ( props.route ),
-      {
-        sort_by: sort_by_value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-        replace: true,
-      }
-  )
+const props = defineProps (
+    {
+      route: { type: String, required: true },
+      sort_by_items: { type: Array, required: true },
+    } )
+
+watch ( sort_by, ( value ) => {
+  router.get ( route ( props.route, { sort_by: value, sort_direction: sort_direction.value } ) )
 } )
+
+watch ( sort_direction, ( value ) => {
+  router.get ( route ( props.route, { sort_by: sort_by.value, sort_direction: value } ) )
+} )
+
 </script>
 
 <template>
   <div class="flex gap-2">
     <Select
         v-model="sort_by"
-        :options="sortOptions"
+        :options="sort_by_items"
         optionLabel="label"
+        placeholder="Sort By..,"
         optionValue="value"
-        placeholder="Sort by..."
-        class="w-full"
     />
-    <Button
-        v-bind:disabled="sort_by === ''"
-        icon="pi pi-times"
-        severity="secondary"
-        @click="clearSort"
-        aria-label="Clear sort_by"
+
+    <Select
+        v-model="sort_direction"
+        :options="sort_directions"
+        optionLabel="label"
+        placeholder="Direction"
+        optionValue="value"
     />
   </div>
 </template>
