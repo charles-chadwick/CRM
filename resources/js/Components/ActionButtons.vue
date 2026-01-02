@@ -1,8 +1,30 @@
+<!--suppress JSUnresolvedReference -->
 <script>
 import { defineComponent, h } from 'vue';
 import { Button } from 'primevue';
 import { router } from "@inertiajs/vue3";
 import { useConfirm } from "primevue/useconfirm";
+
+
+export const ShowButton = defineComponent ( {
+  name: 'ShowButton',
+  props: {
+    prefix: String,
+    id: Number
+  },
+  directives: {
+    tooltip: window.vTooltip
+  },
+  setup ( props ) {
+    return () => h ( Button, {
+      icon: 'pi pi-eye',
+      severity: 'secondary',
+      size: 'small',
+      onClick: () => router.visit ( route ( props.prefix + '.show', props.id ) ),
+      'v-tooltip.top': 'View'
+    } );
+  }
+} );
 
 export const CreateButton = defineComponent ( {
   name: 'CreateButton',
@@ -15,6 +37,9 @@ export const CreateButton = defineComponent ( {
       required: false
     }
   },
+  directives: {
+    tooltip: window.vTooltip
+  },
   setup ( props ) {
     return () => h ( Button, {
       label: `Create ${ props.message }`,
@@ -25,6 +50,7 @@ export const CreateButton = defineComponent ( {
     } );
   }
 } );
+
 
 export const EditButton = defineComponent ( {
   name: 'EditButton',

@@ -1,7 +1,7 @@
 <!--suppress NpmUsedModulesInstalled, JSValidateTypes, JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
+import {ShowButton, CreateButton, EditButton, DeleteButton } from "../../Components/ActionButtons.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { Head, Link } from "@inertiajs/vue3";
@@ -66,6 +66,10 @@ const props = defineProps ( { customers: Object } );
 
             <td class="table-cell">
               <div class="flex gap-2 justify-center items-center">
+                <ShowButton
+                  prefix="customers"
+                  :id="customer.id"
+                  />
                 <EditButton
                     prefix="customers"
                     :id="customer.id"
