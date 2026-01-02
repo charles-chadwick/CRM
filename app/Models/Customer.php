@@ -6,7 +6,7 @@ use App\Traits\HasContacts;
 use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
 use App\Traits\IsPerson;
-use App\Traits\Orderable;
+use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -32,8 +32,9 @@ class Customer extends Base implements
     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail;
-    use Notifiable, HasRoles, InteractsWithMedia, HasUsers, HasDiscussions;
-    use Orderable, IsPerson, HasContacts, Searchable;
+    use Notifiable, InteractsWithMedia;
+    use Searchable, Sortable;
+    use IsPerson, HasRoles, HasContacts, HasUsers, HasDiscussions;
 
     /**
      * The attributes that are mass-assignable.
@@ -62,20 +63,6 @@ class Customer extends Base implements
         'password',
         'remember_token',
     ];
-
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts() : array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-        ];
-    }
 
     public function __construct(array $attributes = [])
     {
@@ -118,6 +105,19 @@ class Customer extends Base implements
                 return $image;
             }
         );
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts() : array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password'          => 'hashed',
+        ];
     }
 }
 

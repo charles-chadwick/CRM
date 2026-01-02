@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\Orderable;
+use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CompanyType extends Base
 {
-    use Orderable, Searchable;
+    use Sortable, Searchable;
 
     /**
      * The attributes that are mass-assignable.

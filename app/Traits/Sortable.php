@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait Orderable
+trait Sortable
 {
-    public function scopeOrdered(Builder $query) : void
+    public function scopeSort(Builder $query) : void
     {
         $query->orderBy(request('sort_by', 'created_at'), request('sort_direction', 'desc'));
     }

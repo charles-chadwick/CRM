@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\HasContacts;
 use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
-use App\Traits\Orderable;
+use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +20,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Company extends Base implements HasMedia
 {
     use InteractsWithMedia, HasUsers;
-    use Orderable, Searchable;
+    use Sortable, Searchable;
     use HasDiscussions, HasContacts;
 
     /**
