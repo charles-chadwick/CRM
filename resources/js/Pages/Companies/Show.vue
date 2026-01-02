@@ -127,13 +127,13 @@ const items = [
             on_type="Company"
         />
       </Card>
-      <Card
-          class="mt-4"
-      >
-        <CustomerList
-            :customers="company.customers"
-        />
-      </Card>
+<!--      <Card-->
+<!--          class="mt-4"-->
+<!--      >-->
+<!--        <CustomerList-->
+<!--            :customers="company.customers"-->
+<!--        />-->
+<!--      </Card>-->
       <Card class="mt-4">
         <Discussions
             on_type="Company"
