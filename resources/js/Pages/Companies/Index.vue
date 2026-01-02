@@ -18,7 +18,6 @@ const props = defineProps ( { companies: Object } );
   <AppLayout>
     <ConfirmDialog />
 
-    <div class="px-8 py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="page-header">Companies</h1>
         <CreateButton
@@ -75,7 +74,6 @@ const props = defineProps ( { companies: Object } );
       />
         <p class="p-4 text-center" v-else>No companies found.</p>
       </Card>
-    </div>
   </AppLayout>
 </template>
 

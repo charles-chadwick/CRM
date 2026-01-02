@@ -6,6 +6,7 @@ import Card from "../../Components/Card.vue";
 import { Menu, Button, ConfirmDialog } from 'primevue';
 import { ref } from 'vue';
 import { useConfirm } from 'primevue/useconfirm';
+import Header from "../../Components/Header.vue";
 
 const props = defineProps ( { user: Object } )
 
@@ -59,6 +60,7 @@ const toggle = ( event ) => {
   <AppLayout header="Customer">
     <Head title="Show" />
     <ConfirmDialog />
+    <Header header="User Profile" />
     <Card class="flex justify-between gap-4">
       <div class="flex flex-start flex-row">
         <img

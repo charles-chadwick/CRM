@@ -19,7 +19,6 @@ const props = defineProps ( { customers: Object } );
 
     <ConfirmDialog />
 
-    <div class="px-8 md:py-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="page-header">Customers</h1>
         <CreateButton
@@ -89,7 +88,6 @@ const props = defineProps ( { customers: Object } );
             v-else
         >No customers found.</p>
       </Card>
-    </div>
   </AppLayout>
 </template>
 

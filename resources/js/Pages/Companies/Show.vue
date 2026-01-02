@@ -69,8 +69,7 @@ const items = [
   <AppLayout>
     <Head :title="page_title" />
     <Header
-        header="Company"
-        label="Back"
+        header="Company Profile"
     />
     <ConfirmDialog />
     <Card>
