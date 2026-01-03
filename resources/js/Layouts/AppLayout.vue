@@ -1,7 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import Message from 'primevue/message';
+import UserDetails from "@/Pages/Users/Partials/Details.vue"
 
 const page = usePage ();
 
@@ -11,7 +12,7 @@ const management_menu_open = ref ( false );
 const main_nav = [
   { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
   { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-warehouse' },
-  { name: 'Sales Leads', href: route('sales-leads.index'), icon: 'pi pi-comments' }
+  { name: 'Sales Leads', href: route ( 'sales-leads.index' ), icon: 'pi pi-comments' }
 ];
 
 const settings_menu = [
@@ -48,12 +49,12 @@ const flash = computed ( () => page.props.flash );
 
     <!-- Sidebar -->
     <aside class="fixed md:relative top-0 left-0 h-full w-64 bg-primary-600 border-r border-b-primary-500 flex flex-col z-40 -translate-x-full md:translate-x-0 peer-checked:translate-x-0 transition-transform duration-300">
-    <div class="p-6 border-b border-b-primary-500">
-        <h1 class="text-xl font-semibold text-white pl-12 md:pl-0">
+      <div class="p-6 border-b bg-primary-700 border-b-primary-500">
+        <h1 class="adstext-xl font-semibold text-white pl-12 md:pl-0">
           <Link :href="route('dashboard')">CRM</Link>
         </h1>
       </div>
-      <nav class="flex-1 p-4 space-y-2">
+      <nav class="flex-1 p-4 space-y-2 shadow-2xl">
         <Link
             v-for="nav_item in main_nav"
             :key="nav_item.name"
@@ -96,6 +97,9 @@ const flash = computed ( () => page.props.flash );
 
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
+      <nav class="flex justify-end items-center p-4 h-[72px] border-b border-b-darker-200 bg-white">
+        <UserDetails :user="page.props.auth.user" />
+      </nav>
       <div
           v-if="flash?.message"
       >
@@ -104,7 +108,6 @@ const flash = computed ( () => page.props.flash );
             :closable="true"
             :life="3000"
             class="ml-16 mr-8 md:mx-8 mt-4"
-
         >
           {{ flash.message }}
         </Message>
