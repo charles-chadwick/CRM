@@ -54,7 +54,6 @@ class SalesLeadController extends Controller
      */
     public function create() : Response
     {
-
         return Inertia::render('SalesLeads/Form', [
             'companies' => (new Company())->toSelect(),
             'sales_lead_types' => SalesLeadType::toSelect(),
@@ -74,6 +73,8 @@ class SalesLeadController extends Controller
 
         return Inertia::render('SalesLeads/Show', [
             'sales_lead' => $sales_lead,
+            'sales_lead_types' => SalesLeadType::toSelect(),
+            'sales_lead_statuses' => SalesLeadStatus::toSelect(),
         ]);
     }
 
@@ -82,13 +83,11 @@ class SalesLeadController extends Controller
      */
     public function edit(SalesLead $sales_lead) : Response
     {
-        $companies = Company::select('id', 'name')
-            ->orderBy('name')
-            ->get();
-
         return Inertia::render('SalesLeads/Form', [
             'sales_lead' => $sales_lead,
-            'companies'  => $companies,
+            'companies'  => (new Company())->toSelect(),
+            'sales_lead_types' => SalesLeadType::toSelect(),
+            'sales_lead_statuses' => SalesLeadStatus::toSelect(),
         ]);
     }
 

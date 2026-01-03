@@ -6,7 +6,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
   import Card from '@/Components/Card.vue'
   import Pagination from '@/Components/Pagination.vue'
   import {CreateButton, EditButton, DeleteButton} from '@/Components/ActionButtons.vue'
-  import { Button, ConfirmDialog } from 'primevue'
+import Status from '@/Components/Status.vue'
+  import { ConfirmDialog } from 'primevue'
 
   defineProps({sales_leads: Object})
 </script>
@@ -27,10 +28,10 @@ import AppLayout from '@/Layouts/AppLayout.vue';
         <thead>
         <tr class="table-header">
           <th>ID</th>
-          <th>Name</th>
-          <th>Company</th>
+          <th>Title</th>
+          <th>Type</th>
           <th>Status</th>
-          <th>Value</th>
+          <th>Company</th>
           <th>Created</th>
           <th>Actions</th>
         </tr>
@@ -43,18 +44,21 @@ import AppLayout from '@/Layouts/AppLayout.vue';
             class="table-row"
         >
           <td class="table-cell"># {{ sales_lead.id }}</td>
-          <td class="table-cell">{{ sales_lead.name }}</td>
+          <td class="table-cell">{{ sales_lead.title }}</td>
+          <td class="table-cell">{{ sales_lead.type }}</td>
+          <td class="table-cell">
+              <Status :status="sales_lead.status" type="sales_lead" />
+          </td>
+
           <td class="table-cell">{{ sales_lead.company?.name }}</td>
-          <td class="table-cell">{{ sales_lead.status }}</td>
-          <td class="table-cell">{{ sales_lead.value }}</td>
           <td class="table-cell">{{ sales_lead.created_at }}</td>
           <td class="table-cell">
               <EditButton
-                prefix="sales_leads"
+                prefix="sales-leads"
                 :id="sales_lead.id"
               />
               <DeleteButton
-                  prefix="sales_leads"
+                  prefix="sales-leads"
                   :id="sales_lead.id"
                   message="Sales Lead"
               />

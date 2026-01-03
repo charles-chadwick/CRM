@@ -26,14 +26,13 @@ class SalesLead extends Base
         'contacted_at'
     ];
 
-
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
     protected $casts = [
-        'contacted_at' => 'datetime',
+        'contacted_at' => 'datetime:m/d/Y h:i A',
     ];
 
     public function __construct(array $attributes = [])

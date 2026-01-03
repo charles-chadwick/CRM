@@ -7,8 +7,8 @@ enum SalesLeadType : string
 {
     use EnumToSelect;
 
-    case New = 'new';
-    case Contacted = 'contacted';
-    case Qualified = 'qualified';
-    case Lost = 'lost';
+    case New = 'New';
+    case Contacted = 'Contacted';
+    case Qualified = 'Qualified';
+    case Lost = 'Lost';
 }
