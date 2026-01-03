@@ -10,16 +10,7 @@ abstract class Base extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'created_at' => 'datetime:m/d/Y h:i A',
-        'updated_at' => 'datetime:m/d/Y h:i A',
-        'deleted_at' => 'datetime:m/d/Y h:i A',
-    ];
+
 
     /**
      * Boot the model.
@@ -146,6 +137,14 @@ abstract class Base extends Model
                 'deleted_at'
             ]
         );
+    }
+
+    public function getCasts() : array {
+        return array_merge($this->casts, [
+            'created_at' => 'datetime:m/d/Y h:i A',
+            'updated_at' => 'datetime:m/d/Y h:i A',
+            'deleted_at' => 'datetime:m/d/Y h:i A'
+        ]);
     }
 
     /**
