@@ -9,7 +9,7 @@ class SalesLead extends Base
 {
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
