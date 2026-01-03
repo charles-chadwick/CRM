@@ -15,11 +15,12 @@ const severity = {
     Rescheduled: 'fill-darker-500',
     'No Show': 'fill-red-400',
   },
-  patient: {
+  sales_lead: {
     Active: 'fill-accent-400',
     Inactive: 'fill-darker-200',
-    Deceased: 'fill-red-400',
     Prospective: 'fill-yellow-400',
+    Dead: 'fill-red-400',
+    Completed: 'fill-blue-400',
   }
 }
 
