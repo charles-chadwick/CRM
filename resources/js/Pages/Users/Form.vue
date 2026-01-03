@@ -60,8 +60,8 @@ const cancel = () => {
             roles=""
         >
 
-          <div class="flex md:flex-row flex-col justify-start gap-4">
-            <div class="md:w-2/3">
+          <div class="flex sm:flex-row flex-col justify-start gap-4">
+            <div class="sm:w-2/3">
               <!-- First Name and Last Name -->
               <div class="grid md:grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
@@ -209,7 +209,7 @@ const cancel = () => {
               </div>
             </div>
 
-            <div class="md:w-1/3 pl-4">
+            <div class="sm:w-1/3 pl-4">
               <label
                   for="avatar"
                   class="font-semibold"

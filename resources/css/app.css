@@ -71,5 +71,5 @@
 }
 
 .page-header {
-    @apply font-bold text-3xl text-darker-700;
+    @apply font-bold text-3xl ml-8 sm:ml-0 text-darker-700;
 }
