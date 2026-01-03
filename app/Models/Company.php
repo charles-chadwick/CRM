@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasContacts;
 use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
+use App\Traits\ModelToSelect;
 use App\Traits\Searchable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -19,7 +20,7 @@ class Company extends Base implements HasMedia
 {
     use InteractsWithMedia, HasUsers;
     use Sortable, Searchable;
-    use HasDiscussions, HasContacts;
+    use HasDiscussions, HasContacts, ModelToSelect;
 
     /**
      * The attributes that are mass-assignable.
@@ -40,11 +41,6 @@ class Company extends Base implements HasMedia
         $this->loadRelations();
         $this->with[] = 'companyType';
         $this->withCount[] = 'customers';
-    }
-
-    public function toSelect() : array
-    {
-        return $this->toArray();
     }
 
     /**

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\ModelToSelect;
 use App\Traits\Searchable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CompanyType extends Base
 {
-    use Sortable, Searchable;
+    use Sortable, Searchable, ModelToSelect;
 
     /**
      * The attributes that are mass-assignable.
@@ -27,15 +28,5 @@ class CompanyType extends Base
         return $this->hasMany(Company::class);
     }
 
-    public function toSelect() : array
-    {
-        return $this->get()
-            ->map(function ($item) {
-                return [
-                    'value' => $item->id,
-                    'label' => $item->name
-                ];
-            })
-            ->toArray();
-    }
+
 }
