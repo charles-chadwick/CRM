@@ -7,6 +7,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SaleLeadProgressController;
+use App\Http\Controllers\SalesLeadController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +57,8 @@ Route::middleware([
         Route::resource('companies', CompanyController::class);
         Route::resource('company-types', CompanyTypeController::class);
         Route::resource('contacts', ContactController::class);
+        Route::resource('sales-leads', SalesLeadController::class);
+        Route::resource('sale-lead-progress', SaleLeadProgressController::class);
         Route::get('/activity/{on}/{id}', [
             ActivityController::class,
             'index'

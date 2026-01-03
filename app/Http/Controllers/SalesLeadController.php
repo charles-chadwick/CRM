@@ -19,14 +19,14 @@ class SalesLeadController extends Controller
     public function index(Request $request) : Response
     {
         $sales_leads = SalesLead::with([
-            'company',
-            'createdBy',
-            'updatedBy'
+            'company'
         ])
             ->when($request->input('search'), function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('type', 'like', "%{$search}%")
-                    ->orWhere('status', 'like', "%{$search}%");
+                $query->whereAny([
+                    'title',
+                    'type',
+                    'status'
+                ], 'like', "%{$search}%");
             })
             ->latest()
             ->paginate(10)
@@ -43,19 +43,10 @@ class SalesLeadController extends Controller
      */
     public function store(StoreSalesLeadRequest $request) : RedirectResponse
     {
-        $sales_lead = SalesLead::create([
-            ...$request->validated(),
-            'created_by_id' => auth()->id(),
-            'updated_by_id' => auth()->id(),
-        ]);
-
-        activity()
-            ->performedOn($sales_lead)
-            ->causedBy(auth()->user())
-            ->log('Sales lead created');
+        $sales_lead = SalesLead::create([$request->validated()]);
 
         return redirect()
-            ->route('sales-leads.index')
+            ->route('sales-leads.show', $sales_lead->id)
             ->with('success', 'Sales lead created successfully.');
     }
 
@@ -68,7 +59,7 @@ class SalesLeadController extends Controller
             ->orderBy('name')
             ->get();
 
-        return Inertia::render('SalesLeads/Create', [
+        return Inertia::render('SalesLeads/Form', [
             'companies' => $companies,
         ]);
     }
@@ -99,7 +90,7 @@ class SalesLeadController extends Controller
             ->orderBy('name')
             ->get();
 
-        return Inertia::render('SalesLeads/Edit', [
+        return Inertia::render('SalesLeads/Form', [
             'sales_lead' => $salesLead,
             'companies'  => $companies,
         ]);
@@ -110,15 +101,7 @@ class SalesLeadController extends Controller
      */
     public function update(UpdateSalesLeadRequest $request, SalesLead $salesLead) : RedirectResponse
     {
-        $salesLead->update([
-            ...$request->validated(),
-            'updated_by_id' => auth()->id(),
-        ]);
-
-        activity()
-            ->performedOn($salesLead)
-            ->causedBy(auth()->user())
-            ->log('Sales lead updated');
+        $salesLead->update($request->validated());
 
         return redirect()
             ->route('sales-leads.index')
@@ -130,10 +113,6 @@ class SalesLeadController extends Controller
      */
     public function destroy(SalesLead $salesLead) : RedirectResponse
     {
-        activity()
-            ->performedOn($salesLead)
-            ->causedBy(auth()->user())
-            ->log('Sales lead deleted');
 
         $salesLead->delete();
 

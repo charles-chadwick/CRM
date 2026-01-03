@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasUsers;
+use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SalesLead extends Base
 {
+    use HasUsers;
 
     /**
      * The attributes that are mass-assignable.
@@ -29,6 +32,12 @@ class SalesLead extends Base
     protected $casts = [
         'contacted_at' => 'datetime',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->loadRelations();
+    }
 
     /**
      * Get the company that owns the sales lead.
