@@ -14,7 +14,7 @@ class EnsureUserIsAdmin
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next) : Response
     {
         if (!$request->user() || $request->user()->role !== UserRole::Admin->value) {
             abort(403, 'Unauthorized action.');

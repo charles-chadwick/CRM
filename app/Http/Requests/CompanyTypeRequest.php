@@ -11,7 +11,7 @@ class CompanyTypeRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class CompanyTypeRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         $companyType = $this->route('company_type');
 
@@ -31,7 +31,8 @@ class CompanyTypeRequest extends FormRequest
                 'string',
                 'max:255',
                 $companyType
-                    ? Rule::unique('company_types', 'name')->ignore($companyType)
+                    ? Rule::unique('company_types', 'name')
+                    ->ignore($companyType)
                     : 'unique:company_types,name'
             ],
         ];

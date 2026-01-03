@@ -30,20 +30,8 @@ class Contact extends Base
         'notes'
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function __construct(array $attributes = [])
     {
-        return [
-            'is_primary' => 'boolean',
-            'type'       => ContactType::class
-        ];
-    }
-
-    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->loadRelations();
     }
@@ -51,6 +39,19 @@ class Contact extends Base
     public function contactable() : MorphTo
     {
         return $this->morphTo('contactable', 'on_type', 'on_id');
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts() : array
+    {
+        return [
+            'is_primary' => 'boolean',
+            'type'       => ContactType::class
+        ];
     }
 
 }

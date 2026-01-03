@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\Sortable;
 use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CompanyType extends Base
@@ -22,12 +22,13 @@ class CompanyType extends Base
     /**
      * Get the companies for this company type.
      */
-    public function companies(): HasMany
+    public function companies() : HasMany
     {
         return $this->hasMany(Company::class);
     }
-    
-    public function toSelect() : array {
+
+    public function toSelect() : array
+    {
         return $this->get()
             ->map(function ($item) {
                 return [

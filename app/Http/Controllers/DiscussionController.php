@@ -5,23 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Discussion;
 use App\Models\DiscussionPost;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DiscussionController extends Controller
 {
-    public function create(string $on, int $id)
-    {
-        $discussion = new Discussion;
-        $discussion->on_id = $id;
-        $discussion->on_type = $on;
-
-        return Inertia::render('Discussions/Show', [
-            'discussion' => $discussion,
-            'posts'      => [new DiscussionPost]
-        ]);
-    }
-
     public function show(Discussion $discussion)
     {
         $posts = $discussion->posts()
@@ -61,6 +48,18 @@ class DiscussionController extends Controller
         session()->flash('type', 'success');
         return Inertia::location(route('discussions.show', $discussion->id));
 
+    }
+
+    public function create(string $on, int $id)
+    {
+        $discussion = new Discussion;
+        $discussion->on_id = $id;
+        $discussion->on_type = $on;
+
+        return Inertia::render('Discussions/Show', [
+            'discussion' => $discussion,
+            'posts'      => [new DiscussionPost]
+        ]);
     }
 
     public function reply(Request $request, Discussion $discussion)

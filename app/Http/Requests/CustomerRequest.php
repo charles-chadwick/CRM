@@ -11,7 +11,7 @@ class CustomerRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class CustomerRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         $customer = $this->route('customer');
         $isUpdate = $customer !== null;
@@ -32,12 +32,12 @@ class CustomerRequest extends FormRequest
                 'integer',
                 'exists:companies,id'
             ],
-            'title' => [
+            'title'      => [
                 'nullable',
                 'string',
                 'max:255'
             ],
-            'prefix' => [
+            'prefix'     => [
                 'nullable',
                 'string',
                 'max:15'
@@ -47,25 +47,26 @@ class CustomerRequest extends FormRequest
                 'string',
                 'max:255'
             ],
-            'last_name' => [
+            'last_name'  => [
                 'required',
                 'string',
                 'max:255'
             ],
-            'suffix' => [
+            'suffix'     => [
                 'nullable',
                 'string',
                 'max:15'
             ],
-            'email' => [
+            'email'      => [
                 'required',
                 'email',
                 'max:255',
                 $isUpdate
-                    ? Rule::unique('customers', 'email')->ignore($customer->id)
+                    ? Rule::unique('customers', 'email')
+                    ->ignore($customer->id)
                     : 'unique:customers,email'
             ],
-            'password' => [
+            'password'   => [
                 $isUpdate ? 'nullable' : 'required',
                 'string',
                 'min:8',

@@ -12,7 +12,7 @@ class UserRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class UserRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         $user = $this->route('user');
         $is_update = $user !== null;
@@ -33,24 +33,24 @@ class UserRequest extends FormRequest
                 'string',
                 'max:255'
             ],
-            'last_name' => [
+            'last_name'  => [
                 'required',
                 'string',
                 'max:255'
             ],
-            'email' => [
+            'email'      => [
                 'required',
                 'string',
                 'email',
                 'max:255',
                 $is_update ? 'unique:users,email,'.$user->id : 'unique:users'
             ],
-            'password' => [
+            'password'   => [
                 $is_update ? 'nullable' : 'required',
                 'confirmed',
                 Password::defaults()
             ],
-            'role' => [
+            'role'       => [
                 'required',
                 'string',
                 'in:'.implode(',', array_map(fn($role) => $role->value, UserRole::cases()))

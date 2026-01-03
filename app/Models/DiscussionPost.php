@@ -20,7 +20,8 @@ class DiscussionPost extends Base
         'content',
     ];
 
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         parent::__construct($attributes);
         $this->loadRelations();
     }
@@ -28,7 +29,7 @@ class DiscussionPost extends Base
     /**
      * Get the discussion that owns this post.
      */
-    public function discussion(): BelongsTo
+    public function discussion() : BelongsTo
     {
         return $this->belongsTo(Discussion::class);
     }

@@ -44,22 +44,6 @@ class SaleLeadProgressController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request) : Response
-    {
-        $sales_leads = SalesLead::select('id', 'title')
-            ->orderBy('title')
-            ->get();
-        $selected_sales_lead_id = $request->input('sales_lead_id');
-
-        return Inertia::render('SaleLeadProgress/Create', [
-            'sales_leads'            => $sales_leads,
-            'selected_sales_lead_id' => $selected_sales_lead_id,
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreSaleLeadProgressRequest $request) : RedirectResponse
@@ -78,6 +62,22 @@ class SaleLeadProgressController extends Controller
         return redirect()
             ->route('sale-lead-progress.index', ['sales_lead_id' => $progress->sales_lead_id])
             ->with('success', 'Progress record created successfully.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request) : Response
+    {
+        $sales_leads = SalesLead::select('id', 'title')
+            ->orderBy('title')
+            ->get();
+        $selected_sales_lead_id = $request->input('sales_lead_id');
+
+        return Inertia::render('SaleLeadProgress/Create', [
+            'sales_leads'            => $sales_leads,
+            'selected_sales_lead_id' => $selected_sales_lead_id,
+        ]);
     }
 
     /**

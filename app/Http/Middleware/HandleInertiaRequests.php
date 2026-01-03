@@ -40,14 +40,14 @@ class HandleInertiaRequests extends Middleware
         // set up the array
         return [
             ...parent::share($request),
-            'auth'  => [
+            'auth'     => [
                 'user' => $request->user() ? $request->user()
                     ->only('id', 'first_name', 'last_name', 'email', 'role') : null,
             ],
             'contacts' => [
                 'types' => ContactType::toSelect(),
             ],
-            'flash' => [
+            'flash'    => [
                 'message' => $request->session()
                     ->get('message'),
                 'type'    => $request->session()
@@ -55,7 +55,7 @@ class HandleInertiaRequests extends Middleware
                 'image'   => $request->session()
                     ->get('image'),
             ],
-            'ziggy' => fn() => [
+            'ziggy'    => fn() => [
                 ...(new Ziggy)->toArray(),
             ],
         ];

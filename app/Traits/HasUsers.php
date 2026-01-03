@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Traits;
 
-trait HasUsers {
+trait HasUsers
+{
 
     public function loadRelations() : void
     {

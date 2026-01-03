@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyTypeRequest;
 use App\Models\CompanyType;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CompanyTypeController extends Controller
@@ -25,14 +24,6 @@ class CompanyTypeController extends Controller
     }
 
     /**
-     * Show the form for creating a new company type.
-     */
-    public function create()
-    {
-        return Inertia::render('CompanyTypes/Form');
-    }
-
-    /**
      * Store a newly created company type in storage.
      */
     public function store(CompanyTypeRequest $request)
@@ -44,6 +35,14 @@ class CompanyTypeController extends Controller
             ->route('company-types.index')
             ->with('message', 'Company Type created successfully.')
             ->with('type', 'success');
+    }
+
+    /**
+     * Show the form for creating a new company type.
+     */
+    public function create()
+    {
+        return Inertia::render('CompanyTypes/Form');
     }
 
     /**

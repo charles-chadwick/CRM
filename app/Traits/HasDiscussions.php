@@ -3,11 +3,11 @@
 
 namespace App\Traits;
 
-use App\Models\Contact;
 use App\Models\Discussion;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-trait HasDiscussions {
+trait HasDiscussions
+{
 
     /**
      * Get all contacts for this company.

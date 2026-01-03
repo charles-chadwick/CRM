@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SalesLead extends Base
 {
@@ -35,7 +33,7 @@ class SalesLead extends Base
     /**
      * Get the company that owns the sales lead.
      */
-    public function company(): BelongsTo
+    public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
@@ -43,7 +41,7 @@ class SalesLead extends Base
     /**
      * Get the progress records for the sales lead.
      */
-    public function progress(): HasMany
+    public function progress() : HasMany
     {
         return $this->hasMany(SaleLeadProgress::class);
     }

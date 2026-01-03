@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SaleLeadProgress extends Base
 {
@@ -40,7 +38,7 @@ class SaleLeadProgress extends Base
     /**
      * Get the sales lead that owns the progress record.
      */
-    public function salesLead(): BelongsTo
+    public function salesLead() : BelongsTo
     {
         return $this->belongsTo(SalesLead::class);
     }

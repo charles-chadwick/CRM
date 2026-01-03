@@ -10,7 +10,7 @@ class UploadImageRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -20,15 +20,15 @@ class UploadImageRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
-            'on_type' => [
+            'on_type'    => [
                 'required',
                 'string',
                 'max:255'
             ],
-            'on_id' => [
+            'on_id'      => [
                 'required'
             ],
             'image_type' => [
@@ -36,11 +36,12 @@ class UploadImageRequest extends FormRequest
                 'string',
                 'in:avatars,logo'
             ],
-            'image' => [
+            'image'      => [
                 'required',
                 'image',
                 'mimes:jpeg,jpg,png,gif,webp',
-                'max:2048' // 2MB max
+                'max:2048'
+                // 2MB max
             ],
         ];
     }

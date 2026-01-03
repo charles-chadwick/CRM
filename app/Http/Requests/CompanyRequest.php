@@ -10,7 +10,7 @@ class CompanyRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -20,18 +20,18 @@ class CompanyRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
             'company_type_id' => [
                 'required'
             ],
-            'name' => [
+            'name'            => [
                 'required',
                 'string',
                 'max:255'
             ],
-            'notes' => [
+            'notes'           => [
                 'nullable',
                 'string'
             ],

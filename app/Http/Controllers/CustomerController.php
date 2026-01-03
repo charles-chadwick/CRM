@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Company;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -32,19 +31,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new customer.
-     */
-    public function create()
-    {
-        $companies = Company::orderBy('name', 'asc')
-            ->get();
-
-        return Inertia::render('Customers/Form', [
-            'companies' => $companies,
-        ]);
-    }
-
-    /**
      * Store a newly created customer in storage.
      */
     public function store(CustomerRequest $request)
@@ -62,6 +48,19 @@ class CustomerController extends Controller
     }
 
     /**
+     * Show the form for creating a new customer.
+     */
+    public function create()
+    {
+        $companies = Company::orderBy('name', 'asc')
+            ->get();
+
+        return Inertia::render('Customers/Form', [
+            'companies' => $companies,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified customer.
      */
     public function edit(Customer $customer)
@@ -70,7 +69,7 @@ class CustomerController extends Controller
             ->get();
 
         return Inertia::render('Customers/Form', [
-            'customer' => $customer->load(['company']),
+            'customer'  => $customer->load(['company']),
             'companies' => $companies,
         ]);
     }

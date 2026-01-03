@@ -5,12 +5,12 @@ namespace App\Models;
 use App\Traits\HasUsers;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Collection;
 
 class Discussion extends Base
 {
     use HasUsers;
 
+    public $appends = ['users'];
     /**
      * The attributes that are mass-assignable.
      *
@@ -25,8 +25,6 @@ class Discussion extends Base
         'notes',
         'on_id'
     ];
-
-    public $appends = ['users'];
 
     public function __construct(array $attributes = [])
     {
@@ -44,14 +42,6 @@ class Discussion extends Base
         return $this->morphTo();
     }
 
-    /**
-     * Get all posts for this discussion.
-     */
-    public function posts() : HasMany
-    {
-        return $this->hasMany(DiscussionPost::class);
-    }
-
     public function getUsersAttribute()
     {
         return User::whereIn('id', $this->posts()
@@ -59,6 +49,14 @@ class Discussion extends Base
             ->pluck('created_by_id')
             ->unique())
             ->get();
+    }
+
+    /**
+     * Get all posts for this discussion.
+     */
+    public function posts() : HasMany
+    {
+        return $this->hasMany(DiscussionPost::class);
     }
 
 }

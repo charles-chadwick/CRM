@@ -2,10 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Spatie\Image\Enums\Fit;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
 trait IsPerson
 {
     public static function bootIsPerson() : void

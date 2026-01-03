@@ -30,6 +30,20 @@ class ContactController extends Controller
             ->with('success', 'Contact created successfully.');
     }
 
+    private function handlePrimaryStatus(ContactRequest $request) : string
+    {
+        $on_type = "App\\Models\\".ucfirst($request->on_type);
+        $contact = Contact::where('on_id', $request->on_id)
+            ->where('on_type', $on_type);
+
+
+        if ($request->is_primary) {
+            $contact->update(['is_primary' => 0]);
+        }
+
+        return $on_type;
+    }
+
     public function update(ContactRequest $request, Contact $contact)
     {
         $this->handlePrimaryStatus($request);
@@ -48,19 +62,5 @@ class ContactController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Contact deleted successfully.');
-    }
-
-    private function handlePrimaryStatus(ContactRequest $request) : string
-    {
-        $on_type = "App\\Models\\".ucfirst($request->on_type);
-        $contact = Contact::where('on_id', $request->on_id)
-            ->where('on_type', $on_type);
-        
-        
-        if ($request->is_primary) {
-            $contact ->update(['is_primary' => 0]);
-        }
-
-        return $on_type;
     }
 }

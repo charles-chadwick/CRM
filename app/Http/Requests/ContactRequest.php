@@ -10,7 +10,7 @@ class ContactRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
         return true;
     }
@@ -20,42 +20,42 @@ class ContactRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
-            'on_type' => [
+            'on_type'     => [
                 'required',
                 'string'
             ],
-            'on_id' => [
+            'on_id'       => [
                 'required',
                 'integer',
                 'min:1',
             ],
-            'type' => [
+            'type'        => [
                 'required',
                 'string'
             ],
-            'is_primary' => [
+            'is_primary'  => [
                 'nullable',
                 'boolean',
             ],
-            'address_1' => [
+            'address_1'   => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'address_2' => [
+            'address_2'   => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'city' => [
+            'city'        => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'state' => [
+            'state'       => [
                 'nullable',
                 'string',
                 'max:255',
@@ -65,12 +65,12 @@ class ContactRequest extends FormRequest
                 'string',
                 'max:50',
             ],
-            'country' => [
+            'country'     => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'notes' => [
+            'notes'       => [
                 'nullable',
                 'string',
             ],

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -17,23 +16,17 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('created_by')
-            ->search(['first_name', 'last_name', 'email'])
+            ->search([
+                'first_name',
+                'last_name',
+                'email'
+            ])
             ->sort()
             ->paginate()
             ->withQueryString();
 
         return Inertia::render('Users/Index', [
             'users' => $users,
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new user.
-     */
-    public function create()
-    {
-        return Inertia::render('Users/Form', [
-            'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
         ]);
     }
 
@@ -54,12 +47,22 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for creating a new user.
+     */
+    public function create()
+    {
+        return Inertia::render('Users/Form', [
+            'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified user.
      */
     public function edit(User $user)
     {
         return Inertia::render('Users/Form', [
-            'user'  => $user,
+            'user' => $user,
             'roles' => array_map(fn($role) => $role->value, UserRole::cases()),
         ]);
     }

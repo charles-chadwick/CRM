@@ -57,19 +57,6 @@ class User extends Base implements
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts() : array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-        ];
-    }
-
-    /**
      * Get all discussions for this user.
      */
     public function discussions() : MorphMany
@@ -104,5 +91,18 @@ class User extends Base implements
                 return $image;
             }
         );
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts() : array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password'          => 'hashed',
+        ];
     }
 }

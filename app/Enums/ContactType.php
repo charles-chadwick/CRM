@@ -4,9 +4,11 @@ namespace App\Enums;
 
 use App\Traits\EnumToSelect;
 
-enum ContactType: string {
+enum ContactType: string
+{
     use EnumToSelect;
+
     case Personal = 'Personal';
-    case Cell = 'Cell';
-    case Office = 'Office';
+    case Cell     = 'Cell';
+    case Office   = 'Office';
 }

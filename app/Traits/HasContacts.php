@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Traits;
 
 use App\Models\Contact;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-trait HasContacts {
+trait HasContacts
+{
 
     /**
      * Get all contacts for this company.

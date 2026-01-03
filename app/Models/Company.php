@@ -5,13 +5,11 @@ namespace App\Models;
 use App\Traits\HasContacts;
 use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
-use App\Traits\Sortable;
 use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -36,14 +34,15 @@ class Company extends Base implements HasMedia
 
     protected $appends = ['logo'];
 
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         parent::__construct($attributes);
         $this->loadRelations();
         $this->with[] = 'companyType';
         $this->withCount[] = 'customers';
     }
 
-    public function toSelect(): array
+    public function toSelect() : array
     {
         return $this->toArray();
     }
@@ -51,7 +50,7 @@ class Company extends Base implements HasMedia
     /**
      * Get the company type for this company.
      */
-    public function companyType(): BelongsTo
+    public function companyType() : BelongsTo
     {
         return $this->belongsTo(CompanyType::class);
     }

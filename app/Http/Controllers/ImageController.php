@@ -14,7 +14,7 @@ class ImageController extends Controller
     {
         $validated = $request->validated();
 
-        $model_class = 'App\\Models\\' . $validated['on_type'];
+        $model_class = 'App\\Models\\'.$validated['on_type'];
 
         if (!class_exists($model_class)) {
             return back()->withErrors(['error' => 'Invalid model type.']);
@@ -49,10 +49,10 @@ class ImageController extends Controller
     {
         $validated = $request->validate([
             'on_type' => 'required|string',
-            'on_id' => 'required',
+            'on_id'   => 'required',
         ]);
 
-        $model_class = 'App\\Models\\' . $validated['on_type'];
+        $model_class = 'App\\Models\\'.$validated['on_type'];
 
         if (!class_exists($model_class)) {
             return back()->withErrors(['error' => 'Invalid model type.']);
@@ -65,7 +65,7 @@ class ImageController extends Controller
 
         return back()->with([
             'message' => 'Image removed successfully.',
-            'type' => 'success',
+            'type'    => 'success',
         ]);
     }
 }
