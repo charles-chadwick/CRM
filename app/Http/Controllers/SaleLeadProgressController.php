@@ -19,18 +19,12 @@ class SaleLeadProgressController extends Controller
     public function index(Request $request) : Response
     {
         $progress = SaleLeadProgress::with([
-            'salesLead',
-            'createdBy',
-            'updatedBy'
+            'salesLead'
         ])
-            ->when($request->input('search'), function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('status', 'like', "%{$search}%");
-            })
-            ->when($request->input('sales_lead_id'), function ($query, $salesLeadId) {
-                $query->where('sales_lead_id', $salesLeadId);
-            })
-            ->latest()
+            ->search([
+                'title',
+                'status'
+            ])
             ->paginate(10)
             ->withQueryString();
 
@@ -48,16 +42,7 @@ class SaleLeadProgressController extends Controller
      */
     public function store(StoreSaleLeadProgressRequest $request) : RedirectResponse
     {
-        $progress = SaleLeadProgress::create([
-            ...$request->validated(),
-            'created_by_id' => auth()->id(),
-            'updated_by_id' => auth()->id(),
-        ]);
-
-        activity()
-            ->performedOn($progress)
-            ->causedBy(auth()->user())
-            ->log('Sale lead progress created');
+        $progress = SaleLeadProgress::create($request->validated());
 
         return redirect()
             ->route('sale-lead-progress.index', ['sales_lead_id' => $progress->sales_lead_id])
@@ -74,7 +59,7 @@ class SaleLeadProgressController extends Controller
             ->get();
         $selected_sales_lead_id = $request->input('sales_lead_id');
 
-        return Inertia::render('SaleLeadProgress/Create', [
+        return Inertia::render('SaleLeadProgress/Form', [
             'sales_leads'            => $sales_leads,
             'selected_sales_lead_id' => $selected_sales_lead_id,
         ]);
@@ -83,30 +68,31 @@ class SaleLeadProgressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SaleLeadProgress $saleLeadProgress) : Response
+    public function show(SaleLeadProgress $sale_lead_progress) : Response
     {
-        $saleLeadProgress->load([
+        $sale_lead_progress->load([
             'salesLead',
-            'createdBy',
-            'updatedBy'
+            'discussions'
         ]);
 
         return Inertia::render('SaleLeadProgress/Show', [
-            'progress' => $saleLeadProgress,
+            'progress' => $sale_lead_progress,
+            'on_type'  => 'SaleLeadProgress',
+            'on_id'    => $sale_lead_progress->id,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SaleLeadProgress $saleLeadProgress) : Response
+    public function edit(SaleLeadProgress $sale_lead_progress) : Response
     {
         $sales_leads = SalesLead::select('id', 'title')
             ->orderBy('title')
             ->get();
 
-        return Inertia::render('SaleLeadProgress/Edit', [
-            'progress'    => $saleLeadProgress,
+        return Inertia::render('SaleLeadProgress/Form', [
+            'progress' => $sale_lead_progress,
             'sales_leads' => $sales_leads,
         ]);
     }
@@ -114,36 +100,23 @@ class SaleLeadProgressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSaleLeadProgressRequest $request, SaleLeadProgress $saleLeadProgress) : RedirectResponse
+    public function update(UpdateSaleLeadProgressRequest $request, SaleLeadProgress $sale_lead_progress) : RedirectResponse
     {
-        $saleLeadProgress->update([
-            ...$request->validated(),
-            'updated_by_id' => auth()->id(),
-        ]);
-
-        activity()
-            ->performedOn($saleLeadProgress)
-            ->causedBy(auth()->user())
-            ->log('Sale lead progress updated');
+        $sale_lead_progress->update($request->validated());
 
         return redirect()
-            ->route('sale-lead-progress.index', ['sales_lead_id' => $saleLeadProgress->sales_lead_id])
+            ->route('sale-lead-progress.index', ['sales_lead_id' => $sale_lead_progress->sales_lead_id])
             ->with('success', 'Progress record updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SaleLeadProgress $saleLeadProgress) : RedirectResponse
+    public function destroy(SaleLeadProgress $sale_lead_progress) : RedirectResponse
     {
-        $sales_lead_id = $saleLeadProgress->sales_lead_id;
+        $sales_lead_id = $sale_lead_progress->sales_lead_id;
 
-        activity()
-            ->performedOn($saleLeadProgress)
-            ->causedBy(auth()->user())
-            ->log('Sale lead progress deleted');
-
-        $saleLeadProgress->delete();
+        $sale_lead_progress->delete();
 
         return redirect()
             ->route('sale-lead-progress.index', ['sales_lead_id' => $sales_lead_id])

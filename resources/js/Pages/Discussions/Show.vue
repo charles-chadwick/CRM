@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import { Head, useForm } from '@inertiajs/vue3'
-import AppLayout from "@/Layouts/AppLayout.vue";
+import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "@/Components/Card.vue";
 import Header from "@/Components/Header.vue";
 import UserDetails from "@/Pages/Users/Partials/Details.vue"
@@ -11,7 +11,7 @@ import DeleteButton from "@/Components/ActionButtons.vue";
 import Editor from "primevue/editor";
 import { Button, ConfirmDialog, InputText, Message } from "primevue";
 
-const props = defineProps ( { discussion: Object, posts: Object, on_type: String, on_id: Number } )
+const props = defineProps ( { discussion: Object, posts: Object, on_type: String, on_id: Number, title: String } )
 const discussion = props.discussion
 
 const submit = () => {
@@ -23,7 +23,7 @@ const submit = () => {
 }
 
 const form = useForm ( {
-  title: discussion.title || '',
+  title: discussion.title || props.title || '',
   content: '',
   on_type: discussion.on_type,
   on_id: discussion.on_id,

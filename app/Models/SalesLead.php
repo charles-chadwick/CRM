@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Traits\HasUsers;
-use Illuminate\Database\Eloquent\Concerns\HasRelationships;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SalesLead extends Base
 {
     use HasUsers;
+    use Searchable;
 
     /**
      * The attributes that are mass-assignable.
@@ -21,8 +22,10 @@ class SalesLead extends Base
         'type',
         'status',
         'title',
-        'notes'
+        'notes',
+        'contacted_at'
     ];
+
 
     /**
      * The attributes that should be cast.

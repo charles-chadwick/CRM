@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasUsers;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SaleLeadProgress extends Base
 {
+
+    use HasUsers;
+    use Searchable;
 
     /**
      * The table associated with the model.

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SalesLeadStatus;
+use App\Enums\SalesLeadType;
 use App\Http\Requests\StoreSalesLeadRequest;
 use App\Http\Requests\UpdateSalesLeadRequest;
 use App\Models\Company;
@@ -21,14 +23,11 @@ class SalesLeadController extends Controller
         $sales_leads = SalesLead::with([
             'company'
         ])
-            ->when($request->input('search'), function ($query, $search) {
-                $query->whereAny([
-                    'title',
-                    'type',
-                    'status'
-                ], 'like', "%{$search}%");
-            })
-            ->latest()
+            ->search([
+                'title',
+                'type',
+                'status'
+            ])
             ->paginate(10)
             ->withQueryString();
 
@@ -43,7 +42,7 @@ class SalesLeadController extends Controller
      */
     public function store(StoreSalesLeadRequest $request) : RedirectResponse
     {
-        $sales_lead = SalesLead::create([$request->validated()]);
+        $sales_lead = SalesLead::create($request->validated());
 
         return redirect()
             ->route('sales-leads.show', $sales_lead->id)
@@ -55,43 +54,40 @@ class SalesLeadController extends Controller
      */
     public function create() : Response
     {
-        $companies = Company::select('id', 'name')
-            ->orderBy('name')
-            ->get();
 
         return Inertia::render('SalesLeads/Form', [
-            'companies' => $companies,
+            'companies' => (new Company())->toSelect(),
+            'sales_lead_types' => SalesLeadType::toSelect(),
+            'sales_lead_statuses' => SalesLeadStatus::toSelect(),
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SalesLead $salesLead) : Response
+    public function show(SalesLead $sales_lead) : Response
     {
-        $salesLead->load([
+        $sales_lead->load([
             'company',
-            'progress.createdBy',
-            'createdBy',
-            'updatedBy'
+            'progress'
         ]);
 
         return Inertia::render('SalesLeads/Show', [
-            'sales_lead' => $salesLead,
+            'sales_lead' => $sales_lead,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SalesLead $salesLead) : Response
+    public function edit(SalesLead $sales_lead) : Response
     {
         $companies = Company::select('id', 'name')
             ->orderBy('name')
             ->get();
 
         return Inertia::render('SalesLeads/Form', [
-            'sales_lead' => $salesLead,
+            'sales_lead' => $sales_lead,
             'companies'  => $companies,
         ]);
     }
@@ -99,9 +95,9 @@ class SalesLeadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSalesLeadRequest $request, SalesLead $salesLead) : RedirectResponse
+    public function update(UpdateSalesLeadRequest $request, SalesLead $sales_lead) : RedirectResponse
     {
-        $salesLead->update($request->validated());
+        $sales_lead->update($request->validated());
 
         return redirect()
             ->route('sales-leads.index')
@@ -111,10 +107,10 @@ class SalesLeadController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SalesLead $salesLead) : RedirectResponse
+    public function destroy(SalesLead $sales_lead) : RedirectResponse
     {
 
-        $salesLead->delete();
+        $sales_lead->delete();
 
         return redirect()
             ->route('sales-leads.index')

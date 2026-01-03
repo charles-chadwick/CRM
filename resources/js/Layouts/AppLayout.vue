@@ -11,7 +11,7 @@ const management_menu_open = ref ( false );
 const main_nav = [
   { name: 'Companies', href: route ( 'companies.index' ), icon: 'pi pi-building' },
   { name: 'Customers', href: route ( 'customers.index' ), icon: 'pi pi-warehouse' },
-  // { name: 'Discussions', href: '#', icon: 'pi pi-comments' }
+  { name: 'Sales Leads', href: route('sales-leads.index'), icon: 'pi pi-comments' }
 ];
 
 const settings_menu = [

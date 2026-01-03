@@ -56,7 +56,6 @@ const cancel = () => {
 <template>
   <Head title="Customers" />
   <AppLayout>
-    <div class="px-8 md:py-4">
       <Header
           :header="is_edit ? 'Edit Customer' : 'Create Customer'"
           to_route="customers.index"
@@ -316,6 +315,5 @@ const cancel = () => {
           </div>
         </form>
       </Card>
-    </div>
   </AppLayout>
 </template>
