@@ -13,7 +13,6 @@ const props = defineProps ( { companies: Object } );
 const sort_by_items = [
   { label: 'Type', value: 'companyType.name' },
   { label: 'Name', value: 'name' },
-
 ]
 
 </script>

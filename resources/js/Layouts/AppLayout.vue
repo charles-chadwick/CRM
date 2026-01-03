@@ -16,7 +16,7 @@ const main_nav = [
 
 const settings_menu = [
   { name: 'Users', href: route ( 'users.index' ), icon: 'pi pi-users' },
-  { name: 'Company Types', href: route ( 'company-types.index' ), icon: 'pi pi-tags' }
+  { name: 'Company', href: route ( 'company-types.index' ), icon: 'pi pi-tags' }
 ];
 computed ( () => page.props.auth?.user?.role === 'Admin' );
 const flash = computed ( () => page.props.flash );

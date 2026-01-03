@@ -6,8 +6,12 @@ import Pagination from "../../Components/Pagination.vue";
 import { ConfirmDialog } from "primevue";
 import { Head } from "@inertiajs/vue3";
 import Search from "../../Components/Search.vue";
+import Sort from "../../Components/Sort.vue";
 
-const props = defineProps({ company_types: Object });
+const props = defineProps ( { company_types: Object } );
+const sort_by_items = [
+  { label: 'Name', value: 'name' },
+]
 </script>
 
 <template>
@@ -24,10 +28,16 @@ const props = defineProps({ company_types: Object });
         />
       </div>
 
-      <div class="mb-4">
+      <div class="flex justify-between items-center mb-4">
         <Search
             route="company-types.index"
             placeholder="Search Company Types"
+            class="w-1/3"
+        />
+        <Sort
+            :sort_by_items="sort_by_items"
+            route="company-types.index"
+            class="w-1/3"
         />
       </div>
 

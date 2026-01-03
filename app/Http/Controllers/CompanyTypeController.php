@@ -14,7 +14,7 @@ class CompanyTypeController extends Controller
      */
     public function index()
     {
-        $companyTypes = CompanyType::ordered()
+        $companyTypes = CompanyType::sort()
             ->search('name')
             ->paginate()
             ->withQueryString();
