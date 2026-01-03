@@ -9,7 +9,7 @@ import Pagination from "@/Components/Pagination.vue";
 import DeleteButton from "@/Components/ActionButtons.vue";
 
 import Editor from "primevue/editor";
-import { Button, Message, InputText, ConfirmDialog } from "primevue";
+import { Button, ConfirmDialog, InputText, Message } from "primevue";
 
 const props = defineProps ( { discussion: Object, posts: Object, on_type: String, on_id: Number } )
 const discussion = props.discussion
