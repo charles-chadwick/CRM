@@ -1,6 +1,7 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
-import { Popover, Button } from "primevue";
+import { Popover, Button, ConfirmDialog } from "primevue";
+import { useConfirm } from "primevue/useconfirm";
 import Avatar from "@/Components/Avatar.vue";
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
@@ -11,6 +12,7 @@ const props = defineProps ( {
   show_avatar: { type: Boolean, default: true }
 } )
 const op = ref (); // Reference to the OverlayPanel
+const confirm = useConfirm ();
 
 const toggle = ( event ) => {
   op.value.toggle ( event ); // Toggle visibility using the ref
@@ -19,6 +21,7 @@ const toggle = ( event ) => {
 </script>
 
 <template>
+  <ConfirmDialog />
   <button
       class="flex text-left gap-2 items-center hover:opacity-80 transition-opacity click"
       @click="toggle"
@@ -46,8 +49,7 @@ const toggle = ( event ) => {
         <p>{{ user?.role }}</p>
         <p>{{ user?.email }}</p>
         <Link :href="route('users.show', user?.id)">
-
-          <Button class="mt-2 font-bold">
+        <Button class="mt-2 font-bold">
             Go to profile
           </Button>
         </Link>
