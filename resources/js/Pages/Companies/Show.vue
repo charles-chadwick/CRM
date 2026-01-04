@@ -120,6 +120,7 @@ const items = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card class="mt-4">
         <Contacts
+            v-if="company?.contacts"
             :contacts="company.contacts"
             :on_id="company.id"
             on_type="Company"
@@ -128,6 +129,7 @@ const items = [
 
       <Card class="mt-4">
         <Discussions
+            v-if="company?.discussions"
             on_type="Company"
             :on_id="company.id"
 

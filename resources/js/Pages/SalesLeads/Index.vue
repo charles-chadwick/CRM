@@ -1,15 +1,15 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { Head, Link, router } from '@inertiajs/vue3'
+import Pagination from '@/Components/Pagination.vue'
+import { CreateButton } from '@/Components/ActionButtons.vue'
+import { ConfirmDialog } from 'primevue'
+import Status from "../../Components/Status.vue";
+import Details from '@/Pages/Companies/Partials/Details.vue'
+defineProps ( { sales_leads: Object } )
 
-  import { Head, Link } from '@inertiajs/vue3'
-  import Card from '@/Components/Card.vue'
-  import Pagination from '@/Components/Pagination.vue'
-  import {CreateButton, EditButton, DeleteButton} from '@/Components/ActionButtons.vue'
-import Status from '@/Components/Status.vue'
-  import { ConfirmDialog } from 'primevue'
 
-  defineProps({sales_leads: Object})
 </script>
 
 <template>
@@ -23,53 +23,60 @@ import Status from '@/Components/Status.vue'
       />
     </div>
     <ConfirmDialog />
-    <Card>
-      <table class="w-full">
-        <thead>
-        <tr class="table-header">
-          <th>ID</th>
-          <th>Title</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th>Company</th>
-          <th>Created</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-if="sales_leads.data?.length !== 0"
-            v-for="sales_lead in sales_leads.data"
-            :key="sales_lead.id"
-            class="table-row"
-        >
-          <td class="table-cell"># {{ sales_lead.id }}</td>
-          <td class="table-cell">{{ sales_lead.title }}</td>
-          <td class="table-cell">{{ sales_lead.type }}</td>
-          <td class="table-cell">
-              <Status :status="sales_lead.status" type="sales_lead" />
-          </td>
 
-          <td class="table-cell">{{ sales_lead.company?.name }}</td>
-          <td class="table-cell">{{ sales_lead.created_at }}</td>
-          <td class="table-cell">
-              <EditButton
-                prefix="sales-leads"
-                :id="sales_lead.id"
+    <ul
+        role="list"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+    >
+      <li
+          v-for="sales_lead in sales_leads.data"
+          :key="sales_lead.id"
+          class="col-span-1 divide-y divide-darker-200 rounded-lg bg-white shadow-sm"
+      >
+        <div class="flex w-full items-center justify-between space-x-6 p-6">
+          <div class="flex-1 truncate">
+            <div class="flex items-center space-x-3">
+              <h3 class="truncate  font-semibold text-lg text-darker-900">{{ sales_lead.title }}</h3>
+              <Status
+                  :status="sales_lead.status"
+                  type="sales_lead"
               />
-              <DeleteButton
-                  prefix="sales-leads"
-                  :id="sales_lead.id"
-                  message="Sales Lead"
-              />
-          </td>
-        </tr>
-        <tr v-else>
-          <td class="table-cell text-center" colspan="8">No sales leads found.</td>
-        </tr>
-        </tbody>
-      </table>
-    </Card>
+            </div>
+              {{  sales_lead.company.name }}
+            <p class="mt-1 truncate  text-darker-500">{{ sales_lead.type }}</p>
+          </div>
+        </div>
+        <div>
+          <div class="-mt-px flex divide-x divide-darker-200">
+            <div class="flex w-0 flex-1">
+              <Link
+                  :href="route('sales-leads.show', sales_lead.id)"
+                  class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4  font-semibold text-darker-900"
+              >
+                View
+              </Link>
+            </div>
+            <div class="flex w-0 flex-1">
+              {{  sales_lead?.company?.contacts }}
+              <a
+                  :href="`mailto:${sales_lead?.email}`"
+                  class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4  font-semibold text-darker-900"
+              >
+                Email
+              </a>
+            </div>
+            <div class="-ml-px flex w-0 flex-1">
+              <a
+                  :href="`tel:${sales_lead.telephone}`"
+                  class="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4  font-semibold text-darker-900"
+              >
+                Call
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
     <Pagination
         v-if="sales_leads.data?.length > 0"
         :pagination="sales_leads"

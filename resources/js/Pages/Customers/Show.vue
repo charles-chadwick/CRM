@@ -79,7 +79,8 @@ const items = [
     <div class="flex gap-4">
       <Card class="mt-4 w-1/2">
         <Contacts
-            :contacts="customer.contacts"
+            v-if="customer?.contacts"
+            :contacts="customer?.contacts"
             :on_id="customer.id"
             on_type="Customer"
         />
@@ -87,7 +88,8 @@ const items = [
       </Card>
       <Card class="mt-4 w-1/2">
         <Discussions
-            :discussions="customer.discussions"
+            v-if="customer?.discussions"
+            :discussions="customer?.discussions"
             :on_id="customer.id"
             on_type="Customer"
         />

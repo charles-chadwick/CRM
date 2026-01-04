@@ -32,7 +32,7 @@ class SalesLead extends Base
      * @var array<string, string>
      */
     protected $casts = [
-        'contacted_at' => 'datetime:m/d/Y h:i A',
+        'contacted_at' => 'datetime',
     ];
 
     public function __construct(array $attributes = [])
