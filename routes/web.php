@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyTypeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscussionController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SaleLeadProgressController;
 use App\Http\Controllers\SalesLeadController;
@@ -95,5 +96,15 @@ Route::middleware([
             'remove'
         ])
             ->name('image.remove');
+
+        Route::post('/image/remove', [
+            ImageController::class,
+            'remove'
+        ])
+            ->name('image.remove');
+
+        Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
+        Route::delete('/documents/{media}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+
 
     });

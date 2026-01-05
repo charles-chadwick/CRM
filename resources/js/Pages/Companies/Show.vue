@@ -7,6 +7,7 @@ import Contacts from '@/Components/Contacts.vue';
 import Card from '@/Components/Card.vue';
 import ActionMenu from '@/Components/ActionMenu.vue';
 import Header from "@/Components/Header.vue";
+import Documents from "../../Components/Documents.vue";
 import Discussions from "@/Pages/Discussions/Partials/List.vue";
 
 import { ConfirmDialog } from 'primevue';
@@ -97,6 +98,14 @@ const page_title = computed ( () => `${ company.name } Information` );
             :on_id="company.id"
 
             :discussions="company.discussions"
+        />
+      </Card>
+
+      <Card class="mt-4">
+        <Documents
+            :documents="company.media"
+            on_type="Company"
+            :on_id="company.id"
         />
       </Card>
     </div>
