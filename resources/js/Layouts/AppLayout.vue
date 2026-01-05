@@ -1,12 +1,13 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
-import Message from 'primevue/message';
+import { Link, usePage, router } from '@inertiajs/vue3';
+import { Message, Menu, Button } from 'primevue';
 import UserDetails from "@/Pages/Users/Partials/Details.vue"
 
 const page = usePage ();
 
 const management_menu_open = ref ( false );
+const userMenu = ref ();
 
 // Layout component
 const main_nav = [
@@ -21,6 +22,30 @@ const settings_menu = [
 ];
 computed ( () => page.props.auth?.user?.role === 'Admin' );
 const flash = computed ( () => page.props.flash );
+
+const toggleUserMenu = ( event ) => {
+  userMenu.value.toggle ( event );
+};
+
+const userMenuItems = ref ( [
+  {
+    label: 'Profile',
+    icon: 'pi pi-user',
+    command: () => {
+      router.visit ( route ( 'profile.show' ) );
+    }
+  },
+  {
+    separator: true
+  },
+  {
+    label: 'Logout',
+    icon: 'pi pi-sign-out',
+    command: () => {
+      router.post ( route ( 'logout' ) );
+    }
+  }
+] );
 </script>
 <template>
   <div class="flex h-screen bg-darker-50">
@@ -98,7 +123,21 @@ const flash = computed ( () => page.props.flash );
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
       <nav class="flex justify-end items-center p-4 h-[72px] border-b border-b-darker-200 bg-white">
-        <UserDetails :user="page.props.auth.user" />
+        <Button
+            @click="toggleUserMenu"
+            text
+            class="flex items-center gap-2"
+        >
+          <UserDetails
+              :show_popup="false"
+              :user="page.props.auth.user"
+          />
+        </Button>
+        <Menu
+            ref="userMenu"
+            :model="userMenuItems"
+            :popup="true"
+        />
       </nav>
       <div
           v-if="flash?.message"

@@ -71,6 +71,9 @@ class SalesLeadController extends Controller
             'progress'
         ]);
 
+        // ugly hack
+        $sales_lead->contacted_at = $sales_lead->contacted_at->format('m/d/Y h:i A');
+
         return Inertia::render('SalesLeads/Show', [
             'sales_lead'          => $sales_lead,
             'sales_lead_types'    => SalesLeadType::toSelect(),

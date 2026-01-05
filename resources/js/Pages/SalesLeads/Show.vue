@@ -76,10 +76,10 @@ const items = [
 
       <div>
 
-        <p><span class="font-bold">Initially Contacted:</span>
+        <p><span class="font-bold">Contacted:</span>
            {{  sales_lead.contacted_at }}
         </p>
-        <p><span class="font-bold">Company:</span>
+        <p class="inline-flex"><span class="font-bold">Company:&nbsp;</span>
           <CompanyDetails :company="sales_lead.company" />
         </p>
       </div>

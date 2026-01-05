@@ -37,7 +37,6 @@ Route::get('/', function () {
 // User management routes - Admin only
 Route::middleware([
     'auth',
-    EnsureUserIsAdmin::class
 ])
     ->group(function () {
 

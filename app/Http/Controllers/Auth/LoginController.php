@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\PermissionRegistrar;
 
 class LoginController extends Controller
 {
@@ -28,6 +29,9 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        // Clear permission cache to ensure fresh permissions for the new user
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
         return redirect()->intended(route('dashboard'));
     }
 
@@ -36,6 +40,9 @@ class LoginController extends Controller
      */
     public function destroy() : RedirectResponse
     {
+        // Clear permission cache before logout to prevent stale permissions
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
         Auth::guard('web')->logout();
 
         request()->session()->invalidate();
