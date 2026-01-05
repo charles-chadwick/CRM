@@ -72,17 +72,18 @@ Route::middleware([
         Route::resource('contacts', ContactController::class);
         Route::resource('sales-leads', SalesLeadController::class);
         Route::resource('sale-lead-progress', SaleLeadProgressController::class);
-        Route::get('/activity/{on}/{id}', [
+        Route::get('/activity/database/{on}/{id}', [
             ActivityController::class,
-            'index'
+            'database'
         ])
-            ->name('activity.index');
+            ->name('activity.database');
 
-        Route::get('/activity/download/{on}/{id}', [
+        Route::get('/activity/user-access/{user}', [
             ActivityController::class,
-            'downloadPdf'
+            'userAccess'
         ])
-            ->name('activity.index');
+            ->name('activity.user-access');
+
 
         Route::post('/image/upload', [
             ImageController::class,

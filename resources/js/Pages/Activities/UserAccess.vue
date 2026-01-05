@@ -47,57 +47,26 @@ const formatPropertyName = ( property ) => {
     />
 
     <Card>
+      <h2 class="card-header">Database</h2>
       <div
           v-for="activity in activities"
           :key="activity.id"
           class="flex justify-between gap-4 border-b border-darker-200 py-2"
       >
         <div>
-          <div  class="flex justify-start py-2 gap-1">
-          {{ activity.description }} by
+          <div  class="inline-flex justify-start py-2 gap-2">
+            {{ activity.description }} by
 
-          <UserDetails :show_avatar="false" :user="activity.causer" />
+            <UserDetails :show_avatar="false" :user="activity.causer" />
 
-          on {{ format_date ( activity.created_at ) }}
+            on {{ format_date ( activity.created_at ) }}
           </div>
-          <div
-              v-if="expanded_activities[activity.id]"
-              class="mt-2.5 pl-5 flex-none"
-          >
-            <div
-                v-for="( new_value, property ) in activity.properties.attributes"
-                :key="property"
-            >
-              <template v-if="property !== 'created_at' && property !== 'updated_at' && property !== 'updated_by_id'">
-                <strong>{{ formatPropertyName ( property ) }}:</strong>
-                <div class="pl-2.5">
-                  <div>Old: <span
-                      class="text-red-500"
-                      v-html="activity.properties.old?.[ property ] ?? 'N/A'"
-                  ></span></div>
-                  <div>New: <span
-                      class="text-lime-700"
-                      v-html="new_value"
-                  ></span></div>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div>
-
-          <a
-              v-if="activity.log_name === 'Database' && activity.description === 'Updated'"
-              href="#"
-              @click.prevent="toggle_changes ( activity.id )"
-              class="ml-2.5"
-          >
-            See Changes
-          </a>
-
 
         </div>
+
       </div>
     </Card>
+
+
   </AppLayout>
 </template>

@@ -12,7 +12,7 @@ class LogActivity
     {
         if (auth()->check()) {
             $route = $request->route();
-            $routeName = $route ? $route->getName() : 'unknown';
+            $route_name = $route ? $route->getName() : 'unknown';
             $method = $request->method();
             $url = $request->fullUrl();
 
@@ -20,13 +20,13 @@ class LogActivity
                 ->causedBy(auth()->user())
                 ->useLog('User Accessed')
                 ->withProperties([
-                    'route'      => $routeName,
+                    'route'      => $route_name,
                     'method'     => $method,
                     'url'        => $url,
                     'ip'         => $request->ip(),
                     'user_agent' => $request->userAgent(),
                 ])
-                ->log("{$routeName}");
+                ->log("{$route_name}");
         }
 
         return $next($request);
