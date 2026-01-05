@@ -7,52 +7,15 @@ import UserDetails from "@/Pages/Users/Partials/Details.vue"
 import CompanyDetails from "@/Pages/Companies/Partials/Details.vue"
 import ActionMenu from "../../Components/ActionMenu.vue";
 import Status from "../../Components/Status.vue";
+import { ConfirmDialog } from 'primevue';
 
 const props = defineProps ( { sales_lead: Object } )
-
-const items = [
-  {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => {
-      router.visit ( route ( 'sales-leads.edit', props.sales_lead.id ) );
-    }
-  },
-  {
-    label: 'See Activity',
-    icon: 'pi pi-history',
-    command: () => {
-      router.visit ( route ( 'activity.index', { on: 'SalesLead', id: props.sales_lead.id } ) );
-    }
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => {
-      confirm.require ( {
-        message: 'Are you sure you want to delete this customer?',
-        header: 'Delete Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        rejectLabel: 'Cancel',
-        acceptLabel: 'Delete',
-        rejectProps: {
-          severity: 'secondary'
-        },
-        acceptProps: {
-          severity: 'danger'
-        },
-        accept: () => {
-          router.delete ( route ( 'sales-leads.destroy', props.sales_lead.id ) );
-        }
-      } );
-    }
-  }
-];
 </script>
 
 <template>
   <AppLayout>
     <Head title="Show" />
+    <ConfirmDialog />
     <Header
         header="Sales Lead"
     />
@@ -70,19 +33,11 @@ const items = [
             <UserDetails :user="sales_lead.created_by" />
             <p><span class="font-bold">Created:</span> {{ sales_lead.created_at }}</p>
           </div>
-          <ActionMenu :items="items" />
+          <ActionMenu
+              :edit-route="route('sales-leads.edit', sales_lead.id)"
+              :delete-route="route('sales-leads.destroy', sales_lead.id)"
+              :activity-params="{ on: 'SalesLead', id: sales_lead.id }"
+              model-name="sales lead"
+          />
         </div>
       </div>
-
-      <div>
-
-        <p><span class="font-bold">Contacted:</span>
-           {{  sales_lead.contacted_at }}
-        </p>
-        <p class="inline-flex"><span class="font-bold">Company:&nbsp;</span>
-          <CompanyDetails :company="sales_lead.company" />
-        </p>
-      </div>
-    </Card>
-  </AppLayout>
-</template>

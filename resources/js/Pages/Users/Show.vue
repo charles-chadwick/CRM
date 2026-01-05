@@ -3,57 +3,11 @@
 import { Head, router } from '@inertiajs/vue3'
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Card from "@/Components/Card.vue";
-import { Menu, Button, ConfirmDialog } from 'primevue';
-import { ref } from 'vue';
-import { useConfirm } from 'primevue/useconfirm';
+import { ConfirmDialog } from 'primevue';
 import Header from "@/Components/Header.vue";
+import ActionMenu from "@/Components/ActionMenu.vue";
 
 const props = defineProps ( { user: Object } )
-
-const menu = ref ();
-const confirm = useConfirm ();
-
-const items = [
-  {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => {
-      router.visit ( route ( 'users.edit', props.user.id ) );
-    }
-  }, {
-    label: 'See Activity',
-    icon: 'pi pi-history',
-    command: () => {
-      router.visit ( route ( 'activity.index', { on: 'User', id: props.user.id } ) );
-    }
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => {
-      confirm.require ( {
-        message: 'Are you sure you want to delete this user?',
-        header: 'Delete Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        rejectLabel: 'Cancel',
-        acceptLabel: 'Delete',
-        rejectProps: {
-          severity: 'secondary'
-        },
-        acceptProps: {
-          severity: 'danger'
-        },
-        accept: () => {
-          router.delete ( route ( 'users.destroy', props.user.id ) );
-        }
-      } );
-    }
-  }
-];
-
-const toggle = ( event ) => {
-  menu.value.toggle ( event );
-};
 </script>
 
 <template>
@@ -66,7 +20,7 @@ const toggle = ( event ) => {
         <img
             :src="user?.avatar || '/images/default-user.png'"
             alt="Avatar"
-            class=" rounded-xl size-32 border-2 border-darker-300 hover:border-primary-600 cursor-pointer"
+            class=" rounded-xl size-32 border-2 border-darker-300"
         />
         <div class="pl-4">
           <h1 class="card-header">{{ user?.full_name_with_salutations }}</h1>
@@ -74,21 +28,12 @@ const toggle = ( event ) => {
           <p class="mt-1">{{ user?.email }}</p>
         </div>
       </div>
-      <div>
-        <Button
-            icon="pi pi-ellipsis-v"
-            severity="secondary"
-            @click="toggle"
-            aria-haspopup="true"
-            aria-controls="overlay_menu"
-        />
-        <Menu
-            ref="menu"
-            id="overlay_menu"
-            :model="items"
-            :popup="true"
-        />
-      </div>
+      <ActionMenu
+          :edit-route="route('users.edit', user.id)"
+          :delete-route="route('users.destroy', user.id)"
+          :activity-params="{ on: 'User', id: user.id }"
+          model-name="user"
+      />
     </Card>
   </AppLayout>
 </template>

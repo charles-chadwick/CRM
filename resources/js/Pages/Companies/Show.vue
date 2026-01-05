@@ -10,7 +10,6 @@ import Header from "@/Components/Header.vue";
 import Discussions from "@/Pages/Discussions/Partials/List.vue";
 
 import { ConfirmDialog } from 'primevue';
-import { useConfirm } from 'primevue/useconfirm';
 
 const { company } = defineProps ( {
   company: {
@@ -20,47 +19,6 @@ const { company } = defineProps ( {
 } );
 
 const page_title = computed ( () => `${ company.name } Information` );
-
-const confirm = useConfirm ();
-
-const items = [
-  {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => {
-      router.visit ( route ( 'companies.edit', company.id ) );
-    }
-  },
-  {
-    label: 'See Activity',
-    icon: 'pi pi-history',
-    command: () => {
-      router.visit ( route ( 'activity.index', { on: 'Company', id: company.id } ) );
-    }
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => {
-      confirm.require ( {
-        message: 'Are you sure you want to delete this company?',
-        header: 'Delete Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        rejectLabel: 'Cancel',
-        acceptLabel: 'Delete',
-        rejectProps: {
-          severity: 'secondary'
-        },
-        acceptProps: {
-          severity: 'danger'
-        },
-        accept: () => {
-          router.delete ( route ( 'companies.destroy', company.id ) );
-        }
-      } );
-    }
-  }
-];
 
 </script>
 
@@ -113,7 +71,12 @@ const items = [
         </div>
 
         <!-- Menu Component -->
-        <ActionMenu :items="items" />
+        <ActionMenu
+            :edit-route="route('companies.edit', company.id)"
+            :delete-route="route('companies.destroy', company.id)"
+            :activity-params="{ on: 'Company', id: company.id }"
+            model-name="company"
+        />
       </div>
 
     </Card>
