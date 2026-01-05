@@ -8,10 +8,11 @@ import Card from "../../Components/Card.vue";
 import Header from "../../Components/Header.vue";
 
 const props = defineProps ( {
-  sales_lead: Object,
-  companies: Array | Object,
-  sales_lead_types: Array,
-  sales_lead_statuses: Array }
+      sales_lead: Object,
+      companies: Array | Object,
+      sales_lead_types: Array,
+      sales_lead_statuses: Array
+    }
 )
 const is_edit = computed ( () => !! props.sales_lead );
 const form = useForm ( {
@@ -129,47 +130,47 @@ const cancel = () => {
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-            <div class="flex flex-col gap-2">
-              <label
-                  for="contacted_at"
-                  class="font-semibold"
-              >Date Contacted</label>
-              <DatePicker
-                  fluid
-                  id="contacted_at"
-                  v-model="form.contacted_at"
-                  :invalid="!!form.errors.contacted_at"
-                  placeholder="Date Contacted"
-              />
-              <Message
-                  v-if="form.errors.contacted_at"
-                  severity="error"
-                  :closable="false"
-              >
-                {{ form.errors.contacted_at }}
-              </Message>
-            </div>
+              <div class="flex flex-col gap-2">
+                <label
+                    for="contacted_at"
+                    class="font-semibold"
+                >Date Contacted</label>
+                <DatePicker
+                    fluid
+                    id="contacted_at"
+                    v-model="form.contacted_at"
+                    :invalid="!!form.errors?.contacted_at"
+                    placeholder="Date Contacted"
+                />
+                <Message
+                    v-if="form.errors?.contacted_at"
+                    severity="error"
+                    :closable="false"
+                >
+                  {{ form.errors.contacted_at }}
+                </Message>
+              </div>
 
-            <!-- Title -->
-            <div class="flex flex-col col-span-2 gap-2">
-              <label
-                  for="title"
-                  class="font-semibold"
-              >Title</label>
-              <InputText
-                  id="title"
-                  v-model="form.title"
-                  :invalid="!!form.errors.title"
-                  placeholder="Title of Sales Lead"
-              />
-              <Message
-                  v-if="form.errors.title"
-                  severity="error"
-                  :closable="false"
-              >
-                {{ form.errors.title }}
-              </Message>
-            </div>
+              <!-- Title -->
+              <div class="flex flex-col col-span-2 gap-2">
+                <label
+                    for="title"
+                    class="font-semibold"
+                >Title</label>
+                <InputText
+                    id="title"
+                    v-model="form.title"
+                    :invalid="!!form.errors.title"
+                    placeholder="Title of Sales Lead"
+                />
+                <Message
+                    v-if="form.errors.title"
+                    severity="error"
+                    :closable="false"
+                >
+                  {{ form.errors.title }}
+                </Message>
+              </div>
             </div>
 
             <div class="flex flex-col gap-2">

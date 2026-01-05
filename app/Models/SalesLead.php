@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasDiscussions;
 use App\Traits\HasUsers;
 use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SalesLead extends Base
 {
-    use HasUsers;
+    use HasUsers, HasDiscussions;
     use Searchable;
 
     /**
@@ -32,7 +33,7 @@ class SalesLead extends Base
      * @var array<string, string>
      */
     protected $casts = [
-        'contacted_at' => 'datetime',
+        'contacted_at' => 'datetime:m/d/Y h:i A',
     ];
 
     public function __construct(array $attributes = [])

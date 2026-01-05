@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedFieldInspection */
 
 namespace App\Http\Controllers;
 
@@ -8,6 +8,7 @@ use App\Http\Requests\StoreSalesLeadRequest;
 use App\Http\Requests\UpdateSalesLeadRequest;
 use App\Models\Company;
 use App\Models\SalesLead;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -42,7 +43,9 @@ class SalesLeadController extends Controller
      */
     public function store(StoreSalesLeadRequest $request) : RedirectResponse
     {
-        $sales_lead = SalesLead::create($request->validated());
+        $data = $request->validated();
+        $data['contacted_at'] = Carbon::parse($data['contacted_at'])->toDateTimeString();
+        $sales_lead = SalesLead::create($data);
 
         return redirect()
             ->route('sales-leads.show', $sales_lead->id)
@@ -72,7 +75,6 @@ class SalesLeadController extends Controller
         ]);
 
         // ugly hack
-        $sales_lead->contacted_at = $sales_lead->contacted_at->format('m/d/Y h:i A');
 
         return Inertia::render('SalesLeads/Show', [
             'sales_lead'          => $sales_lead,
@@ -99,7 +101,9 @@ class SalesLeadController extends Controller
      */
     public function update(UpdateSalesLeadRequest $request, SalesLead $sales_lead) : RedirectResponse
     {
-        $sales_lead->update($request->validated());
+        $data = $request->validated();
+        $data['contacted_at'] = Carbon::parse($data['contacted_at'])->toDateTimeString();
+        $sales_lead->update($data);
 
         return redirect()
             ->route('sales-leads.index')

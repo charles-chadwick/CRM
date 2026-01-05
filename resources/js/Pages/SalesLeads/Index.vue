@@ -7,6 +7,7 @@ import { CreateButton } from '@/Components/ActionButtons.vue'
 import { ConfirmDialog } from 'primevue'
 import Status from "../../Components/Status.vue";
 import Details from '@/Pages/Companies/Partials/Details.vue'
+
 defineProps ( { sales_leads: Object } )
 
 
@@ -26,7 +27,7 @@ defineProps ( { sales_leads: Object } )
 
     <ul
         role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        class="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4"
     >
       <li
           v-for="sales_lead in sales_leads.data"
@@ -35,15 +36,17 @@ defineProps ( { sales_leads: Object } )
       >
         <div class="flex w-full items-center justify-between space-x-6 p-6">
           <div class="flex-1 truncate">
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center justify-between space-x-3">
               <h3 class="truncate  font-semibold text-lg text-darker-900">{{ sales_lead.title }}</h3>
               <Status
                   :status="sales_lead.status"
                   type="sales_lead"
               />
             </div>
-              {{  sales_lead.company.name }}
-            <p class="mt-1 truncate  text-darker-500">{{ sales_lead.type }}</p>
+            <p>{{ sales_lead.type }} lead</p>
+            <p>Contacted: {{ sales_lead.contacted_at }}</p>
+            <p>{{ sales_lead.company.name }}</p>
+            <p class="mt-1 truncate"></p>
           </div>
         </div>
         <div>
@@ -57,7 +60,7 @@ defineProps ( { sales_leads: Object } )
               </Link>
             </div>
             <div class="flex w-0 flex-1">
-              {{  sales_lead?.company?.contacts }}
+              {{ sales_lead?.company?.contacts }}
               <a
                   :href="`mailto:${sales_lead?.email}`"
                   class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4  font-semibold text-darker-900"
