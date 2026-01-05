@@ -41,3 +41,6 @@ const props = defineProps ( { sales_lead: Object } )
           />
         </div>
       </div>
+    </Card>
+  </AppLayout>
+</template>

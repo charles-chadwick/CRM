@@ -19,17 +19,20 @@ class ActivityController extends Controller
 
 
         return Inertia::render('Activities/Database', [
-            'activities'               => $activities,
+            'activities' => $activities,
         ]);
     }
 
-    public function userAccess(User $user) {
+    public function userAccess(User $user)
+    {
         $activities = Activity::where('causer_type', User::class)
+            ->with('causer')
             ->where('causer_id', $user->id)
             ->where('log_name', 'like', "User Accessed")
             ->with('subject')
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate()
+            ->withQueryString();
 
         return Inertia::render('Activities/UserAccess', [
             'activities' => $activities

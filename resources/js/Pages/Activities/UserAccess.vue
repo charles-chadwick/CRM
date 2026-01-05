@@ -1,11 +1,12 @@
 <!--suppress JSUnresolvedReference -->
 <script setup>
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Card from "@/Components/Card.vue";
 import Header from "@/Components/Header.vue";
 import UserDetails from "@/Pages/Users/Partials/Details.vue"
 import { ref } from 'vue'
+import Pagination from "../../Components/Pagination.vue";
 
 
 defineProps ( { activities: Array | Object } )
@@ -26,16 +27,6 @@ const format_date = ( date_string ) => {
   return `${ month }/${ day }/${ year } at ${ formatted_hours }:${ minutes } ${ am_pm }`
 }
 
-const toggle_changes = ( activity_id ) => {
-  expanded_activities.value[ activity_id ] = ! expanded_activities.value[ activity_id ]
-}
-
-const formatPropertyName = ( property ) => {
-  return property
-      .split ( '_' )
-      .map ( word => word.charAt ( 0 ).toUpperCase () + word.slice ( 1 ) )
-      .join ( ' ' )
-}
 </script>
 
 <template>
@@ -49,22 +40,32 @@ const formatPropertyName = ( property ) => {
     <Card>
       <h2 class="card-header">Database</h2>
       <div
-          v-for="activity in activities"
+          v-for="activity in activities.data"
           :key="activity.id"
           class="flex justify-between gap-4 border-b border-darker-200 py-2"
       >
         <div>
-          <div  class="inline-flex justify-start py-2 gap-2">
-            {{ activity.description }} by
-
-            <UserDetails :show_avatar="false" :user="activity.causer" />
-
+          <div class="inline-flex justify-start items-center py-2 gap-1">
+            <UserDetails :user="activity.causer" />
+            <a
+                class="click  underline"
+                target="_blank"
+                :href="activity.properties.url">{{ activity.properties.url }}
+            </a>
             on {{ format_date ( activity.created_at ) }}
           </div>
 
         </div>
 
       </div>
+      <Pagination
+          :pagination="activities"
+          v-if="activities.data.length > 0"
+      />
+      <p
+          class="p-4 text-center"
+          v-else
+      >No companies found.</p>
     </Card>
 
 
