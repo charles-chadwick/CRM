@@ -32,7 +32,7 @@ const userMenuItems = ref ( [
     label: 'Profile',
     icon: 'pi pi-user',
     command: () => {
-      router.visit ( route ( 'profile.show' ) );
+      router.visit ( route ( 'users.show', page.props.auth?.user?.id ) );
     }
   },
   {
@@ -122,7 +122,7 @@ const userMenuItems = ref ( [
 
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
-      <nav class="flex justify-end items-center p-4 h-[72px] border-b border-b-darker-200 bg-white">
+      <nav class="flex justify-end items-center p-4 h-[72px] border-b border-b-darker-200 bg-darker-200/35">
         <Button
             @click="toggleUserMenu"
             text
